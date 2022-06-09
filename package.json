@@ -4,7 +4,12 @@
     "type": "module",
     "description": "Standard Node Definitions",
     "exports": {
-        ".": "./out/index.js"
+        "nodes/Array.js": "./out/nodes/Array.js",
+        "nodes/Boolean.js": "./out/nodes/Boolean.js",
+        "nodes/KeyValue.js": "./out/nodes/KeyValue.js",
+        "nodes/Number.js": "./out/nodes/Number.js",
+        "nodes/Object.js": "./out/nodes/Object.js",
+        "nodes/String.js": "./out/nodes/String.js"
     },
     "files": [
         "out/lib/**/*",
