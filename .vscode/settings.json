@@ -1,0 +1,12 @@
+{
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/out": true,
+        "**/dist": true,
+        "**/*.tsbuildinfo": true,
+    },
+    "files.associations": {
+        "*.css": "scss"
+    },
+    "javascript.preferences.importModuleSpecifierEnding": "js"
+}
