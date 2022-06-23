@@ -4,7 +4,6 @@ export const node: Operator<{ value: boolean }, boolean> = {
     metadata: {
         label: 'Boolean',
         description: 'Converts value into a boolean.',
-        category: ['Data'],
         params: {
             value: {
                 schema: {

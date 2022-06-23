@@ -4,7 +4,6 @@ export const node: Operator<{ value: string }, string> = {
     metadata: {
         label: 'String',
         description: 'Converts value into a string.',
-        category: ['Data'],
         params: {
             value: {
                 schema: {

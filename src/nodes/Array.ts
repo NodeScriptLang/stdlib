@@ -6,7 +6,6 @@ export const node: Operator<{
     metadata: {
         label: 'Array',
         description: 'Creates an array with computed items.',
-        category: ['Data'],
         params: {
             items: {
                 schema: {

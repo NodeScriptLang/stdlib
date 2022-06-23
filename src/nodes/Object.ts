@@ -8,7 +8,6 @@ export const node: Operator<{
     metadata: {
         label: 'Object',
         description: 'Creates an object with computed values per each key.',
-        category: ['Data'],
         params: {
             properties: {
                 schema: {
