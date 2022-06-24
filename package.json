@@ -35,7 +35,7 @@
     ],
     "author": "UBIO",
     "dependencies": {
-        "@nodescript/core": "^0.2.4"
+        "@nodescript/core": "^0.3.0"
     },
     "devDependencies": {
         "@types/mocha": "^9.1.1",
