@@ -6,6 +6,8 @@ export const node: Operator<{
     properties: Record<string, unknown>;
 }, Record<string, unknown>> = {
     metadata: {
+        name: '@stdlib/Object',
+        version: '1.0.0',
         label: 'Object',
         description: 'Creates an object with computed values per each key.',
         params: {
