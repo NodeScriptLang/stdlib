@@ -1,0 +1,2 @@
+nodes:
+  - out/nodes/**/*.js

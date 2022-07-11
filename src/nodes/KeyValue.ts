@@ -7,7 +7,7 @@ export const node: Operator<{
     metadata: {
         name: '@stdlib/KeyValue',
         version: '1.0.0',
-        label: 'KeyValue',
+        label: 'Key Value',
         description: 'Creates an object with computed key and value.',
         params: {
             key: {
