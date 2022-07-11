@@ -4,8 +4,10 @@ export const node: Operator<{
     items: unknown[];
 }, unknown[]> = {
     metadata: {
-        name: '@stdlib/Array',
+        channel: 'stdlib',
+        name: 'Array',
         version: '1.0.0',
+        tags: ['Data', 'Array'],
         label: 'Array',
         description: 'Creates an array with computed items.',
         params: {

@@ -2,8 +2,10 @@ import { Operator } from '@nodescript/core/types';
 
 export const node: Operator<{ value: string }, string> = {
     metadata: {
-        name: '@stdlib/String',
+        channel: 'stdlib',
+        name: 'String',
         version: '1.0.0',
+        tags: ['Data', 'String'],
         label: 'String',
         description: 'Converts value into a string.',
         params: {

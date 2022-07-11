@@ -5,8 +5,10 @@ export const node: Operator<{
     value: unknown;
 }, Record<string, unknown>> = {
     metadata: {
-        name: '@stdlib/KeyValue',
-        version: '1.0.0',
+        channel: 'stdlib',
+        name: 'KeyValue',
+        version: '1.0.1',
+        tags: ['Data', 'Object'],
         label: 'Key Value',
         description: 'Creates an object with computed key and value.',
         params: {
