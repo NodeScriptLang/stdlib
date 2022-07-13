@@ -8,6 +8,7 @@ export const node: Operator<{ value: string }, string> = {
         tags: ['Data', 'String'],
         label: 'String',
         description: 'Converts value into a string.',
+        keywords: ['string', 'text'],
         params: {
             value: {
                 schema: {

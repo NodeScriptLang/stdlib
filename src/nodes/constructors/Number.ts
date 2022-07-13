@@ -8,6 +8,7 @@ export const node: Operator<{ value: number }, number> = {
         tags: ['Data', 'Number', 'Math'],
         label: 'Number',
         description: 'Converts value into a number.',
+        keywords: ['number', 'integer', 'parse'],
         params: {
             value: {
                 schema: { type: 'number' },

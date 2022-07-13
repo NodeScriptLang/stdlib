@@ -7,10 +7,11 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'KeyValue',
-        version: '1.0.1',
+        version: '1.0.0',
         tags: ['Data', 'Object'],
         label: 'Key Value',
         description: 'Creates an object with computed key and value.',
+        keywords: ['object', 'key', 'value', 'entries', 'wrap'],
         params: {
             key: {
                 schema: {

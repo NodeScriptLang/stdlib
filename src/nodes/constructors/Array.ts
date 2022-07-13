@@ -10,6 +10,7 @@ export const node: Operator<{
         tags: ['Data', 'Array'],
         label: 'Array',
         description: 'Creates an array with computed items.',
+        keywords: ['array', 'list', 'items', 'entries'],
         params: {
             items: {
                 schema: {

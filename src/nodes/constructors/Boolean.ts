@@ -8,6 +8,7 @@ export const node: Operator<{ value: boolean }, boolean> = {
         tags: ['Data', 'Boolean'],
         label: 'Boolean',
         description: 'Converts value into a boolean.',
+        keywords: ['boolean', 'logic', 'true', 'false'],
         params: {
             value: {
                 schema: {

@@ -1,6 +1,6 @@
 import { Operator } from '@nodescript/core/types';
 
-import { setValue } from '../lib/object.js';
+import { setValue } from '../../lib/object.js';
 
 export const node: Operator<{
     properties: Record<string, unknown>;
@@ -12,6 +12,7 @@ export const node: Operator<{
         tags: ['Data', 'Object'],
         label: 'Object',
         description: 'Creates an object with computed values per each key.',
+        keywords: ['object', 'key', 'value', 'entries', 'wrap'],
         params: {
             properties: {
                 schema: {
