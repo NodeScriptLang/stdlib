@@ -3,15 +3,16 @@ import { Operator } from '@nodescript/core/types';
 export const node: Operator<{
     args: Record<string, unknown>;
     code: string;
-}, unknown> = {
+}, Promise<unknown>> = {
     metadata: {
         channel: 'stdlib',
-        name: 'Eval.JavaScript.Sync',
+        name: 'Eval.Async',
         version: '1.0.0',
         tags: ['Eval'],
-        label: 'JavaScript Sync',
-        description: 'Evaluates synchronous JavaScript code with provided arguments.',
-        keywords: ['eval', 'compute', 'js', 'javascript', 'function', 'execute', 'expression', 'sync'],
+        label: 'Eval Async',
+        description: 'Evaluates asynchronous JavaScript code with provided arguments.',
+        keywords: ['eval', 'compute', 'js', 'javascript', 'function', 'execute', 'expression', 'async'],
+        async: true,
         params: {
             args: {
                 schema: {
@@ -31,15 +32,20 @@ export const node: Operator<{
             type: 'any',
         },
     },
-    compute(params) {
+    async compute(params) {
         const { args, code } = params;
         const argKeys = Object.keys(args);
         const argValues = Object.values(args);
-        const fn = compileSyncJs(code, ...argKeys);
-        return fn(...argValues);
+        const res = await evalEsmModule(`export async function fn(${argKeys.join(',')}) { ${code}; }`);
+        const val = await res.fn(...argValues);
+        return val;
     }
 };
 
-function compileSyncJs(expr: string, ...args: string[]): Function {
-    return new Function(...args, `return (() => { ${expr} })(${args.join(',')})`);
+async function evalEsmModule(code: string) {
+    return await import(codeToUrl(code));
+}
+
+function codeToUrl(code: string) {
+    return `data:text/javascript;base64,${btoa(code)}`;
 }
