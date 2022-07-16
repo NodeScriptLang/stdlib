@@ -11,7 +11,9 @@ export const node: Operator<{
         version: '1.0.0',
         tags: ['Data', 'Object'],
         label: 'Object',
-        description: 'Creates an object with computed values per each key.',
+        description:
+            'Creates an object with computed values per each key. ' +
+            'Each key can be a JSON pointer or a dot-delimited path.',
         keywords: ['object', 'key', 'value', 'entries', 'wrap'],
         params: {
             properties: {

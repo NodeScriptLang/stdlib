@@ -8,11 +8,13 @@ export const node: Operator<{
 }, unknown> = {
     metadata: {
         channel: 'stdlib',
-        name: 'Get',
+        name: 'Object.Get',
         version: '1.0.0',
         tags: ['Data', 'Object'],
-        label: 'Object',
-        description: 'Gets a value at specified key. Key can also be a JSON pointer or dot-delimited path.',
+        label: 'Get',
+        description:
+            'Gets a value at specified key. ' +
+            'Key can be a JSON pointer or a dot-delimited path.',
         keywords: ['object', 'key', 'value', 'get'],
         params: {
             object: {
