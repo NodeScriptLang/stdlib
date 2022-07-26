@@ -11,7 +11,7 @@ export const node: Operator<{
         version: '1.0.0',
         tags: ['Logic', 'Data'],
         label: 'If',
-        description: 'Returns Positive if specified Condition is true, or Negative otherwise.',
+        description: 'Returns "positive" if specified condition is true, or "negative" otherwise.',
         keywords: ['check', 'condition'],
         params: {
             condition: {

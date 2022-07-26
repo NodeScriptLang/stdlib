@@ -13,7 +13,7 @@ export const node: Operator<{
         version: '1.0.0',
         tags: ['Logic', 'Data', 'Boolean'],
         label: 'Contains',
-        description: 'Checks if Needle occurs anywhere inside Haystack.',
+        description: 'Checks if "needle" occurs anywhere inside "haystack".',
         keywords: ['check', 'includes', 'find', 'search'],
         params: {
             haystack: {

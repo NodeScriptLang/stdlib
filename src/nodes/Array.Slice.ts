@@ -12,7 +12,7 @@ export const node: Operator<{
         tags: ['Array', 'Data'],
         label: 'Slice',
         description:
-            'Returns a portion of an Array, starting and ending at specified indexes. ' +
+            'Returns a portion of an array, starting and ending at specified indexes. ' +
             'Start index is inclusive, end index is exclusive.',
         keywords: ['subsequence', 'sublist'],
         params: {
