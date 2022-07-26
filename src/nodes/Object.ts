@@ -1,6 +1,6 @@
 import { Operator } from '@nodescript/core/types';
 
-import { setValue } from '../../lib/object.js';
+import { setValue } from '../lib/object.js';
 
 export const node: Operator<{
     properties: Record<string, unknown>;

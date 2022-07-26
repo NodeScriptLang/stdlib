@@ -1,6 +1,6 @@
 import { Operator } from '@nodescript/core/types';
 
-import { getValue } from '../../lib/object.js';
+import { getValue } from '../lib/object.js';
 
 export const node: Operator<{
     object: unknown;
