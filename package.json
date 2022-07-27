@@ -27,7 +27,7 @@
         "lint"
     ],
     "dependencies": {
-        "@nodescript/core": "^0.10.3"
+        "@nodescript/core": "^0.13.5"
     },
     "devDependencies": {
         "@nodescript/cli": "^0.3.1",

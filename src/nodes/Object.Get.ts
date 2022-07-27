@@ -9,9 +9,10 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Object.Get',
-        version: '1.0.0',
+        version: '1.0.1',
         tags: ['Data', 'Object'],
         label: 'Get',
+        labelParam: 'key',
         description:
             'Gets a value at specified key. ' +
             'Key can be a JSON pointer or a dot-delimited path.',

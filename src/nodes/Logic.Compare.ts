@@ -19,9 +19,10 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Logic.Compare',
-        version: '1.0.0',
+        version: '1.0.1',
         tags: ['Logic', 'Data', 'Boolean'],
         label: 'Compare',
+        labelParam: 'op',
         description: 'Compares two values using the specified operator.',
         keywords: ['compare', 'greater', 'less', 'than', 'equals'],
         params: {
