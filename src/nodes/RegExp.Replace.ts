@@ -13,10 +13,11 @@ export const node: Operator<{
         version: '1.0.0',
         tags: ['Data', 'String', 'RegExp'],
         label: 'RegExp Replace',
-        description:
-            'Replaces all occurrences of a regular expression in a string. ' +
-            'If the regexp is a string, it is converted to a regular expression with Global flag. ' +
-            'Use RegExp node to create a regular expression with custom flags.',
+        description: `
+            Replaces all occurrences of a regular expression in a string.
+            If the regexp is a string, it is converted to a regular expression with Global flag.
+            Use RegExp node to create a regular expression with custom flags.'
+        `,
         keywords: ['regex', 'match', 'replace'],
         params: {
             string: {

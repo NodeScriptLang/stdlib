@@ -9,7 +9,9 @@ export const node: Operator<{
         version: '1.0.0',
         tags: ['Array', 'Data'],
         label: 'Array Length',
-        description: 'Returns the length of an array.',
+        description: `
+            Returns the length of an array.
+        `,
         keywords: ['size', 'count'],
         params: {
             array: {
@@ -22,6 +24,7 @@ export const node: Operator<{
         result: {
             type: 'number',
         },
+        cache: 'never',
     },
     compute(params) {
         const { array } = params;

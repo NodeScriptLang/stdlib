@@ -11,9 +11,10 @@ export const node: Operator<{
         version: '1.0.0',
         tags: ['Data', 'Web', 'Parse', 'String'],
         label: 'Parse URL',
-        description:
-            'Parses a specified URL and allows accessing its specific components ' +
-            '(protocol, hostname, port, pathname, search, hash, etc.).',
+        description: `
+            Parses a specified URL and allows accessing its specific components
+            (protocol, hostname, port, pathname, search, hash, etc.).
+        `,
         keywords: ['web', 'url', 'parse'],
         params: {
             url: {

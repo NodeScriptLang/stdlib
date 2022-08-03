@@ -12,10 +12,12 @@ export const node: Operator<{
         version: '1.0.0',
         tags: ['Array', 'Data'],
         label: 'Array Unique',
-        description:
-            'Returns an array consisting of unique items. ' +
-            'If strict is true, entries are compared by value (fast), otherwise they are compared structurally (slow), ' +
-            'in a similar way to Equals.',
+        description: `
+            Returns an array consisting of unique items.
+            If strict is true, entries are compared by value (fast),
+            otherwise they are compared structurally (slow),
+            in a similar way to Equals.
+        `,
         keywords: ['unique', 'deduplicate'],
         params: {
             array: {

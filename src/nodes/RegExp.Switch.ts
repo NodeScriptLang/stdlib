@@ -12,9 +12,10 @@ export const node: Operator<{
         version: '1.0.0',
         tags: ['Data', 'String', 'RegExp'],
         label: 'RegExp Switch',
-        description:
-            'Matches a string against a series of regular expressions specified as pattern keys. ' +
-            'Returns the value of the first matching pattern, or null if none match.',
+        description: `
+            Matches a string against a series of regular expressions specified as pattern keys.
+            Returns the value of the first matching pattern, or null if none match.
+        `,
         keywords: ['regex', 'match', 'map', 'select'],
         params: {
             string: {

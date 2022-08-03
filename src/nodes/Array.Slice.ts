@@ -11,9 +11,10 @@ export const node: Operator<{
         version: '1.0.0',
         tags: ['Array', 'Data'],
         label: 'Slice',
-        description:
-            'Returns a portion of an array, starting and ending at specified indexes. ' +
-            'Start index is inclusive, end index is exclusive.',
+        description: `
+            Returns a portion of an array, starting and ending at specified indexes.
+            Start index is inclusive, end index is exclusive.
+        `,
         keywords: ['subsequence', 'sublist'],
         params: {
             array: {

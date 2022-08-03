@@ -13,9 +13,10 @@ export const node: Operator<{
         tags: ['Data', 'Object'],
         label: 'Get',
         labelParam: 'key',
-        description:
-            'Gets a value at specified key. ' +
-            'Key can be a JSON pointer or a dot-delimited path.',
+        description: `
+            Gets a value at specified key.
+            Key can be a JSON pointer or a dot-delimited path.
+        `,
         keywords: ['object', 'key', 'value', 'get'],
         params: {
             object: {
