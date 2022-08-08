@@ -24,7 +24,7 @@ export const node: Operator<{
         result: {
             type: 'number',
         },
-        cache: 'never',
+        cacheMode: 'never',
     },
     compute(params) {
         const { array } = params;

@@ -16,7 +16,7 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Web.Fetch',
-        version: '1.0.0',
+        version: '1.0.3',
         tags: ['Web'],
         label: 'Fetch',
         description: `
@@ -48,9 +48,18 @@ export const node: Operator<{
             type: 'any',
         },
         async: true,
+        cacheMode: 'always',
+        evalMode: 'manual',
     },
     async compute(params) {
         const { method, url, headers, body } = params;
+        if (!url) {
+            // Do not send requests to self by default
+            return null;
+        }
+        if (!/^https?:\/\//.test(url)) {
+            throw new Error('URL must start with http:// or https://');
+        }
         const actualHeaders = new Headers(headers);
         let bodyContentType = '';
         const actualBody =

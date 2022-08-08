@@ -29,6 +29,7 @@ export const node: Operator<{
         result: {
             type: 'object',
         },
+        cacheMode: 'never',
     },
     compute(params) {
         return getValue(params.object, params.key);
