@@ -2,11 +2,11 @@ import { Operator } from '@nodescript/core/types';
 
 export const node: Operator<{
     params: Record<string, any>;
-}, string> = {
+}, any> = {
     metadata: {
         channel: 'stdlib',
         name: 'Web.SearchParams',
-        version: '1.0.0',
+        version: '1.0.1',
         tags: ['Data', 'Web', 'String'],
         label: 'Search Params',
         description: `
@@ -23,7 +23,7 @@ export const node: Operator<{
             },
         },
         result: {
-            type: 'string',
+            type: 'any',
         },
     },
     compute(params) {
@@ -31,6 +31,6 @@ export const node: Operator<{
         for (const [key, value] of Object.entries(params.params)) {
             searchParams.append(key, value);
         }
-        return searchParams.toString();
+        return searchParams;
     }
 };

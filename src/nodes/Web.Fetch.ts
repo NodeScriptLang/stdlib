@@ -1,11 +1,6 @@
 import { Operator } from '@nodescript/core/types';
 
-export enum FetchMethod {
-    GET = 'GET',
-    POST = 'POST',
-    PUT = 'PUT',
-    DELETE = 'DELETE',
-}
+import { determineRequestBody, headersToObject, FetchMethod } from '../lib/web.js';
 
 export const node: Operator<{
     method: FetchMethod;
@@ -16,7 +11,7 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Web.Fetch',
-        version: '1.0.3',
+        version: '1.0.4',
         tags: ['Web'],
         label: 'Fetch',
         description: `
@@ -24,7 +19,7 @@ export const node: Operator<{
             Note: when sent from the browser, the request is subject to Cross-Origin Resource Sharing (CORS) policy,
             along with other limitations. Use HTTP Request node for a general purpose HTTP client.
         `,
-        keywords: ['regex', 'match'],
+        keywords: ['http', 'request', 'send'],
         params: {
             method: {
                 schema: {
@@ -55,18 +50,13 @@ export const node: Operator<{
         const { method, url, headers, body } = params;
         if (!url) {
             // Do not send requests to self by default
-            return null;
+            return undefined;
         }
         if (!/^https?:\/\//.test(url)) {
             throw new Error('URL must start with http:// or https://');
         }
         const actualHeaders = new Headers(headers);
-        let bodyContentType = '';
-        const actualBody =
-            method === 'GET' ? undefined :
-                typeof body === 'string' ? (bodyContentType = 'text/plain', body) :
-                    typeof body === 'object' ? (bodyContentType = 'application/json', JSON.stringify(body)) :
-                        undefined;
+        const [actualBody, bodyContentType] = determineRequestBody(method, body);
         if (bodyContentType && !actualHeaders.has('Content-Type')) {
             actualHeaders.set('Content-Type', bodyContentType);
         }
@@ -88,11 +78,3 @@ export const node: Operator<{
         };
     }
 };
-
-function headersToObject(headers: Headers): Record<string, string[]> {
-    const result: Record<string, string[]> = {};
-    for (const [key, value] of headers as any) {
-        result[key] = [value];
-    }
-    return result;
-}
