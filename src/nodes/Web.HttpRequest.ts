@@ -6,7 +6,6 @@ import {
     FetchHeaders,
     FetchMethod,
     getHeaderValue,
-    headersToObject,
 } from '../lib/web.js';
 
 export const node: Operator<{
@@ -18,7 +17,7 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Web.HttpRequest',
-        version: '1.0.0',
+        version: '1.0.1',
         tags: ['Web'],
         label: 'Http Request',
         description: `
@@ -64,7 +63,7 @@ export const node: Operator<{
         }
         const actualHeaders = prepareHeaders(headers);
         const [actualBody, contentType] = determineRequestBody(method, body);
-        if (contentType && getHeaderValue(actualHeaders, 'Content-Type').length === 0) {
+        if (contentType && !getHeaderValue(actualHeaders, 'Content-Type')) {
             actualHeaders['Content-Type'] = [contentType];
         }
         const fetchServiceUrl = `${getHubUrl()}/Fetch/sendRequest`;
@@ -86,12 +85,12 @@ export const node: Operator<{
         const json = await res.json();
         const response: FetchServiceResponse = json.response;
         const responseBodyText = decodeBase64(response.bodyBase64);
-        const isJson = getHeaderValue(response.headers, 'Content-Type').includes('application/json');
+        const isJson = (getHeaderValue(response.headers, 'Content-Type') ?? '').includes('application/json');
         const responseBody = isJson ? JSON.parse(responseBodyText) : responseBodyText;
         return {
-            url: res.url,
-            status: res.status,
-            headers: headersToObject(res.headers),
+            url: response.url,
+            status: response.status,
+            headers: response.headers,
             body: responseBody,
         };
     }

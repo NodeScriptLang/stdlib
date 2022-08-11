@@ -40,7 +40,11 @@ export function headersToObject(headers: Headers): FetchHeaders {
     return result;
 }
 
-export function getHeaderValue(headers: FetchHeaders, name: string): string[] {
+export function getHeaderValues(headers: FetchHeaders, name: string): string[] {
     const existing = Object.entries(headers).find(_ => _[0].toLowerCase() === name.toLowerCase());
     return existing ? existing[1] : [];
+}
+
+export function getHeaderValue(headers: FetchHeaders, name: string): string | undefined {
+    return getHeaderValues(headers, name)[0];
 }

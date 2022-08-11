@@ -1,12 +1,15 @@
 import { Operator } from '@nodescript/core/types';
 
-import { encodeBase64 } from '../lib/base64.js';
+import { Base64Algorithm, encodeBase64 } from '../lib/base64.js';
 
-export const node: Operator<{ value: string }, string> = {
+export const node: Operator<{
+    value: string;
+    algorithm: Base64Algorithm;
+}, string> = {
     metadata: {
         channel: 'stdlib',
         name: 'String.Base64Encode',
-        version: '1.0.0',
+        version: '1.1.1',
         tags: ['Data', 'String'],
         label: 'Base64 Encode',
         description: 'Encodes a UTF-8 string into Base64.',
@@ -16,11 +19,18 @@ export const node: Operator<{ value: string }, string> = {
                 schema: {
                     type: 'string',
                 },
-            }
+            },
+            algorithm: {
+                schema: {
+                    type: 'string',
+                    enum: ['base64', 'base64url'],
+                    default: 'base64',
+                }
+            },
         },
         result: { type: 'string' },
     },
     compute(params) {
-        return encodeBase64(params.value);
+        return encodeBase64(params.value, params.algorithm);
     }
 };
