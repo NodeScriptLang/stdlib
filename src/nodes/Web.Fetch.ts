@@ -1,6 +1,6 @@
 import { Operator } from '@nodescript/core/types';
 
-import { determineRequestBody, headersToObject, FetchMethod } from '../lib/web.js';
+import { determineRequestBody, FetchMethod, headersToObject } from '../lib/web.js';
 
 export const node: Operator<{
     method: FetchMethod;
