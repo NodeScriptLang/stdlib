@@ -1,12 +1,12 @@
 import { Operator } from '@nodescript/core/types';
 
 export const node: Operator<{
-    array: unknown[];
+    array: any;
 }, number> = {
     metadata: {
         channel: 'stdlib',
         name: 'Array.Length',
-        version: '1.0.0',
+        version: '1.1.0',
         tags: ['Array', 'Data'],
         label: 'Array Length',
         description: `
@@ -15,10 +15,7 @@ export const node: Operator<{
         keywords: ['size', 'count'],
         params: {
             array: {
-                schema: {
-                    type: 'array',
-                    items: { type: 'any' },
-                },
+                schema: { type: 'any' },
             },
         },
         result: {
@@ -28,6 +25,17 @@ export const node: Operator<{
     },
     compute(params) {
         const { array } = params;
-        return array.length;
+        if (array) {
+            if (typeof array.length === 'number') {
+                return array.length;
+            }
+            if (typeof array.byteLength === 'number') {
+                return array.byteLength;
+            }
+            if (typeof array.size === 'number') {
+                return array.size;
+            }
+        }
+        return 0;
     }
 };

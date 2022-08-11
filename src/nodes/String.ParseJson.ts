@@ -7,7 +7,7 @@ export const node: Operator<{ value: string }, unknown> = {
         version: '1.0.0',
         tags: ['Data', 'String', 'Parse'],
         label: 'Parse JSON',
-        description: 'Parses a specified string as  JSON.',
+        description: 'Parses a specified string as JSON.',
         keywords: ['string', 'text', 'parse'],
         params: {
             value: {
