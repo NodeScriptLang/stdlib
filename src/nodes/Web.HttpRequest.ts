@@ -13,11 +13,13 @@ export const node: Operator<{
     url: string;
     headers: Record<string, any>;
     body: any;
+    followRedirects: boolean;
+    proxyUrl: string;
 }, Promise<unknown>> = {
     metadata: {
         channel: 'stdlib',
         name: 'Web.HttpRequest',
-        version: '1.0.1',
+        version: '1.1.0',
         tags: ['Web'],
         label: 'Http Request',
         description: `
@@ -44,6 +46,12 @@ export const node: Operator<{
                 schema: { type: 'any' },
                 hideValue: true,
             },
+            followRedirects: {
+                schema: { type: 'boolean', default: true },
+            },
+            proxyUrl: {
+                schema: { type: 'string' },
+            }
         },
         result: {
             type: 'any',
@@ -53,7 +61,7 @@ export const node: Operator<{
         evalMode: 'manual',
     },
     async compute(params) {
-        const { method, url, headers, body } = params;
+        const { method, url, headers, body, followRedirects, proxyUrl } = params;
         if (!url) {
             // Do not send requests to self by default
             return undefined;
@@ -67,11 +75,14 @@ export const node: Operator<{
             actualHeaders['Content-Type'] = [contentType];
         }
         const fetchServiceUrl = `${getHubUrl()}/Fetch/sendRequest`;
+        const proxy = proxyUrl.trim() ? proxyUrl : undefined;
         const request: FetchServiceRequest = {
             url,
             method,
             headers: actualHeaders,
             bodyBase64: actualBody ? stringToBase64(actualBody) : undefined,
+            followRedirects,
+            proxy,
         };
         const res = await fetch(fetchServiceUrl, {
             method: 'POST',
