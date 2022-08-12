@@ -1,6 +1,6 @@
 import { Operator } from '@nodescript/core/types';
 
-import { decodeBase64, encodeBase64 } from '../lib/base64.js';
+import { base64ToString, stringToBase64 } from '../lib/base64.js';
 import {
     determineRequestBody,
     FetchHeaders,
@@ -71,7 +71,7 @@ export const node: Operator<{
             url,
             method,
             headers: actualHeaders,
-            bodyBase64: actualBody ? encodeBase64(actualBody) : undefined,
+            bodyBase64: actualBody ? stringToBase64(actualBody) : undefined,
         };
         const res = await fetch(fetchServiceUrl, {
             method: 'POST',
@@ -84,7 +84,7 @@ export const node: Operator<{
         });
         const json = await res.json();
         const response: FetchServiceResponse = json.response;
-        const responseBodyText = decodeBase64(response.bodyBase64);
+        const responseBodyText = base64ToString(response.bodyBase64);
         const isJson = (getHeaderValue(response.headers, 'Content-Type') ?? '').includes('application/json');
         const responseBody = isJson ? JSON.parse(responseBodyText) : responseBodyText;
         return {

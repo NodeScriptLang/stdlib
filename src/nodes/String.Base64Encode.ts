@@ -1,23 +1,23 @@
 import { Operator } from '@nodescript/core/types';
 
-import { Base64Algorithm, encodeBase64 } from '../lib/base64.js';
+import { bufferToBase64, stringToBase64 } from '../lib/base64.js';
 
 export const node: Operator<{
-    value: string;
-    algorithm: Base64Algorithm;
+    value: any;
+    algorithm: 'base64' | 'base64url';
 }, string> = {
     metadata: {
         channel: 'stdlib',
         name: 'String.Base64Encode',
-        version: '1.1.1',
+        version: '1.2.1',
         tags: ['Data', 'String'],
         label: 'Base64 Encode',
-        description: 'Encodes a UTF-8 string into Base64.',
+        description: 'Encodes a UTF-8 string or a binary buffer into a Base64 string.',
         keywords: ['string', 'text'],
         params: {
             value: {
                 schema: {
-                    type: 'string',
+                    type: 'any',
                 },
             },
             algorithm: {
@@ -30,7 +30,17 @@ export const node: Operator<{
         },
         result: { type: 'string' },
     },
-    compute(params) {
-        return encodeBase64(params.value, params.algorithm);
+    compute(params, ctx) {
+        const { value, algorithm } = params;
+        const urlMode = algorithm === 'base64url';
+        if (value instanceof ArrayBuffer) {
+            return bufferToBase64(value, urlMode);
+        }
+        const isTypedArray = value instanceof Object.getPrototypeOf(Uint8Array);
+        if (isTypedArray) {
+            return bufferToBase64(value.buffer, urlMode);
+        }
+        const str = ctx.$convertType<string>(value, { type: 'string' });
+        return stringToBase64(str, urlMode);
     }
 };

@@ -1,5 +1,7 @@
 import { Operator } from '@nodescript/core/types';
 
+import { bufferToBinaryString } from '../lib/binary.js';
+
 export const node: Operator<{
     buffer: ArrayBuffer;
     encoding: 'utf-8' | 'binary' | 'iso-8859-1' | 'utf-16le';
@@ -33,14 +35,8 @@ export const node: Operator<{
     compute(params) {
         const { buffer, encoding } = params;
         switch (encoding) {
-            case 'binary': {
-                const view = new Uint8Array(buffer);
-                let result = '';
-                for (let i = 0; i < buffer.byteLength; i++) {
-                    result += String.fromCharCode(view[i]);
-                }
-                return result;
-            }
+            case 'binary':
+                return bufferToBinaryString(buffer);
             case 'utf-8':
             case 'iso-8859-1':
             case 'utf-16le': {

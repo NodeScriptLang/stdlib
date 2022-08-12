@@ -1,19 +1,20 @@
 import { Operator } from '@nodescript/core/types';
 
-import { Base64Algorithm, decodeBase64 } from '../lib/base64.js';
+import { base64ToBuffer, base64ToString } from '../lib/base64.js';
 
 export const node: Operator<{
     value: string;
-    algorithm: Base64Algorithm;
-}, string> = {
+    algorithm: string;
+    output: 'string' | 'binary';
+}, any> = {
     metadata: {
         channel: 'stdlib',
         name: 'String.Base64Decode',
-        version: '1.1.1',
+        version: '1.2.1',
         tags: ['Data', 'String'],
         label: 'Base64 Decode',
-        description: 'Decodes a string from Base64 into UTF-8.',
-        keywords: ['string', 'text'],
+        description: 'Decodes a Base64-encoded string into UTF-8 or a byte buffer.',
+        keywords: ['string', 'text', 'decode', 'base64', 'binary'],
         params: {
             value: {
                 schema: {
@@ -27,10 +28,21 @@ export const node: Operator<{
                     default: 'base64',
                 }
             },
+            output: {
+                schema: {
+                    type: 'string',
+                    enum: ['string', 'binary'],
+                    default: 'string',
+                }
+            },
         },
         result: { type: 'string' },
     },
     compute(params) {
-        return decodeBase64(params.value, params.algorithm);
+        const { value, algorithm, output } = params;
+        const urlMode = algorithm === 'base64url';
+        return output === 'string' ?
+            base64ToString(value, urlMode) :
+            base64ToBuffer(value, urlMode);
     }
 };

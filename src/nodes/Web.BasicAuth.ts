@@ -1,6 +1,6 @@
 import { Operator } from '@nodescript/core/types';
 
-import { encodeBase64 } from '../lib/base64.js';
+import { stringToBase64 } from '../lib/base64.js';
 
 export const node: Operator<{
     username: string;
@@ -34,6 +34,6 @@ export const node: Operator<{
     },
     compute(params) {
         const { username, password } = params;
-        return `Basic ${encodeBase64(`${username}:${password}`)}`;
+        return `Basic ${stringToBase64(`${username}:${password}`)}`;
     }
 };
