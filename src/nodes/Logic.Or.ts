@@ -6,9 +6,9 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Logic.Or',
-        version: '1.0.0',
+        version: '1.0.1',
         tags: ['Logic', 'Data', 'Boolean'],
-        label: 'And',
+        label: 'Or',
         description: 'Returns true if any of the specified conditions are true, or false otherwise.',
         keywords: ['or', 'any', 'some'],
         params: {
