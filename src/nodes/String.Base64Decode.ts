@@ -10,7 +10,7 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'String.Base64Decode',
-        version: '1.2.1',
+        version: '1.3.0',
         tags: ['Data', 'String'],
         label: 'Base64 Decode',
         description: 'Decodes a Base64-encoded string into UTF-8 or a byte buffer.',

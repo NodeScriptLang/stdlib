@@ -4,7 +4,7 @@ export const node: Operator<{ value: unknown }, boolean> = {
     metadata: {
         channel: 'stdlib',
         name: 'Logic.IsEmpty',
-        version: '1.0.0',
+        version: '1.0.1',
         tags: ['Logic', 'Data', 'Boolean'],
         label: 'Is Empty',
         description: `
@@ -21,7 +21,7 @@ export const node: Operator<{ value: unknown }, boolean> = {
     },
     compute(params) {
         const { value } = params;
-        return isNaN(value as number) ||
+        return (typeof value === 'number' && isNaN(value as number)) ||
             value == null ||
             value === '' ||
             (Array.isArray(value) && value.length === 0);
