@@ -19,7 +19,7 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Web.HttpRequest',
-        version: '1.1.0',
+        version: '1.1.1',
         tags: ['Web'],
         label: 'Http Request',
         description: `
@@ -117,13 +117,10 @@ function prepareHeaders(headers: Record<string, unknown>): FetchHeaders {
 
 function getHubUrl() {
     const origin = globalThis.location?.origin ?? '';
-    if (/\blocalhost|127.0.0.1\b/.test(origin)) {
-        return 'http://localhost:8080';
+    if (/\bstaging\.|demo\.|localhost|127.0.0.1\b/.test(origin)) {
+        return 'https://fetch.staging.nodescript.dev';
     }
-    if (/\bstaging|demo\b/.test(origin)) {
-        return 'https://hub.staging.nodescript.dev';
-    }
-    return 'https://hub.nodescript.dev';
+    return 'https://fetch.nodescript.dev';
 }
 
 interface FetchServiceRequest {
