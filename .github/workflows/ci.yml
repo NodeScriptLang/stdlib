@@ -26,3 +26,9 @@ jobs:
         NODESCRIPT_API_URL: https://hub.staging.nodescript.dev
         NODESCRIPT_API_USERNAME: inca
         NODESCRIPT_API_TOKEN: ${{ secrets.NODESCRIPT_API_TOKEN_STAGING }}
+    - name: Publish to demo
+      run: npm run publish:nodes
+      env:
+        NODESCRIPT_API_URL: https://hub.demo.nodescript.dev
+        NODESCRIPT_API_USERNAME: inca
+        NODESCRIPT_API_TOKEN: ${{ secrets.NODESCRIPT_API_TOKEN_DEMO }}
