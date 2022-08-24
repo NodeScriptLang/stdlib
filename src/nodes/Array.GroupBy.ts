@@ -1,23 +1,21 @@
 import { Operator } from '@nodescript/core/types';
 
 import { anyEquals } from '../lib/compare.js';
-import { getValue } from '../lib/object.js';
 
 export const node: Operator<{
     array: unknown[];
-    keys: Record<string, string>;
+    keys: unknown[];
     strict: boolean;
 }, unknown[]> = {
     metadata: {
         channel: 'stdlib',
         name: 'Array.GroupBy',
-        version: '1.0.0',
+        version: '1.1.2',
         tags: ['Array', 'Data'],
-        label: 'Group By',
+        label: 'Group',
         description: `
             Groups the array by specified keys.
-            Keys are specified as key-value entries
-            with values being either dot-separated paths or JSON pointers.
+            The array and kets are expected to correspond to each other by index.
 
             If strict is true, entries are compared by value (fast),
             otherwise they are compared structurally (slow),
@@ -34,9 +32,10 @@ export const node: Operator<{
             },
             keys: {
                 schema: {
-                    type: 'object',
-                    additionalProperties: { type: 'string' },
+                    type: 'array',
+                    items: { type: 'any' },
                 },
+                hideEntries: true,
             },
             strict: {
                 schema: { type: 'boolean' },
@@ -49,22 +48,16 @@ export const node: Operator<{
     },
     compute(params) {
         const { array, keys, strict } = params;
-        const groups: any[] = [];
-        for (const item of array.values()) {
-            const groupKey: any = {};
-            for (const [key, pointer] of Object.entries(keys)) {
-                const val = getValue(item, pointer);
-                groupKey[key] = val;
-            }
+        const groups: Array<{ key: any; items: any[] }> = [];
+        for (const [index, item] of array.entries()) {
+            const groupKey = keys[index];
             const existingGroup = groups.find(g => {
-                return Object.keys(groupKey).every(k => {
-                    return strict ? g[k] === groupKey[k] : anyEquals(g[k], groupKey[k]);
-                });
+                return strict ? g.key === groupKey : anyEquals(g.key, groupKey);
             });
             if (existingGroup) {
                 existingGroup.items.push(item);
             } else {
-                groups.push({ ...groupKey, items: [item] });
+                groups.push({ key: groupKey, items: [item] });
             }
         }
         return groups;
