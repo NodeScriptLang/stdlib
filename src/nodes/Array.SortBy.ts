@@ -9,7 +9,7 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Array.SortBy',
-        version: '1.0.0',
+        version: '1.0.1',
         tags: ['Array', 'Data'],
         label: 'Sort By',
         description: `
@@ -39,9 +39,13 @@ export const node: Operator<{
     },
     compute(params) {
         const { array, keys } = params;
+        const sortKeys = keys.length === 0 ? [''] : keys;
         return array.slice().sort((a, b) => {
-            for (const k of keys) {
-                const [key, m] = k.startsWith('-') ? [k.substring(1), -1] : [k, 1];
+            for (const k of sortKeys) {
+                const [key, m] =
+                    k.startsWith('-') ? [k.substring(1), -1] :
+                        k.startsWith('+') ? [k.substring(1), 1] :
+                            [k, 1];
                 const aValue = getValue(a, key) as any;
                 const bValue = getValue(b, key) as any;
                 if (aValue < bValue) {
