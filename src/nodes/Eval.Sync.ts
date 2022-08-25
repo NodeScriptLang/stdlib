@@ -7,7 +7,7 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Eval.Sync',
-        version: '1.0.0',
+        version: '1.1.0',
         tags: ['Eval'],
         label: 'Eval',
         description: 'Evaluates synchronous JavaScript code with provided arguments.',
@@ -23,23 +23,25 @@ export const node: Operator<{
             code: {
                 schema: {
                     type: 'string',
-                    kind: 'javascript',
                 },
+                renderer: 'javascript',
             }
         },
         result: {
             type: 'any',
         },
     },
-    compute(params) {
-        const { args, code } = params;
-        const argKeys = Object.keys(args);
-        const argValues = Object.values(args);
-        const fn = compileSyncJs(code, ...argKeys);
-        return fn(...argValues);
+    compute() {},
+    compile(node, ctx) {
+        ctx.emitBlock(`const $p = {`, `}`, () => {
+            ctx.emitProp('args');
+        });
+        const code = node.props.find(_ => _.key === 'code')?.value ?? '';
+        const args = node.props.find(_ => _.key === 'args')?.entries ?? [];
+        const argList = args.map(_ => _.key).join(',');
+        const argVals = args.map(_ => `$p.args[${JSON.stringify(_.key)}]`).join(',');
+        ctx.emitBlock(`${ctx.sym.result} = ((${argList}) => {`, `})(${argVals})`, () => {
+            ctx.emitLine(code);
+        });
     }
 };
-
-function compileSyncJs(expr: string, ...args: string[]): Function {
-    return new Function(...args, `return (() => { ${expr} })(${args.join(',')})`);
-}

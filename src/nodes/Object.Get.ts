@@ -20,16 +20,15 @@ export const node: Operator<{
         keywords: ['object', 'key', 'value', 'get'],
         params: {
             object: {
-                schema: { type: 'any', },
+                schema: { type: 'any' },
             },
             key: {
-                schema: { type: 'string', kind: 'key' },
+                schema: { type: 'string' },
             }
         },
         result: {
             type: 'object',
         },
-        cacheMode: 'never',
     },
     compute(params) {
         return getValue(params.object, params.key);
