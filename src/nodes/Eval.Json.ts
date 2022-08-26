@@ -6,7 +6,7 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Eval.Json',
-        version: '1.0.1',
+        version: '1.1.0',
         tags: ['Eval', 'Parse'],
         label: 'Json',
         description: 'Parses JSON string.',
@@ -23,8 +23,9 @@ export const node: Operator<{
             type: 'any',
         },
     },
-    compute(params) {
-        const { code } = params;
-        return JSON.parse(code);
+    compute() {},
+    compile(node, ctx) {
+        const code = node.props.find(_ => _.key === 'code')?.value ?? '';
+        ctx.emitLine(`${ctx.sym.result} = ${code};`);
     }
 };
