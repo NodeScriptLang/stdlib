@@ -8,12 +8,13 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Eval.Async',
-        version: '1.1.0',
+        version: '1.1.1',
         tags: ['Eval'],
         label: 'Eval Async',
         description: 'Evaluates asynchronous JavaScript code with provided arguments.',
         keywords: ['eval', 'compute', 'js', 'javascript', 'function', 'execute', 'expression', 'async'],
         async: true,
+        resizeMode: 'all',
         params: {
             args: {
                 schema: {

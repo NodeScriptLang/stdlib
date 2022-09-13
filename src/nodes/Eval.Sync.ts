@@ -7,11 +7,12 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Eval.Sync',
-        version: '1.1.0',
+        version: '1.1.1',
         tags: ['Eval'],
         label: 'Eval',
         description: 'Evaluates synchronous JavaScript code with provided arguments.',
         keywords: ['eval', 'compute', 'js', 'javascript', 'function', 'execute', 'expression', 'sync'],
+        resizeMode: 'all',
         params: {
             args: {
                 schema: {

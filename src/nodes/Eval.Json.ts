@@ -6,11 +6,12 @@ export const node: Operator<{
     metadata: {
         channel: 'stdlib',
         name: 'Eval.Json',
-        version: '1.1.1',
+        version: '1.1.2',
         tags: ['Eval', 'Parse'],
         label: 'Json',
         description: 'Parses JSON string.',
         keywords: ['eval', 'json', 'data', 'parse'],
+        resizeMode: 'all',
         params: {
             code: {
                 schema: {
