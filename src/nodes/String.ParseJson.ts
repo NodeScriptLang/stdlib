@@ -1,24 +1,27 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-export const node: Operator<{ value: string }, unknown> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'String.ParseJson',
-        version: '1.0.0',
-        tags: ['Data', 'String', 'Parse'],
-        label: 'Parse JSON',
-        description: 'Parses a specified string as JSON.',
-        keywords: ['string', 'text', 'parse'],
-        params: {
-            value: {
-                schema: {
-                    type: 'string',
-                },
-            }
-        },
-        result: { type: 'any' },
+type P = {
+    value: string;
+};
+
+type R = unknown;
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Parse JSON',
+    description: 'Parses a specified string as JSON.',
+    keywords: ['string', 'text', 'parse'],
+    params: {
+        value: {
+            schema: {
+                type: 'string',
+            },
+        }
     },
-    compute(params) {
-        return JSON.parse(params.value);
+    result: {
+        schema: { type: 'any' },
     }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    return JSON.parse(params.value);
 };

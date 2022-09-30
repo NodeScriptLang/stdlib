@@ -1,48 +1,49 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-export const node: Operator<{
+type P = {
     array: unknown[];
     start: number;
     end: number;
-}, unknown[]> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Array.Slice',
-        version: '1.0.0',
-        tags: ['Array', 'Data'],
-        label: 'Slice',
-        description: `
-            Returns a portion of an array, starting and ending at specified indexes.
-            Start index is inclusive, end index is exclusive.
-        `,
-        keywords: ['subsequence', 'sublist'],
-        params: {
-            array: {
-                schema: {
-                    type: 'array',
-                    items: { type: 'any' },
-                },
-            },
-            start: {
-                schema: {
-                    type: 'number',
-                    default: 0,
-                },
-            },
-            end: {
-                schema: {
-                    type: 'number',
-                    default: Infinity,
-                },
+};
+
+type R = unknown[];
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Slice',
+    description: `
+        Returns a portion of an array, starting and ending at specified indexes.
+        Start index is inclusive, end index is exclusive.
+    `,
+    keywords: ['subsequence', 'sublist'],
+    params: {
+        array: {
+            schema: {
+                type: 'array',
+                items: { type: 'any' },
             },
         },
-        result: {
-            type: 'array',
-            items: { type: 'any' },
+        start: {
+            schema: {
+                type: 'number',
+                default: 0,
+            },
+        },
+        end: {
+            schema: {
+                type: 'number',
+                default: Infinity,
+            },
         },
     },
-    compute(params) {
-        const { array, start, end } = params;
-        return array.slice(start, end);
-    }
+    result: {
+        schema: {
+            type: 'array',
+            items: { type: 'any' },
+        }
+    },
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    const { array, start, end } = params;
+    return array.slice(start, end);
 };

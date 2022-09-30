@@ -1,36 +1,37 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import { toRegExp } from '../lib/regexp.js';
 
-export const node: Operator<{
+type P = {
     string: string;
     regexp: any;
-}, any> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'RegExp.Match',
-        version: '1.0.0',
-        tags: ['Data', 'String', 'RegExp'],
-        label: 'RegExp Match',
-        description: `
-            Matches a string against a regular expression.
-            Returns an array of matched groups, or an empty array if nothing matched.
-        `,
-        keywords: ['regex', 'match'],
-        params: {
-            string: {
-                schema: { type: 'string' },
-            },
-            regexp: {
-                schema: { type: 'any' },
-            },
+};
+
+type R = any;
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'RegExp Match',
+    description: `
+        Matches a string against a regular expression.
+        Returns an array of matched groups, or an empty array if nothing matched.
+    `,
+    keywords: ['regex', 'match'],
+    params: {
+        string: {
+            schema: { type: 'string' },
         },
-        result: { type: 'any' },
+        regexp: {
+            schema: { type: 'any' },
+        },
     },
-    compute(params) {
-        const { string } = params;
-        const regexp = toRegExp(params.regexp);
-        const match = regexp.exec(string);
-        return match ?? [];
-    },
+    result: {
+        schema: { type: 'any' },
+    }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    const { string } = params;
+    const regexp = toRegExp(params.regexp);
+    const match = regexp.exec(string);
+    return match ?? [];
 };

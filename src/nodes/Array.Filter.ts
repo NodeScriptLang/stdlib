@@ -1,49 +1,50 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-export const node: Operator<{
+type P = {
     array: unknown[];
     conditions: boolean[];
-}, unknown[]> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Array.Filter',
-        version: '1.0.0',
-        tags: ['Array', 'Data'],
-        label: 'Filter',
-        description: `
-            Returns items of speicified array for which the corresponding condition is true.
-            The array and conditions are expected to correspond to each other by index.
-        `,
-        keywords: ['find', 'all'],
-        params: {
-            array: {
-                schema: {
-                    type: 'array',
-                    items: { type: 'any' },
-                },
-                hideEntries: true,
+};
+
+type R = unknown[];
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Filter',
+    description: `
+        Returns items of specified array for which the corresponding condition is true.
+        The array and conditions are expected to correspond to each other by index.
+    `,
+    keywords: ['find', 'all'],
+    params: {
+        array: {
+            schema: {
+                type: 'array',
+                items: { type: 'any' },
             },
-            conditions: {
-                schema: {
-                    type: 'array',
-                    items: { type: 'boolean' },
-                },
-                hideEntries: true,
-            },
+            hideEntries: true,
         },
-        result: {
+        conditions: {
+            schema: {
+                type: 'array',
+                items: { type: 'boolean' },
+            },
+            hideEntries: true,
+        },
+    },
+    result: {
+        schema: {
             type: 'array',
             items: { type: 'any' },
         },
     },
-    compute(params) {
-        const { array, conditions } = params;
-        const res: any[] = [];
-        for (const [i, item] of array.entries()) {
-            if (conditions[i]) {
-                res.push(item);
-            }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    const { array, conditions } = params;
+    const res: any[] = [];
+    for (const [i, item] of array.entries()) {
+        if (conditions[i]) {
+            res.push(item);
         }
-        return res;
     }
+    return res;
 };

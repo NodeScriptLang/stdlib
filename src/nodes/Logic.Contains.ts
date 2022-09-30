@@ -1,35 +1,36 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import { anyContains } from '../lib/compare.js';
 
-export const node: Operator<{
+type P = {
     haystack: unknown;
     needle: unknown;
     strict: boolean;
-}, boolean> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Logic.Contains',
-        version: '1.0.0',
-        tags: ['Logic', 'Data', 'Boolean'],
-        label: 'Contains',
-        description: 'Checks if "needle" occurs anywhere inside "haystack".',
-        keywords: ['check', 'includes', 'find', 'search'],
-        params: {
-            haystack: {
-                schema: { type: 'any' },
-            },
-            needle: {
-                schema: { type: 'any' },
-            },
-            strict: {
-                schema: { type: 'boolean', default: false, },
-            },
+};
+
+type R = boolean;
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Contains',
+    description: 'Checks if "needle" occurs anywhere inside "haystack".',
+    keywords: ['check', 'includes', 'find', 'search'],
+    params: {
+        haystack: {
+            schema: { type: 'any' },
         },
-        result: { type: 'boolean' },
+        needle: {
+            schema: { type: 'any' },
+        },
+        strict: {
+            schema: { type: 'boolean', default: false, },
+        },
     },
-    compute(params) {
-        const { haystack, needle, strict } = params;
-        return anyContains(haystack, needle, { strict });
+    result: {
+        schema: { type: 'boolean' },
     }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    const { haystack, needle, strict } = params;
+    return anyContains(haystack, needle, { strict });
 };

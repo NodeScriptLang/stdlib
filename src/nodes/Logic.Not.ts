@@ -1,23 +1,24 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-export const node: Operator<{ value: boolean }, boolean> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Logic.Not',
-        version: '1.0.0',
-        tags: ['Logic', 'Data', 'Boolean'],
-        label: 'Not',
-        description: 'Returns the negated value of specified boolean.',
-        keywords: ['check', 'null', 'undefined'],
-        params: {
-            value: {
-                schema: { type: 'boolean' },
-            },
+type P = { value: boolean };
+
+type R = boolean;
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Not',
+    description: 'Returns the negated value of specified boolean.',
+    keywords: ['check', 'null', 'undefined'],
+    params: {
+        value: {
+            schema: { type: 'boolean' },
         },
-        result: { type: 'boolean' },
     },
-    compute(params) {
-        const { value } = params;
-        return !value;
+    result: {
+        schema: { type: 'boolean' },
     }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    const { value } = params;
+    return !value;
 };

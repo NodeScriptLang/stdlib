@@ -1,22 +1,20 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-export const node: Operator<{ value: number }, number> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Number',
-        version: '1.0.0',
-        tags: ['Data', 'Number', 'Math'],
-        label: 'Number',
-        description: 'Converts value into a number.',
-        keywords: ['number', 'integer', 'parse'],
-        params: {
-            value: {
-                schema: { type: 'number' },
-            }
-        },
-        result: { type: 'number' },
+type P = { value: number };
+type R = number;
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Number',
+    description: 'Converts value into a number.',
+    keywords: ['number', 'integer', 'parse'],
+    params: {
+        value: {
+            schema: { type: 'number' },
+        }
     },
-    compute(params) {
-        return params.value;
+    result: {
+        schema: { type: 'number' },
     }
 };
+
+export const compute: ModuleCompute<P, R> = params => params.value;

@@ -1,35 +1,36 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import { anyEquals } from '../lib/compare.js';
 
-export const node: Operator<{
+type P = {
     a: unknown;
     b: unknown;
     strict: boolean;
-}, boolean> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Logic.Equals',
-        version: '1.0.0',
-        tags: ['Logic', 'Data', 'Boolean'],
-        label: 'Equals',
-        description: 'Checks if two values are structurally equal.',
-        keywords: ['check', 'equal', 'compare'],
-        params: {
-            a: {
-                schema: { type: 'any' },
-            },
-            b: {
-                schema: { type: 'any' },
-            },
-            strict: {
-                schema: { type: 'boolean', default: false, },
-            },
+};
+
+type R = boolean;
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Equals',
+    description: 'Checks if two values are structurally equal.',
+    keywords: ['check', 'equal', 'compare'],
+    params: {
+        a: {
+            schema: { type: 'any' },
         },
-        result: { type: 'boolean' },
+        b: {
+            schema: { type: 'any' },
+        },
+        strict: {
+            schema: { type: 'boolean', default: false, },
+        },
     },
-    compute(params) {
-        const { a, b, strict } = params;
-        return anyEquals(a, b, { strict });
+    result: {
+        schema: { type: 'boolean' },
     }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    const { a, b, strict } = params;
+    return anyEquals(a, b, { strict });
 };
