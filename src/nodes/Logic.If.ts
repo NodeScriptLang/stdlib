@@ -1,33 +1,34 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-export const node: Operator<{
+type P = {
     condition: boolean;
     positive: unknown;
     negative: unknown;
-}, unknown> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Logic.If',
-        version: '1.0.0',
-        tags: ['Logic', 'Data'],
-        label: 'If',
-        description: 'Returns "positive" if specified condition is true, or "negative" otherwise.',
-        keywords: ['check', 'condition'],
-        params: {
-            condition: {
-                schema: { type: 'boolean' },
-            },
-            positive: {
-                schema: { type: 'any' },
-            },
-            negative: {
-                schema: { type: 'any' },
-            },
+};
+
+type R = unknown;
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'If',
+    description: 'Returns "positive" if specified condition is true, or "negative" otherwise.',
+    keywords: ['check', 'condition'],
+    params: {
+        condition: {
+            schema: { type: 'boolean' },
         },
-        result: { type: 'boolean' },
+        positive: {
+            schema: { type: 'any' },
+        },
+        negative: {
+            schema: { type: 'any' },
+        },
     },
-    compute(params) {
-        const { condition, positive, negative } = params;
-        return condition ? positive : negative;
+    result: {
+        schema: { type: 'boolean' },
     }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    const { condition, positive, negative } = params;
+    return condition ? positive : negative;
 };

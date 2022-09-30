@@ -1,8 +1,8 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import { anyEquals } from '../lib/compare.js';
 
-export enum CompareOp {
+enum CompareOp {
     Equal = 'Equal',
     NotEqual = 'Not Equal',
     GreaterThan = 'Greater Than',
@@ -11,55 +11,56 @@ export enum CompareOp {
     LessThanOrEqual = 'Less Than or Equal',
 }
 
-export const node: Operator<{
+type P = {
     op: CompareOp;
     a: unknown;
     b: unknown;
-}, boolean> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Logic.Compare',
-        version: '1.0.1',
-        tags: ['Logic', 'Data', 'Boolean'],
-        label: 'Compare',
-        labelParam: 'op',
-        description: 'Compares two values using the specified operator.',
-        keywords: ['compare', 'greater', 'less', 'than', 'equals'],
-        params: {
-            op: {
-                label: 'Operator',
-                schema: {
-                    type: 'string',
-                    enum: Object.values(CompareOp),
-                    default: CompareOp.Equal,
-                },
-            },
-            a: {
-                schema: { type: 'any' },
-            },
-            b: {
-                schema: { type: 'any' },
+};
+
+type R = boolean;
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Compare',
+    labelParam: 'op',
+    description: 'Compares two values using the specified operator.',
+    keywords: ['compare', 'greater', 'less', 'than', 'equals'],
+    params: {
+        op: {
+            label: 'Operator',
+            schema: {
+                type: 'string',
+                enum: Object.values(CompareOp),
+                default: CompareOp.Equal,
             },
         },
-        result: { type: 'boolean' },
+        a: {
+            schema: { type: 'any' },
+        },
+        b: {
+            schema: { type: 'any' },
+        },
     },
-    compute(params) {
-        const { a, b, op } = params;
-        switch (op) {
-            case CompareOp.Equal:
-                return anyEquals(a, b, { strict: true });
-            case CompareOp.NotEqual:
-                return !anyEquals(a, b, { strict: true });
-            case CompareOp.LessThan:
-                return (a as any) < (b as any);
-            case CompareOp.LessThanOrEqual:
-                return (a as any) <= (b as any);
-            case CompareOp.GreaterThan:
-                return (a as any) > (b as any);
-            case CompareOp.GreaterThanOrEqual:
-                return (a as any) >= (b as any);
-            default:
-                return false;
-        }
+    result: {
+        schema: { type: 'boolean' },
+    }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    const { a, b, op } = params;
+    switch (op) {
+        case CompareOp.Equal:
+            return anyEquals(a, b, { strict: true });
+        case CompareOp.NotEqual:
+            return !anyEquals(a, b, { strict: true });
+        case CompareOp.LessThan:
+            return (a as any) < (b as any);
+        case CompareOp.LessThanOrEqual:
+            return (a as any) <= (b as any);
+        case CompareOp.GreaterThan:
+            return (a as any) > (b as any);
+        case CompareOp.GreaterThanOrEqual:
+            return (a as any) >= (b as any);
+        default:
+            return false;
     }
 };

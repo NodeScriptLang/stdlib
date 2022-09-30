@@ -1,24 +1,27 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-export const node: Operator<{ value: boolean }, boolean> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Boolean',
-        version: '1.0.0',
-        tags: ['Data', 'Boolean'],
-        label: 'Boolean',
-        description: 'Converts value into a boolean.',
-        keywords: ['boolean', 'logic', 'true', 'false'],
-        params: {
-            value: {
-                schema: {
-                    type: 'boolean',
-                },
-            }
-        },
-        result: { type: 'boolean' },
+type P = {
+    value: boolean;
+};
+
+type R = boolean;
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Boolean',
+    description: 'Converts value into a boolean.',
+    keywords: ['boolean', 'logic', 'true', 'false'],
+    params: {
+        value: {
+            schema: {
+                type: 'boolean',
+            },
+        }
     },
-    compute(params) {
-        return params.value;
+    result: {
+        schema: { type: 'boolean' },
     }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    return params.value;
 };

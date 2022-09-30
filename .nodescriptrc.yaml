@@ -1,2 +1,4 @@
-nodes:
-  - out/nodes/**/*.js
+modules:
+  - pattern: src/nodes/**/*.ts
+    channelId: stdlib
+    sourceUrl: https://github.com/NodeScriptLang/stdlib/blob/main/{file}

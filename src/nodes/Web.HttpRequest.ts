@@ -1,4 +1,4 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import { base64ToString, stringToBase64 } from '../lib/base64.js';
 import {
@@ -8,103 +8,102 @@ import {
     getHeaderValue,
 } from '../lib/web.js';
 
-export const node: Operator<{
+type P = {
     method: FetchMethod;
     url: string;
     headers: Record<string, any>;
     body: any;
     followRedirects: boolean;
     proxyUrl: string;
-}, Promise<unknown>> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Web.HttpRequest',
-        version: '1.1.1',
-        tags: ['Web'],
-        label: 'Http Request',
-        description: `
-            Sends an HTTP request using backend-powered HTTP client.
-            The request is not subject to CORS limitations of the browser
-            and can be used to specify and access arbitrary request/response headders.
-        `,
-        keywords: ['http', 'request', 'send'],
-        params: {
-            method: {
-                schema: {
-                    type: 'string',
-                    enum: Object.values(FetchMethod),
-                    default: FetchMethod.GET,
-                },
+};
+
+type R = Promise<unknown>;
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Http Request',
+    description: `
+        Sends an HTTP request using backend-powered HTTP client.
+        The request is not subject to CORS limitations of the browser
+        and can be used to specify and access arbitrary request/response headders.
+    `,
+    keywords: ['http', 'request', 'send'],
+    params: {
+        method: {
+            schema: {
+                type: 'string',
+                enum: Object.values(FetchMethod),
+                default: FetchMethod.GET,
             },
-            url: {
-                schema: { type: 'string' },
-            },
-            headers: {
-                schema: { type: 'object' },
-            },
-            body: {
-                schema: { type: 'any' },
-                hideValue: true,
-            },
-            followRedirects: {
-                schema: { type: 'boolean', default: true },
-            },
-            proxyUrl: {
-                schema: { type: 'string' },
-            }
         },
-        result: {
-            type: 'any',
+        url: {
+            schema: { type: 'string' },
         },
-        async: true,
-        cacheMode: 'always',
-        evalMode: 'manual',
+        headers: {
+            schema: { type: 'object' },
+        },
+        body: {
+            schema: { type: 'any' },
+            hideValue: true,
+        },
+        followRedirects: {
+            schema: { type: 'boolean', default: true },
+        },
+        proxyUrl: {
+            schema: { type: 'string' },
+        }
     },
-    async compute(params) {
-        const { method, url, headers, body, followRedirects, proxyUrl } = params;
-        if (!url) {
-            // Do not send requests to self by default
-            return undefined;
-        }
-        if (!/^https?:\/\//.test(url)) {
-            throw new Error('URL must start with http:// or https://');
-        }
-        const actualHeaders = prepareHeaders(headers);
-        const [actualBody, contentType] = determineRequestBody(method, body);
-        if (contentType && !getHeaderValue(actualHeaders, 'Content-Type')) {
-            actualHeaders['Content-Type'] = [contentType];
-        }
-        const fetchServiceUrl = `${getHubUrl()}/Fetch/sendRequest`;
-        const proxy = proxyUrl.trim() ? proxyUrl : undefined;
-        const request: FetchServiceRequest = {
-            url,
-            method,
-            headers: actualHeaders,
-            bodyBase64: actualBody ? stringToBase64(actualBody) : undefined,
-            followRedirects,
-            proxy,
-        };
-        const res = await fetch(fetchServiceUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                request
-            }),
-        });
-        const json = await res.json();
-        const response: FetchServiceResponse = json.response;
-        const responseBodyText = base64ToString(response.bodyBase64);
-        const isJson = (getHeaderValue(response.headers, 'Content-Type') ?? '').includes('application/json');
-        const responseBody = isJson ? JSON.parse(responseBodyText) : responseBodyText;
-        return {
-            url: response.url,
-            status: response.status,
-            headers: response.headers,
-            body: responseBody,
-        };
+    result: {
+        async: true,
+        schema: { type: 'any' },
+    },
+    cacheMode: 'always',
+    evalMode: 'manual',
+};
+
+export const compute: ModuleCompute<P, R> = async params => {
+    const { method, url, headers, body, followRedirects, proxyUrl } = params;
+    if (!url) {
+        // Do not send requests to self by default
+        return undefined;
     }
+    if (!/^https?:\/\//.test(url)) {
+        throw new Error('URL must start with http:// or https://');
+    }
+    const actualHeaders = prepareHeaders(headers);
+    const [actualBody, contentType] = determineRequestBody(method, body);
+    if (contentType && !getHeaderValue(actualHeaders, 'Content-Type')) {
+        actualHeaders['Content-Type'] = [contentType];
+    }
+    const fetchServiceUrl = `${getHubUrl()}/Fetch/sendRequest`;
+    const proxy = proxyUrl.trim() ? proxyUrl : undefined;
+    const request: FetchServiceRequest = {
+        url,
+        method,
+        headers: actualHeaders,
+        bodyBase64: actualBody ? stringToBase64(actualBody) : undefined,
+        followRedirects,
+        proxy,
+    };
+    const res = await fetch(fetchServiceUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            request
+        }),
+    });
+    const json = await res.json();
+    const response: FetchServiceResponse = json.response;
+    const responseBodyText = base64ToString(response.bodyBase64);
+    const isJson = (getHeaderValue(response.headers, 'Content-Type') ?? '').includes('application/json');
+    const responseBody = isJson ? JSON.parse(responseBodyText) : responseBodyText;
+    return {
+        url: response.url,
+        status: response.status,
+        headers: response.headers,
+        body: responseBody,
+    };
 };
 
 function prepareHeaders(headers: Record<string, unknown>): FetchHeaders {

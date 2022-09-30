@@ -1,30 +1,31 @@
-import { Operator } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-export const node: Operator<{
+type P = {
     items: unknown[];
-}, unknown[]> = {
-    metadata: {
-        channel: 'stdlib',
-        name: 'Array',
-        version: '1.0.0',
-        tags: ['Data', 'Array'],
-        label: 'Array',
-        description: 'Creates an array with computed items.',
-        keywords: ['array', 'list', 'items', 'entries'],
-        params: {
-            items: {
-                schema: {
-                    type: 'array',
-                    items: { type: 'any' }
-                },
-            }
-        },
-        result: {
+};
+
+type R = unknown[];
+
+export const module: ModuleDefinition<P, R> = {
+    label: 'Array',
+    description: 'Creates an array with computed items.',
+    keywords: ['array', 'list', 'items', 'entries'],
+    params: {
+        items: {
+            schema: {
+                type: 'array',
+                items: { type: 'any' }
+            },
+        }
+    },
+    result: {
+        schema: {
             type: 'array',
             items: { type: 'any' },
-        },
+        }
     },
-    compute(params) {
-        return params.items;
-    }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    return params.items;
 };
