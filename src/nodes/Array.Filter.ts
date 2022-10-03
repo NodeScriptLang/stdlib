@@ -8,6 +8,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Array.Filter',
     label: 'Filter',
     description: `
         Returns items of specified array for which the corresponding condition is true.

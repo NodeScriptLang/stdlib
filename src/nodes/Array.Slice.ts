@@ -9,6 +9,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Array.Slice',
     label: 'Slice',
     description: `
         Returns a portion of an array, starting and ending at specified indexes.

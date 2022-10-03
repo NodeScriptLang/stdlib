@@ -7,6 +7,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Web.SearchParams',
     label: 'Search Params',
     description: `
         Creates a search parameters from key/value pairs,

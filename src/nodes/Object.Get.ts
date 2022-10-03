@@ -10,6 +10,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Object.Get',
     label: 'Get',
     labelParam: 'key',
     description: `

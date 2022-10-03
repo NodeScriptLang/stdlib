@@ -7,6 +7,7 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Math.Product',
     label: 'Product',
     description: `
         Computes a sum of specified items.

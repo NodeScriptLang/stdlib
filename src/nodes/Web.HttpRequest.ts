@@ -20,6 +20,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Web.HttpRequest',
     label: 'Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.

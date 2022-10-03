@@ -10,6 +10,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/RegExp.Switch',
     label: 'RegExp Switch',
     description: `
         Matches a string against a series of regular expressions specified as pattern keys.

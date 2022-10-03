@@ -10,6 +10,7 @@ type P = {
 type R = ArrayBuffer;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/String.ToBytes',
     label: 'String To Bytes',
     description: 'Converts a string into an ArrayBuffer.',
     keywords: ['string', 'text', 'byte', 'buffer', 'array', 'binary'],

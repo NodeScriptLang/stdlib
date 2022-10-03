@@ -11,6 +11,7 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Logic.Contains',
     label: 'Contains',
     description: 'Checks if "needle" occurs anywhere inside "haystack".',
     keywords: ['check', 'includes', 'find', 'search'],

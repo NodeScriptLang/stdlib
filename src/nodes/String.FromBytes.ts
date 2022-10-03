@@ -10,6 +10,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/String.FromBytes',
     label: 'String From Bytes',
     description: 'Converts an ArrayBuffer into a string in specified encoding.',
     keywords: ['string', 'text', 'byte', 'buffer', 'array', 'binary'],

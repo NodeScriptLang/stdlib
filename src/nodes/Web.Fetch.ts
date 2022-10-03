@@ -12,6 +12,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Web.Fetch',
     label: 'Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.

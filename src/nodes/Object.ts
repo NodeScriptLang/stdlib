@@ -9,6 +9,7 @@ type P = {
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Object',
     label: 'Object',
     description: `
         Creates an object with computed values per each key.

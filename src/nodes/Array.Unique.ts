@@ -10,6 +10,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Array.Unique',
     label: 'Array Unique',
     description: `
         Returns an array consisting of unique items.

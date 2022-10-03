@@ -11,6 +11,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/RegExp.Replace',
     label: 'RegExp Replace',
     description: `
         Replaces all occurrences of a regular expression in a string.

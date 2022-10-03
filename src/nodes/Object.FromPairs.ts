@@ -7,6 +7,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Object.FromPairs',
     label: 'Object From Pairs',
     description: `
         Converts an array of [key, value] pairs into an object.

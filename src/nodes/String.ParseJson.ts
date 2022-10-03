@@ -7,6 +7,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/String.ParseJson',
     label: 'Parse JSON',
     description: 'Parses a specified string as JSON.',
     keywords: ['string', 'text', 'parse'],

@@ -5,6 +5,7 @@ type P = { value: boolean };
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Not',
     label: 'Not',
     description: 'Returns the negated value of specified boolean.',
     keywords: ['check', 'null', 'undefined'],

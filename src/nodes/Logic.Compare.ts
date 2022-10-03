@@ -20,6 +20,7 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
+    moduleName: '@stdlib/Logic.Compare',
     label: 'Compare',
     labelParam: 'op',
     description: 'Compares two values using the specified operator.',
