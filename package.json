@@ -27,7 +27,7 @@
         "lint"
     ],
     "dependencies": {
-        "@nodescript/core": "^1.4.0"
+        "@nodescript/core": "^1.5.2"
     },
     "devDependencies": {
         "@flexent/eslint-config": "^1.0.3",

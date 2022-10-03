@@ -29,9 +29,6 @@ export const module: ModuleDefinition<P, R> = {
     result: {
         schema: { type: 'object' },
     },
-    attributes: {
-        edgeUxRole: 'Get',
-    }
 };
 
 export const compute: ModuleCompute<P, R> = params => {
