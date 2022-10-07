@@ -27,6 +27,7 @@
         "lint"
     ],
     "dependencies": {
+        "@flexent/pointer": "^1.0.0",
         "@nodescript/core": "^1.5.3"
     },
     "devDependencies": {

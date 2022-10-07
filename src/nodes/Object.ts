@@ -1,6 +1,5 @@
+import { set } from '@flexent/pointer';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-
-import { setValue } from '../lib/object.js';
 
 type P = {
     properties: Record<string, unknown>;
@@ -31,7 +30,7 @@ export const module: ModuleDefinition<P, R> = {
 export const compute: ModuleCompute<P, R> = params => {
     const obj: any = {};
     for (const [key, value] of Object.entries(params.properties)) {
-        setValue(obj, key, value);
+        set(obj, key, value);
     }
     return obj;
 };

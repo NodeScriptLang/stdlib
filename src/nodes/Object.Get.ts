@@ -1,6 +1,5 @@
+import { get } from '@flexent/pointer';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-
-import { getValue } from '../lib/object.js';
 
 type P = {
     object: unknown;
@@ -32,5 +31,5 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = params => {
-    return getValue(params.object, params.key);
+    return get(params.object, params.key);
 };
