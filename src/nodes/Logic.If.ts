@@ -10,6 +10,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: '@stdlib/Logic.If',
+    version: '1.0.0',
     label: 'If',
     description: 'Returns "positive" if specified condition is true, or "negative" otherwise.',
     keywords: ['check', 'condition'],

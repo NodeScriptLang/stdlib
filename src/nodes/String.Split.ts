@@ -11,6 +11,7 @@ type R = string[];
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: '@stdlib/String.Split',
+    version: '1.0.0',
     label: 'Split String',
     description: `
         Splits a string into multiple components delimited with specified separator.

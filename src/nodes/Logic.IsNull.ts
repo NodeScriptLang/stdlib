@@ -6,6 +6,7 @@ type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: '@stdlib/Logic.IsNull',
+    version: '1.0.0',
     label: 'Is Null',
     description: 'Returns true if the specified value is null, undefined or NaN.',
     keywords: ['check', 'null', 'undefined'],

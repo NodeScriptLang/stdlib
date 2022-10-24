@@ -8,6 +8,7 @@ type R = any;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: '@stdlib/Web.SearchParams',
+    version: '1.0.0',
     label: 'Search Params',
     description: `
         Creates a search parameters from key/value pairs,

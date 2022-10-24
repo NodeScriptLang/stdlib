@@ -11,6 +11,7 @@ type R = string;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: '@stdlib/Web.BasicAuth',
+    version: '1.0.0',
     label: 'Basic Auth',
     description: `
         Creates a basic HTTP authorization header given a username and a password.

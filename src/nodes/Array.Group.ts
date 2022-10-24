@@ -12,6 +12,7 @@ type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: '@stdlib/Array.Group',
+    version: '1.0.0',
     label: 'Group',
     description: `
         Groups the array by specified keys.

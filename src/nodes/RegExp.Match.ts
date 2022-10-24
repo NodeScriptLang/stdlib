@@ -11,6 +11,7 @@ type R = any;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: '@stdlib/RegExp.Match',
+    version: '1.0.0',
     label: 'RegExp Match',
     description: `
         Matches a string against a regular expression.

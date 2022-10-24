@@ -8,6 +8,7 @@ type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: '@stdlib/Logic.Or',
+    version: '1.0.0',
     label: 'Or',
     description: 'Returns true if any of the specified conditions are true, or false otherwise.',
     keywords: ['or', 'any', 'some'],

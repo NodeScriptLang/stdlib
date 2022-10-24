@@ -12,6 +12,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: '@stdlib/Logic.Switch',
+    version: '1.0.0',
     label: 'Switch',
     description: `
         Matches a value against a series of cases and returns the result of the first match.

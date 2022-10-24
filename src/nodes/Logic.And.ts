@@ -8,6 +8,7 @@ type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: '@stdlib/Logic.And',
+    version: '1.0.0',
     label: 'And',
     description: 'Returns false if any of the specified conditions are false, or true otherwise.',
     keywords: ['and', 'all', 'every'],
