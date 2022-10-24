@@ -28,7 +28,7 @@
     ],
     "dependencies": {
         "@flexent/pointer": "^1.0.0",
-        "@nodescript/core": "^2.0.0"
+        "@nodescript/core": "^2.1.4"
     },
     "devDependencies": {
         "@flexent/eslint-config": "^1.0.3",
