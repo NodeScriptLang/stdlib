@@ -11,7 +11,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Logic.Switch',
+    moduleId: '@stdlib/Logic.Switch',
     version: '1.0.0',
     label: 'Switch',
     description: `

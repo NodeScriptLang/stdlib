@@ -8,7 +8,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/String.Join',
+    moduleId: '@stdlib/String.Join',
     version: '1.0.0',
     label: 'Join Strings',
     description: 'Joins multiple strings together with a specified separator.',

@@ -4,7 +4,7 @@ type P = { value: string };
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/String',
+    moduleId: '@stdlib/String',
     version: '1.0.0',
     label: 'String',
     description: 'Convert value into a string.',

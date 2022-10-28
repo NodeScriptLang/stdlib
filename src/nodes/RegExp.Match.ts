@@ -10,7 +10,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/RegExp.Match',
+    moduleId: '@stdlib/RegExp.Match',
     version: '1.0.0',
     label: 'RegExp Match',
     description: `

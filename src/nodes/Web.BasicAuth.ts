@@ -10,7 +10,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Web.BasicAuth',
+    moduleId: '@stdlib/Web.BasicAuth',
     version: '1.0.0',
     label: 'Basic Auth',
     description: `

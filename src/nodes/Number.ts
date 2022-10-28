@@ -4,7 +4,7 @@ type P = { value: number };
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Number',
+    moduleId: '@stdlib/Number',
     version: '1.0.0',
     label: 'Number',
     description: 'Converts value into a number.',

@@ -7,7 +7,7 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Array.Length',
+    moduleId: '@stdlib/Array.Length',
     version: '1.0.0',
     label: 'Array Length',
     description: `

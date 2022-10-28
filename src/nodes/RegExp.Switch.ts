@@ -10,7 +10,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/RegExp.Switch',
+    moduleId: '@stdlib/RegExp.Switch',
     version: '1.0.0',
     label: 'RegExp Switch',
     description: `

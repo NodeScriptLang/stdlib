@@ -20,7 +20,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Web.HttpRequest',
+    moduleId: '@stdlib/Web.HttpRequest',
     version: '1.0.0',
     label: 'Http Request',
     description: `

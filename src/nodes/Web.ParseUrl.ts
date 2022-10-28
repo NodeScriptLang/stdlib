@@ -9,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Web.ParseUrl',
+    moduleId: '@stdlib/Web.ParseUrl',
     version: '1.0.0',
     label: 'Parse URL',
     description: `

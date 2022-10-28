@@ -9,7 +9,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Array.Slice',
+    moduleId: '@stdlib/Array.Slice',
     version: '1.0.0',
     label: 'Slice',
     description: `

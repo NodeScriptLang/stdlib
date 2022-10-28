@@ -7,7 +7,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Object.FromPairs',
+    moduleId: '@stdlib/Object.FromPairs',
     version: '1.0.0',
     label: 'Object From Pairs',
     description: `

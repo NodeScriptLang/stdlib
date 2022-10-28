@@ -11,7 +11,7 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Logic.Equals',
+    moduleId: '@stdlib/Logic.Equals',
     version: '1.0.0',
     label: 'Equals',
     description: 'Checks if two values are structurally equal.',

@@ -8,7 +8,7 @@ type P = {
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Object',
+    moduleId: '@stdlib/Object',
     version: '1.0.0',
     label: 'Object',
     description: `

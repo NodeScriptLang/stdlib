@@ -8,7 +8,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: '@stdlib/Array.Filter',
+    moduleId: '@stdlib/Array.Filter',
     version: '1.0.0',
     label: 'Filter',
     description: `
