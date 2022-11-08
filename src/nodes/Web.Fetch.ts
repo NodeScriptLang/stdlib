@@ -12,9 +12,9 @@ type P = {
 
 type R = Promise<unknown>;
 
-export const module: ModuleDefinition<P, R> = /* @__PURE__ */ {
+export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Web.Fetch',
-    version: '1.1.2',
+    version: '1.1.3',
     label: 'Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -26,8 +26,8 @@ export const module: ModuleDefinition<P, R> = /* @__PURE__ */ {
         method: {
             schema: {
                 type: 'string',
-                enum: Object.values(FetchMethod),
-                default: FetchMethod.GET,
+                enum: ['GET', 'POST', 'PUT', 'DELETE'],
+                default: 'GET',
             },
         },
         url: {
