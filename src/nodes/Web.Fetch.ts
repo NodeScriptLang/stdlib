@@ -1,19 +1,20 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { determineRequestBody, FetchMethod, headersToObject } from '../lib/web.js';
+import { determineRequestBody, FetchMethod, headersToObject, mergeUrlQuery } from '../lib/web.js';
 
 type P = {
     method: FetchMethod;
     url: string;
+    query: Record<string, string>;
     headers: Record<string, any>;
     body: any;
 };
 
 type R = Promise<unknown>;
 
-export const module: ModuleDefinition<P, R> = {
+export const module: ModuleDefinition<P, R> = /* @__PURE__ */ {
     moduleId: '@stdlib/Web.Fetch',
-    version: '1.0.0',
+    version: '1.1.2',
     label: 'Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -31,6 +32,12 @@ export const module: ModuleDefinition<P, R> = {
         },
         url: {
             schema: { type: 'string' },
+        },
+        query: {
+            schema: {
+                type: 'object',
+                additionalProperties: { type: 'string' },
+            },
         },
         headers: {
             schema: { type: 'object' },
@@ -51,7 +58,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async params => {
-    const { method, url, headers, body } = params;
+    const { method, url, query, headers, body } = params;
     if (!url) {
         // Do not send requests to self by default
         return undefined;
@@ -59,12 +66,13 @@ export const compute: ModuleCompute<P, R> = async params => {
     if (!/^https?:\/\//.test(url)) {
         throw new Error('URL must start with http:// or https://');
     }
+    const actualUrl = mergeUrlQuery(url, query);
     const actualHeaders = new Headers(headers);
     const [actualBody, bodyContentType] = determineRequestBody(method, body);
     if (bodyContentType && !actualHeaders.has('Content-Type')) {
         actualHeaders.set('Content-Type', bodyContentType);
     }
-    const res = await fetch(url, {
+    const res = await fetch(actualUrl, {
         method,
         headers: actualHeaders,
         body: actualBody,

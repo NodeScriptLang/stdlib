@@ -17,6 +17,14 @@ export function parseQueryString(qs: string): Record<string, string[]> {
     return result;
 }
 
+export function mergeUrlQuery(url: string, query: Record<string, string>) {
+    const parsedUrl = new URL(url);
+    for (const [key, value] of Object.entries(query)) {
+        parsedUrl.searchParams.append(key, value);
+    }
+    return parsedUrl.toString();
+}
+
 export function determineRequestBody(method: FetchMethod, body: any): [string | undefined, string | undefined] {
     switch (true) {
         case method === FetchMethod.GET:

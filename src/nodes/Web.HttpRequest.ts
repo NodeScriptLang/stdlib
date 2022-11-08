@@ -6,11 +6,13 @@ import {
     FetchHeaders,
     FetchMethod,
     getHeaderValue,
+    mergeUrlQuery,
 } from '../lib/web.js';
 
 type P = {
     method: FetchMethod;
     url: string;
+    query: Record<string, string>;
     headers: Record<string, any>;
     body: any;
     followRedirects: boolean;
@@ -19,9 +21,9 @@ type P = {
 
 type R = Promise<unknown>;
 
-export const module: ModuleDefinition<P, R> = {
+export const module: ModuleDefinition<P, R> = /* @__PURE__ */ {
     moduleId: '@stdlib/Web.HttpRequest',
-    version: '1.0.0',
+    version: '1.1.2',
     label: 'Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -35,6 +37,12 @@ export const module: ModuleDefinition<P, R> = {
                 type: 'string',
                 enum: Object.values(FetchMethod),
                 default: FetchMethod.GET,
+            },
+        },
+        query: {
+            schema: {
+                type: 'object',
+                additionalProperties: { type: 'string' },
             },
         },
         url: {
@@ -63,7 +71,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async params => {
-    const { method, url, headers, body, followRedirects, proxyUrl } = params;
+    const { method, url, query, headers, body, followRedirects, proxyUrl } = params;
     if (!url) {
         // Do not send requests to self by default
         return undefined;
@@ -71,6 +79,7 @@ export const compute: ModuleCompute<P, R> = async params => {
     if (!/^https?:\/\//.test(url)) {
         throw new Error('URL must start with http:// or https://');
     }
+    const actualUrl = mergeUrlQuery(url, query);
     const actualHeaders = prepareHeaders(headers);
     const [actualBody, contentType] = determineRequestBody(method, body);
     if (contentType && !getHeaderValue(actualHeaders, 'Content-Type')) {
@@ -79,7 +88,7 @@ export const compute: ModuleCompute<P, R> = async params => {
     const fetchServiceUrl = `${getHubUrl()}/Fetch/sendRequest`;
     const proxy = proxyUrl.trim() ? proxyUrl : undefined;
     const request: FetchServiceRequest = {
-        url,
+        url: actualUrl,
         method,
         headers: actualHeaders,
         bodyBase64: actualBody ? stringToBase64(actualBody) : undefined,
@@ -118,7 +127,7 @@ function prepareHeaders(headers: Record<string, unknown>): FetchHeaders {
 
 function getHubUrl() {
     const origin = globalThis.location?.origin ?? '';
-    if (/\bstaging\.|demo\.|localhost|127.0.0.1\b/.test(origin)) {
+    if (/\b(staging\.|localhost|127.0.0.1)\b/.test(origin)) {
         return 'https://fetch.staging.nodescript.dev';
     }
     return 'https://fetch.nodescript.dev';
