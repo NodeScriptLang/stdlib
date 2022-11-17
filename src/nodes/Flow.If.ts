@@ -10,7 +10,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Flow.If',
-    version: '1.0.0',
+    version: '1.0.1',
     label: 'If',
     description: 'Returns "positive" if specified condition is true, or "negative" otherwise.',
     keywords: ['check', 'condition'],
@@ -28,7 +28,7 @@ export const module: ModuleDefinition<P, R> = {
         },
     },
     result: {
-        schema: { type: 'boolean' },
+        schema: { type: 'any' },
     }
 };
 
