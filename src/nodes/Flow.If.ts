@@ -9,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Logic.If',
+    moduleId: '@stdlib/Flow.If',
     version: '1.0.0',
     label: 'If',
     description: 'Returns "positive" if specified condition is true, or "negative" otherwise.',
@@ -19,9 +19,11 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'boolean' },
         },
         positive: {
+            deferred: true,
             schema: { type: 'any' },
         },
         negative: {
+            deferred: true,
             schema: { type: 'any' },
         },
     },
@@ -30,7 +32,9 @@ export const module: ModuleDefinition<P, R> = {
     }
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { condition, positive, negative } = params;
-    return condition ? positive : negative;
+    return condition ?
+        ctx.resolveDeferred(positive) :
+        ctx.resolveDeferred(negative);
 };
