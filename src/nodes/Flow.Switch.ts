@@ -11,7 +11,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Logic.Switch',
+    moduleId: '@stdlib/Flow.Switch',
     version: '1.0.0',
     label: 'Switch',
     description: `
@@ -25,9 +25,11 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'any' },
         },
         cases: {
+            deferred: true,
             schema: { type: 'object' },
         },
         default: {
+            deferred: true,
             schema: { type: 'any' },
         }
     },
@@ -35,13 +37,13 @@ export const module: ModuleDefinition<P, R> = {
         schema: { type: 'any' },
     }
 };
-export const compute: ModuleCompute<P, R> = params => {
-    const { value, cases, default: defaultValue } = params;
-    for (const [key, result] of Object.entries(cases)) {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
+    const { value } = params;
+    for (const [key, result] of Object.entries(params.cases)) {
         const match = anyEquals(value, key);
         if (match) {
-            return result;
+            return ctx.resolveDeferred(result);
         }
     }
-    return defaultValue;
+    return ctx.resolveDeferred(params.default);
 };
