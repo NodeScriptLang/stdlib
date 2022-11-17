@@ -8,7 +8,7 @@ type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Flow.Fallback',
-    version: '1.0.0',
+    version: '1.0.1',
     label: 'Fallback',
     description: 'Runs the steps one-by-one and returns the first successful non-null result.',
     keywords: ['flow'],
@@ -34,7 +34,11 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
             if (value != null) {
                 return value;
             }
-        } catch (error) {}
+        } catch (error: any) {
+            if (error.code === 'EPENDING') {
+                throw error;
+            }
+        }
     }
     return null;
 };
