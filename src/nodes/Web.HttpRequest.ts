@@ -1,6 +1,6 @@
+import { base64ToString, stringToBase64 } from '@flexent/base64';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { base64ToString, stringToBase64 } from '../lib/base64.js';
 import {
     determineRequestBody,
     FetchHeaders,

@@ -1,6 +1,5 @@
+import { base64ToBuffer, base64ToString } from '@flexent/base64';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-
-import { base64ToBuffer, base64ToString } from '../lib/base64.js';
 
 type P = {
     value: string;

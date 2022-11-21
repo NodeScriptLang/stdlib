@@ -1,6 +1,5 @@
+import { stringToBase64 } from '@flexent/base64';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-
-import { stringToBase64 } from '../lib/base64.js';
 
 type P = {
     username: string;
