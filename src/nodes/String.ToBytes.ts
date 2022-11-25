@@ -1,6 +1,5 @@
+import { binaryStringToBuffer } from '@flexent/binary-utils';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-
-import { binaryStringToBuffer } from '../lib/binary.js';
 
 type P = {
     string: string;

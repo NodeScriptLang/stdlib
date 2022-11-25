@@ -1,4 +1,4 @@
-import { base64ToBuffer, base64ToString } from '@flexent/base64';
+import { base64ToBuffer, base64ToString } from '@flexent/binary-utils';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {

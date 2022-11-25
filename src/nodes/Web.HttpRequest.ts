@@ -1,4 +1,4 @@
-import { base64ToString, stringToBase64 } from '@flexent/base64';
+import { base64ToString, stringToBase64 } from '@flexent/binary-utils';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import {

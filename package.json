@@ -27,7 +27,7 @@
         "lint"
     ],
     "dependencies": {
-        "@flexent/base64": "^1.0.0",
+        "@flexent/binary-utils": "^1.2.0",
         "@flexent/pointer": "^1.0.0",
         "@nodescript/core": "^3.2.0"
     },

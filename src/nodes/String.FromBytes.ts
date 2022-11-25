@@ -1,6 +1,5 @@
+import { bufferToBinaryString } from '@flexent/binary-utils';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-
-import { bufferToBinaryString } from '../lib/binary.js';
 
 type P = {
     buffer: ArrayBuffer;
