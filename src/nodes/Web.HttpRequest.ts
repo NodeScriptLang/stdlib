@@ -23,7 +23,7 @@ type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Web.HttpRequest',
-    version: '1.1.3',
+    version: '1.1.4',
     label: 'Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -39,14 +39,14 @@ export const module: ModuleDefinition<P, R> = {
                 default: 'GET',
             },
         },
+        url: {
+            schema: { type: 'string' },
+        },
         query: {
             schema: {
                 type: 'object',
                 additionalProperties: { type: 'string' },
             },
-        },
-        url: {
-            schema: { type: 'string' },
         },
         headers: {
             schema: { type: 'object' },
