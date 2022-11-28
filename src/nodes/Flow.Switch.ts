@@ -3,7 +3,7 @@ import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 import { anyEquals } from '../lib/compare.js';
 
 type P = {
-    value: unknown;
+    value: string;
     cases: Record<string, unknown>;
     default: unknown;
 };
@@ -12,7 +12,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Flow.Switch',
-    version: '1.0.0',
+    version: '1.0.1',
     label: 'Switch',
     description: `
         Matches a value against a series of cases and returns the result of the first match.
@@ -22,7 +22,7 @@ export const module: ModuleDefinition<P, R> = {
     keywords: ['match', 'map', 'select'],
     params: {
         value: {
-            schema: { type: 'any' },
+            schema: { type: 'string' },
         },
         cases: {
             deferred: true,
