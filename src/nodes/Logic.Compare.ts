@@ -21,7 +21,7 @@ type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Logic.Compare',
-    version: '1.0.0',
+    version: '1.0.1',
     label: 'Compare',
     labelParam: 'op',
     description: 'Compares two values using the specified operator.',
@@ -51,9 +51,9 @@ export const compute: ModuleCompute<P, R> = params => {
     const { a, b, op } = params;
     switch (op) {
         case CompareOp.Equal:
-            return anyEquals(a, b, { strict: true });
+            return anyEquals(a, b);
         case CompareOp.NotEqual:
-            return !anyEquals(a, b, { strict: true });
+            return !anyEquals(a, b);
         case CompareOp.LessThan:
             return (a as any) < (b as any);
         case CompareOp.LessThanOrEqual:
