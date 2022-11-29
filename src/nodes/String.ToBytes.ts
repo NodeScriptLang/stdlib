@@ -1,4 +1,4 @@
-import { binaryStringToBuffer } from '@flexent/binary-utils';
+import { binaryStringToBuffer } from '@nodescript/binary-utils';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {

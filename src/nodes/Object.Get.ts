@@ -1,5 +1,5 @@
-import { get } from '@flexent/pointer';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
+import { get } from '@nodescript/pointer';
 
 type P = {
     object: unknown;

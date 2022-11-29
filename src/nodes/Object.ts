@@ -1,5 +1,5 @@
-import { set } from '@flexent/pointer';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
+import { set } from '@nodescript/pointer';
 
 type P = {
     properties: Record<string, unknown>;
