@@ -1,6 +1,6 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { determineRequestBody, FetchMethod, headersToObject, mergeUrlQuery } from '../lib/web.js';
+import { determineRequestBody, FetchMethod, headersToObject, HttpRequestFailed, mergeUrlQuery } from '../lib/web.js';
 
 type P = {
     method: FetchMethod;
@@ -8,13 +8,14 @@ type P = {
     query: Record<string, string>;
     headers: Record<string, any>;
     body: any;
+    throw: boolean;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Web.Fetch',
-    version: '1.1.3',
+    version: '1.1.5',
     label: 'Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -46,6 +47,9 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'any' },
             hideValue: true,
         },
+        throw: {
+            schema: { type: 'boolean', default: true },
+        }
     },
     result: {
         async: true,
@@ -77,6 +81,9 @@ export const compute: ModuleCompute<P, R> = async params => {
         headers: actualHeaders,
         body: actualBody,
     });
+    if (params.throw && !res.ok) {
+        throw new HttpRequestFailed(res.status, method, url);
+    }
     const bodyType = res.headers.get('Content-Type');
     let responseBody = await res.text();
     if (bodyType && bodyType.startsWith('application/json')) {

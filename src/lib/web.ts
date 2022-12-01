@@ -56,3 +56,12 @@ export function getHeaderValues(headers: FetchHeaders, name: string): string[] {
 export function getHeaderValue(headers: FetchHeaders, name: string): string | undefined {
     return getHeaderValues(headers, name)[0];
 }
+
+export class HttpRequestFailed extends Error {
+
+    constructor(status: number, method: string, url: string) {
+        super(`${status} - ${method} ${url}`);
+        this.name = this.constructor.name;
+    }
+
+}

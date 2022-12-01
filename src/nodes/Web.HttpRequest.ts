@@ -6,6 +6,7 @@ import {
     FetchHeaders,
     FetchMethod,
     getHeaderValue,
+    HttpRequestFailed,
     mergeUrlQuery,
 } from '../lib/web.js';
 
@@ -17,13 +18,14 @@ type P = {
     body: any;
     followRedirects: boolean;
     proxyUrl: string;
+    throw: boolean;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Web.HttpRequest',
-    version: '1.1.4',
+    version: '1.1.5',
     label: 'Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -60,6 +62,9 @@ export const module: ModuleDefinition<P, R> = {
         },
         proxyUrl: {
             schema: { type: 'string' },
+        },
+        throw: {
+            schema: { type: 'boolean', default: true },
         }
     },
     result: {
@@ -106,6 +111,9 @@ export const compute: ModuleCompute<P, R> = async params => {
     });
     const json = await res.json();
     const response: FetchServiceResponse = json.response;
+    if (params.throw && response.status >= 400) {
+        throw new HttpRequestFailed(res.status, method, url);
+    }
     const responseBodyText = base64ToString(response.bodyBase64);
     const isJson = (getHeaderValue(response.headers, 'Content-Type') ?? '').includes('application/json');
     const responseBody = isJson ? JSON.parse(responseBodyText) : responseBodyText;
