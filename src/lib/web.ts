@@ -58,10 +58,12 @@ export function getHeaderValue(headers: FetchHeaders, name: string): string | un
 }
 
 export class HttpRequestFailed extends Error {
+    override name = this.constructor.name;
+    details = {};
 
-    constructor(status: number, method: string, url: string) {
+    constructor(status: number, method: string, url: string, details: any) {
         super(`${status} - ${method} ${url}`);
-        this.name = this.constructor.name;
+        this.details = details;
     }
 
 }

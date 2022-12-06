@@ -1,6 +1,7 @@
 import { base64ToString, stringToBase64 } from '@nodescript/binary-utils';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
+import { tryParseJson } from '../lib/util.js';
 import {
     determineRequestBody,
     FetchHeaders,
@@ -25,7 +26,7 @@ type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Web.HttpRequest',
-    version: '1.1.6',
+    version: '1.1.7',
     label: 'Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -111,10 +112,11 @@ export const compute: ModuleCompute<P, R> = async params => {
     });
     const json = await res.json();
     const response: FetchServiceResponse = json.response;
-    if (params.throw && response.status >= 400) {
-        throw new HttpRequestFailed(response.status, method, url);
-    }
     const responseBodyText = base64ToString(response.bodyBase64);
+    if (params.throw && response.status >= 400) {
+        const details = tryParseJson(responseBodyText) ?? { response: responseBodyText };
+        throw new HttpRequestFailed(response.status, method, url, details);
+    }
     const isJson = (getHeaderValue(response.headers, 'Content-Type') ?? '').includes('application/json');
     const responseBody = isJson ? JSON.parse(responseBodyText) : responseBodyText;
     return {
