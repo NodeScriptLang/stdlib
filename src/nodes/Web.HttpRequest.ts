@@ -1,5 +1,5 @@
 import { base64ToString, stringToBase64 } from '@nodescript/binary-utils';
-import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
+import { GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import { tryParseJson } from '../lib/util.js';
 import {
@@ -26,7 +26,7 @@ type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Web.HttpRequest',
-    version: '1.1.7',
+    version: '1.1.8',
     label: 'Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -76,7 +76,7 @@ export const module: ModuleDefinition<P, R> = {
     evalMode: 'manual',
 };
 
-export const compute: ModuleCompute<P, R> = async params => {
+export const compute: ModuleCompute<P, R> = async (params, ctx) => {
     const { method, url, query, headers, body, followRedirects, proxyUrl } = params;
     if (!url) {
         // Do not send requests to self by default
@@ -91,7 +91,7 @@ export const compute: ModuleCompute<P, R> = async params => {
     if (contentType && !getHeaderValue(actualHeaders, 'Content-Type')) {
         actualHeaders['Content-Type'] = [contentType];
     }
-    const fetchServiceUrl = `${getHubUrl()}/Fetch/sendRequest`;
+    const fetchServiceUrl = `${getHubUrl(ctx)}/Fetch/sendRequest`;
     const proxy = proxyUrl.trim() ? proxyUrl : undefined;
     const request: FetchServiceRequest = {
         url: actualUrl,
@@ -135,12 +135,15 @@ function prepareHeaders(headers: Record<string, unknown>): FetchHeaders {
     return result;
 }
 
-function getHubUrl() {
-    const origin = globalThis.location?.origin ?? '';
-    if (/\b(staging\.|localhost|127.0.0.1)\b/.test(origin)) {
-        return 'https://fetch.staging.nodescript.dev';
+function getHubUrl(ctx: GraphEvalContext) {
+    const env = ctx.getLocal<string>('NS_ENV', 'production');
+    switch (env) {
+        case 'staging':
+            return 'https://fetch.staging.nodescript.dev';
+        case 'production':
+        default:
+            return 'https://fetch.nodescript.dev';
     }
-    return 'https://fetch.nodescript.dev';
 }
 
 interface FetchServiceRequest {
