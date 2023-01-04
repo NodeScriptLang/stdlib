@@ -10,7 +10,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Object.Get',
-    version: '1.0.0',
+    version: '1.0.1',
     label: 'Get',
     labelParam: 'key',
     description: `
@@ -24,10 +24,13 @@ export const module: ModuleDefinition<P, R> = {
         },
         key: {
             schema: { type: 'string' },
+            hint: {
+                pathof: 'object',
+            }
         }
     },
     result: {
-        schema: { type: 'object' },
+        schema: { type: 'any' },
     },
 };
 
