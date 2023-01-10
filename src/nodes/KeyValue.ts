@@ -1,4 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
+import { set } from '@nodescript/pointer';
 
 type P = {
     key: string;
@@ -9,7 +10,7 @@ type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/KeyValue',
-    version: '1.0.0',
+    version: '1.1.0',
     label: 'Key Value',
     description: 'Creates an object with computed key and value.',
     keywords: ['object', 'key', 'value', 'entries', 'wrap'],
@@ -32,5 +33,7 @@ export const module: ModuleDefinition<P, R> = {
 
 export const compute: ModuleCompute<P, R> = params => {
     const { key, value } = params;
-    return { [key]: value };
+    const res = {};
+    set(res, key, value);
+    return res;
 };
