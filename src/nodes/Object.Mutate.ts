@@ -3,26 +3,31 @@ import { set } from '@nodescript/pointer';
 
 type P = {
     object: any;
-    mutations: Record<string, unknown>;
+    key: string;
+    value: any;
 };
 
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Object.Mutate',
-    version: '1.0.0',
+    version: '1.1.0',
     label: 'Mutate Object',
     description: `
-        Mutates the specified object by assigning specified key-value entries to it.
-        Each key can be a JSON pointer or a dot-delimited path.
+        Mutates the specified object by assigning the specified key-value to it.
+        The key can be a JSON pointer or a dot-delimited path.
     `,
     keywords: ['object', 'key', 'value', 'entries', 'wrap'],
     params: {
         object: {
             schema: { type: 'any' },
         },
-        mutations: {
-            schema: { type: 'object' },
+        key: {
+            schema: { type: 'string' },
+            hint: { pathof: 'object' },
+        },
+        value: {
+            schema: { type: 'any' },
         }
     },
     result: {
@@ -31,9 +36,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = params => {
-    const obj = params.object;
-    for (const [key, value] of Object.entries(params.mutations)) {
-        set(obj, key, value);
-    }
-    return obj;
+    const { object, key, value } = params;
+    set(object, key, value);
+    return object;
 };
