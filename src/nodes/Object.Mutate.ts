@@ -1,5 +1,4 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-import { set } from '@nodescript/pointer';
 
 type P = {
     object: any;
@@ -11,7 +10,7 @@ type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Object.Mutate',
-    version: '1.1.0',
+    version: '1.2.0',
     label: 'Mutate Object',
     description: `
         Mutates the specified object by assigning the specified key-value to it.
@@ -35,8 +34,8 @@ export const module: ModuleDefinition<P, R> = {
     },
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { object, key, value } = params;
-    set(object, key, value);
+    ctx.set(object, key, value);
     return object;
 };

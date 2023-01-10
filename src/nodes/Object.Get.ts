@@ -1,5 +1,4 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-import { get } from '@nodescript/pointer';
 
 type P = {
     object: unknown;
@@ -10,7 +9,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Object.Get',
-    version: '1.0.1',
+    version: '1.1.0',
     label: 'Get',
     labelParam: 'key',
     description: `
@@ -34,6 +33,6 @@ export const module: ModuleDefinition<P, R> = {
     },
 };
 
-export const compute: ModuleCompute<P, R> = params => {
-    return get(params.object, params.key);
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
+    return ctx.get(params.object, params.key);
 };

@@ -1,5 +1,4 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-import { get, set } from '@nodescript/pointer';
 
 type P = {
     object: unknown;
@@ -10,7 +9,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Object.Pick',
-    version: '1.0.0',
+    version: '1.1.0',
     label: 'Pick',
     description: `
         Picks specified keys from an object.
@@ -36,13 +35,13 @@ export const module: ModuleDefinition<P, R> = {
     },
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { object, keys } = params;
     const res = {};
     for (const key of keys) {
-        const value = get(object, key);
+        const value = ctx.get(object, key);
         if (value !== undefined) {
-            set(res, key, value);
+            ctx.set(res, key, value);
         }
     }
     return res;

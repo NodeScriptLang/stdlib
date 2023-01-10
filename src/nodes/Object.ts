@@ -1,5 +1,4 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-import { set } from '@nodescript/pointer';
 
 type P = {
     properties: Record<string, unknown>;
@@ -9,7 +8,7 @@ type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Object',
-    version: '1.0.0',
+    version: '1.1.0',
     label: 'Object',
     description: `
         Creates an object with computed values per each key.
@@ -28,10 +27,10 @@ export const module: ModuleDefinition<P, R> = {
     },
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const obj: any = {};
     for (const [key, value] of Object.entries(params.properties)) {
-        set(obj, key, value);
+        ctx.set(obj, key, value);
     }
     return obj;
 };
