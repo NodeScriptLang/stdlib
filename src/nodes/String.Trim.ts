@@ -5,8 +5,8 @@ type R = string;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/String.Trim',
-    version: '1.0.0',
-    label: 'Trim String',
+    version: '1.1.0',
+    label: 'String.Trim',
     description: 'Removes leading and trailing whitespace from a string.',
     keywords: ['string', 'text', 'whitespace', 'space'],
     params: {

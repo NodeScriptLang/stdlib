@@ -8,8 +8,8 @@ type R = any;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Object.FromPairs',
-    version: '1.0.0',
-    label: 'Object From Pairs',
+    version: '1.1.0',
+    label: 'Object.FromPairs',
     description: `
         Converts an array of [key, value] pairs into an object.
     `,

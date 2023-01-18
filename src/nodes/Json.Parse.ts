@@ -8,8 +8,8 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/String.ParseJson',
-    version: '1.0.0',
-    label: 'Parse JSON',
+    version: '1.1.0',
+    label: 'Json.Parse',
     description: 'Parses a specified string as JSON.',
     keywords: ['string', 'text', 'parse'],
     params: {

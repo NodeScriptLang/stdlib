@@ -8,8 +8,8 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Array.Length',
-    version: '1.0.0',
-    label: 'Array Length',
+    version: '1.1.0',
+    label: 'Array.Length',
     description: `
         Returns the length of an array.
     `,

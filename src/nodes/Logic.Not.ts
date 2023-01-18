@@ -6,8 +6,8 @@ type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Logic.Not',
-    version: '1.0.0',
-    label: 'Not',
+    version: '1.1.0',
+    label: 'Logic.Not',
     description: 'Returns the negated value of specified boolean.',
     keywords: ['check', 'null', 'undefined'],
     params: {

@@ -9,8 +9,8 @@ type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Array.Repeat',
-    version: '1.0.0',
-    label: 'Repeat',
+    version: '1.1.0',
+    label: 'Array.Repeat',
     description: `
         Constructs an array of given length filled with specified item.
     `,

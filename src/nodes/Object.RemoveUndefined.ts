@@ -8,8 +8,8 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Object.RemoveUndefined',
-    version: '1.0.0',
-    label: 'Remove Undefined',
+    version: '1.2.0',
+    label: 'Object.RemoveUndefined',
     description: `
         Removes undefined values from the object.
     `,

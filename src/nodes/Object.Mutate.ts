@@ -10,8 +10,8 @@ type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/Object.Mutate',
-    version: '1.2.0',
-    label: 'Mutate Object',
+    version: '1.3.0',
+    label: 'Object.Mutate',
     description: `
         Mutates the specified object by assigning the specified key-value to it.
         The key can be a JSON pointer or a dot-delimited path.

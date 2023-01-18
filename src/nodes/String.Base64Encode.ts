@@ -10,8 +10,8 @@ type R = string;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/String.Base64Encode',
-    version: '1.0.0',
-    label: 'Base64 Encode',
+    version: '1.1.0',
+    label: 'String.Base64Encode',
     description: 'Encodes a UTF-8 string or a binary buffer into a Base64 string.',
     keywords: ['string', 'text'],
     params: {

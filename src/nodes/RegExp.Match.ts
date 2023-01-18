@@ -11,8 +11,8 @@ type R = any;
 
 export const module: ModuleDefinition<P, R> = {
     moduleId: '@stdlib/RegExp.Match',
-    version: '1.0.0',
-    label: 'RegExp Match',
+    version: '1.1.0',
+    label: 'RegExp.Match',
     description: `
         Matches a string against a regular expression.
         Returns an array of matched groups, or an empty array if nothing matched.
