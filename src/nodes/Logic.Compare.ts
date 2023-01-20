@@ -27,7 +27,6 @@ export const module: ModuleDefinition<P, R> = {
     keywords: ['compare', 'greater', 'less', 'than', 'equals'],
     params: {
         op: {
-            moduleName: 'Operator',
             schema: {
                 type: 'string',
                 enum: Object.values(CompareOp),
