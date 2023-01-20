@@ -7,9 +7,8 @@ type P = {
 type R = any[];
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Array.Cartesian',
     version: '1.1.0',
-    label: 'Array.Cartesian',
+    moduleName: 'Array.Cartesian',
     description: `
         Computes a Cartesian product of a two-dimensional array.
     `,

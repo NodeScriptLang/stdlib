@@ -9,9 +9,8 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/String.Pad',
     version: '1.1.0',
-    label: 'String.Pad',
+    moduleName: 'String.Pad',
     description: `
         Adds padding either to the start or to the end of the specified string
         (multiple times, if needed) until its length matches or exceeds the target length.

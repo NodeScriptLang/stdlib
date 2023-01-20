@@ -25,9 +25,8 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Web.HttpRequest',
     version: '1.2.0',
-    label: 'Web.HttpRequest',
+    moduleName: 'Web.HttpRequest',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
         The request is not subject to CORS limitations of the browser

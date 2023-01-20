@@ -7,9 +7,8 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Object.RemoveUndefined',
     version: '1.2.0',
-    label: 'Object.RemoveUndefined',
+    moduleName: 'Object.RemoveUndefined',
     description: `
         Removes undefined values from the object.
     `,

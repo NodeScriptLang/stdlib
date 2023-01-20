@@ -8,9 +8,8 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Object.Get',
     version: '1.2.0',
-    label: 'Object.Get',
+    moduleName: 'Object.Get',
     labelParam: 'key',
     description: `
         Gets a value at specified key.

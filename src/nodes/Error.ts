@@ -8,9 +8,8 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Error',
     version: '1.0.1',
-    label: 'Error',
+    moduleName: 'Error',
     description: 'Raise an error with specified name and message.',
     keywords: ['string', 'text'],
     params: {

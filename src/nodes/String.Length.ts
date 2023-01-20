@@ -7,9 +7,8 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/String.Length',
     version: '1.1.0',
-    label: 'String.Length',
+    moduleName: 'String.Length',
     description: `
         Returns the length of a string.
     `,

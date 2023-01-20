@@ -7,9 +7,8 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Boolean',
     version: '1.0.0',
-    label: 'Boolean',
+    moduleName: 'Boolean',
     description: 'Converts value into a boolean.',
     keywords: ['boolean', 'logic', 'true', 'false'],
     params: {

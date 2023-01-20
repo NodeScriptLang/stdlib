@@ -4,9 +4,8 @@ type P = {};
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Null',
     version: '1.0.0',
-    label: 'Null',
+    moduleName: 'Null',
     description: 'Creates a null value.',
     keywords: [],
     params: {},

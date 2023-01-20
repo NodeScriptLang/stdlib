@@ -11,9 +11,8 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/RegExp.Switch',
     version: '1.3.0',
-    label: 'RegExp.Switch',
+    moduleName: 'RegExp.Switch',
     description: `
         Matches a string against a series of regular expressions specified as pattern keys.
         Returns the value of the first matching pattern, or null if none match.

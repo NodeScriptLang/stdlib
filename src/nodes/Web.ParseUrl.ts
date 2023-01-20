@@ -9,9 +9,8 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Web.ParseUrl',
     version: '1.1.0',
-    label: 'Web.ParseUrl',
+    moduleName: 'Web.ParseUrl',
     description: `
         Parses a specified URL and allows accessing its specific components
         (protocol, hostname, port, pathname, search, hash, etc.).

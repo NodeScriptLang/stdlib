@@ -9,9 +9,8 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Flow.If',
     version: '1.1.0',
-    label: 'Flow.If',
+    moduleName: 'Flow.If',
     description: 'Returns "positive" if specified condition is true, or "negative" otherwise.',
     keywords: ['check', 'condition'],
     params: {

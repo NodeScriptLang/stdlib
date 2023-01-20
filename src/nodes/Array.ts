@@ -7,9 +7,8 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Array',
     version: '1.0.0',
-    label: 'Array',
+    moduleName: 'Array',
     description: 'Creates an array with computed items.',
     keywords: ['array', 'list', 'items', 'entries'],
     params: {

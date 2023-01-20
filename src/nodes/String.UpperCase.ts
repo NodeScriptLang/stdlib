@@ -4,9 +4,8 @@ type P = { string: string };
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/String.UpperCase',
     version: '1.1.0',
-    label: 'String.UpperCase',
+    moduleName: 'String.UpperCase',
     description: 'Transforms a string to upper case.',
     keywords: [],
     params: {

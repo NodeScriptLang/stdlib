@@ -7,9 +7,8 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Flow.Fallback',
     version: '1.1.0',
-    label: 'Flow.Fallback',
+    moduleName: 'Flow.Fallback',
     description: 'Runs the steps one-by-one and returns the first successful non-null result.',
     keywords: ['flow'],
     params: {

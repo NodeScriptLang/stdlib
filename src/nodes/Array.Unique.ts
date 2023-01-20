@@ -10,9 +10,8 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Array.Unique',
     version: '1.1.0',
-    label: 'Array.Unique',
+    moduleName: 'Array.Unique',
     description: `
         Returns an array consisting of unique items.
         If strict is true, entries are compared by value (fast),

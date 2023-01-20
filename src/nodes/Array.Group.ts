@@ -11,9 +11,8 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Array.Group',
     version: '1.1.0',
-    label: 'Array.Group',
+    moduleName: 'Array.Group',
     description: `
         Groups the array by specified keys.
         The array and keys are expected to correspond to each other by index.

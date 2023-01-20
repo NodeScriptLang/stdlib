@@ -8,9 +8,8 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = /* @__PURE__ */ {
-    moduleId: '@stdlib/Array.Filter',
     version: '1.1.0',
-    label: 'Array.Filter',
+    moduleName: 'Array.Filter',
     description: `
         Returns items of specified array for which the corresponding condition is true.
         The array and conditions are expected to correspond to each other by index.

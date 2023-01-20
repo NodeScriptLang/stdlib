@@ -20,15 +20,14 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Logic.Compare',
     version: '1.1.0',
-    label: 'Logic.Compare',
+    moduleName: 'Logic.Compare',
     labelParam: 'op',
     description: 'Compares two values using the specified operator.',
     keywords: ['compare', 'greater', 'less', 'than', 'equals'],
     params: {
         op: {
-            label: 'Operator',
+            moduleName: 'Operator',
             schema: {
                 type: 'string',
                 enum: Object.values(CompareOp),

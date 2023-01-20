@@ -10,9 +10,8 @@ type P = {
 type R = string[];
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/String.Split',
     version: '1.1.0',
-    label: 'String.Split',
+    moduleName: 'String.Split',
     description: `
         Splits a string into multiple components delimited with specified separator.
         Separator can be either a string or a regular expression.

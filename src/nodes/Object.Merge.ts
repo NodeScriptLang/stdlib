@@ -9,9 +9,8 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Object.Merge',
     version: '1.1.0',
-    label: 'Object.Merge',
+    moduleName: 'Object.Merge',
     description: 'Recursively merges multiple objects into one.',
     keywords: ['object', 'key', 'value', 'get'],
     params: {

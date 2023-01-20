@@ -7,9 +7,8 @@ type P = {
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    moduleId: '@stdlib/Object',
     version: '1.2.0',
-    label: 'Object',
+    moduleName: 'Object',
     description: `
         Creates an object with computed values per each key.
         Each key can be a JSON pointer or a dot-delimited path.
