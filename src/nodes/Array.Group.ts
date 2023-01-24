@@ -1,7 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { anyEquals } from '../lib/compare.js';
-
 type P = {
     array: unknown[];
     keys: unknown[];
@@ -11,7 +9,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.2.0',
     moduleName: 'Array.Group',
     description: `
         Groups the array by specified keys.
@@ -49,13 +47,13 @@ export const module: ModuleDefinition<P, R> = {
     },
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { array, keys, strict } = params;
     const groups: Array<{ key: any; items: any[] }> = [];
     for (const [index, item] of array.entries()) {
         const groupKey = keys[index];
         const existingGroup = groups.find(g => {
-            return strict ? g.key === groupKey : anyEquals(g.key, groupKey);
+            return strict ? g.key === groupKey : ctx.lib.anyEquals(g.key, groupKey);
         });
         if (existingGroup) {
             existingGroup.items.push(item);

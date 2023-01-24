@@ -1,6 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { tryParseJson } from '../lib/util.js';
 import { determineRequestBody, FetchMethod, headersToObject, HttpRequestFailed, mergeUrlQuery } from '../lib/web.js';
 
 type P = {
@@ -15,7 +14,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.1',
+    version: '1.3.0',
     moduleName: 'Web.Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -66,7 +65,7 @@ export const module: ModuleDefinition<P, R> = {
     evalMode: 'manual',
 };
 
-export const compute: ModuleCompute<P, R> = async params => {
+export const compute: ModuleCompute<P, R> = async (params, ctx) => {
     const { method, url, query, headers, body } = params;
     if (!url) {
         // Do not send requests to self by default
@@ -88,7 +87,7 @@ export const compute: ModuleCompute<P, R> = async params => {
     });
     let responseBodyText = await res.text();
     if (params.throw && !res.ok) {
-        const details = tryParseJson(responseBodyText) ?? { response: responseBodyText };
+        const details = ctx.lib.parseJson(responseBodyText) ?? { response: responseBodyText };
         throw new HttpRequestFailed(res.status, method, url, details);
     }
     const bodyType = res.headers.get('Content-Type');

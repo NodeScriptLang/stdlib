@@ -8,7 +8,7 @@ type P = {
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.2',
+    version: '1.3.0',
     moduleName: 'Object.KeyValue',
     description: 'Creates an object with computed key and value.',
     keywords: ['object', 'key', 'value', 'entries', 'wrap'],
@@ -36,6 +36,6 @@ export const module: ModuleDefinition<P, R> = {
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { key, value } = params;
     const res = {};
-    ctx.set(res, key, value);
+    ctx.lib.set(res, key, value);
     return res;
 };

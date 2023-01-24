@@ -1,7 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { toRegExp } from '../lib/regexp.js';
-
 type P = {
     string: string;
     separator: any;
@@ -10,7 +8,7 @@ type P = {
 type R = string[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.2.0',
     moduleName: 'String.Split',
     description: `
         Splits a string into multiple components delimited with specified separator.
@@ -35,8 +33,8 @@ export const module: ModuleDefinition<P, R> = {
     },
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { string, separator } = params;
-    const regexp = toRegExp(separator);
+    const regexp = ctx.lib.toRegExp(separator);
     return string.split(regexp);
 };

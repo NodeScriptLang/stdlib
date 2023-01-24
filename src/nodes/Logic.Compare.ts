@@ -1,7 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { anyEquals } from '../lib/compare.js';
-
 enum CompareOp {
     Equal = 'Equal',
     NotEqual = 'Not Equal',
@@ -20,7 +18,7 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.2.0',
     moduleName: 'Logic.Compare',
     labelParam: 'op',
     description: 'Compares two values using the specified operator.',
@@ -45,13 +43,13 @@ export const module: ModuleDefinition<P, R> = {
     }
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { a, b, op } = params;
     switch (op) {
         case CompareOp.Equal:
-            return anyEquals(a, b);
+            return ctx.lib.anyEquals(a, b);
         case CompareOp.NotEqual:
-            return !anyEquals(a, b);
+            return !ctx.lib.anyEquals(a, b);
         case CompareOp.LessThan:
             return (a as any) < (b as any);
         case CompareOp.LessThanOrEqual:

@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.1',
+    version: '1.3.0',
     moduleName: 'Object.Pick',
     description: `
         Picks specified keys from an object.
@@ -42,9 +42,9 @@ export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { object, keys } = params;
     const res = {};
     for (const key of keys) {
-        const value = ctx.get(object, key);
+        const value = ctx.lib.get(object, key);
         if (value !== undefined) {
-            ctx.set(res, key, value);
+            ctx.lib.set(res, key, value);
         }
     }
     return res;

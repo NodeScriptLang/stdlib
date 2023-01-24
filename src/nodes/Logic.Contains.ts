@@ -1,6 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { anyContains } from '../lib/compare.js';
 
 type P = {
     haystack: unknown;
@@ -11,7 +10,7 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.2.0',
     moduleName: 'Logic.Contains',
     description: 'Checks if "needle" occurs anywhere inside "haystack".',
     keywords: ['check', 'includes', 'find', 'search'],
@@ -31,7 +30,7 @@ export const module: ModuleDefinition<P, R> = {
     }
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { haystack, needle, strict } = params;
-    return anyContains(haystack, needle, { strict });
+    return ctx.lib.anyContains(haystack, needle, { strict });
 };

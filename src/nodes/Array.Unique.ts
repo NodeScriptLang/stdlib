@@ -1,7 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { anyEquals } from '../lib/compare.js';
-
 type P = {
     array: unknown[];
     strict: boolean;
@@ -10,7 +8,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.2.0',
     moduleName: 'Array.Unique',
     description: `
         Returns an array consisting of unique items.
@@ -41,7 +39,7 @@ export const module: ModuleDefinition<P, R> = {
     },
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { array, strict } = params;
     if (strict) {
         const set = new Set(array);
@@ -52,7 +50,7 @@ export const compute: ModuleCompute<P, R> = params => {
         const item = array[i];
         let found = false;
         for (let j = i + 1; j < array.length; j++) {
-            if (anyEquals(item, array[j])) {
+            if (ctx.lib.anyEquals(item, array[j])) {
                 found = true;
                 break;
             }

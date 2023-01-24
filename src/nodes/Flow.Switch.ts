@@ -1,6 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { anyEquals } from '../lib/compare.js';
 
 type P = {
     value: string;
@@ -11,7 +10,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1s',
+    version: '1.2.0',
     moduleName: 'Flow.Switch',
     description: `
         Matches a value against a series of cases and returns the result of the first match.
@@ -43,7 +42,7 @@ export const module: ModuleDefinition<P, R> = {
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { value } = params;
     for (const [key, result] of Object.entries(params.cases)) {
-        const match = anyEquals(value, key);
+        const match = ctx.lib.anyEquals(value, key);
         if (match) {
             return ctx.resolveDeferred(result);
         }

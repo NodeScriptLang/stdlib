@@ -1,7 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { toRegExp } from '../lib/regexp.js';
-
 type P = {
     string: string;
     patterns: Record<string, unknown>;
@@ -11,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.1',
+    version: '1.3.2',
     moduleName: 'RegExp.Switch',
     description: `
         Matches a string against a series of regular expressions specified as pattern keys.
@@ -43,7 +41,7 @@ export const module: ModuleDefinition<P, R> = {
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { string } = params;
     for (const [key, value] of Object.entries(params.patterns)) {
-        const re = toRegExp(key);
+        const re = ctx.lib.toRegExp(key);
         if (re.test(string)) {
             return ctx.resolveDeferred(value);
         }

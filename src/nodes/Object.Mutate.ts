@@ -9,7 +9,7 @@ type P = {
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.1',
+    version: '1.3.2',
     moduleName: 'Object.Mutate',
     description: `
         Mutates the specified object by assigning the specified key-value to it.
@@ -39,6 +39,6 @@ export const module: ModuleDefinition<P, R> = {
 
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { object, key, value } = params;
-    ctx.set(object, key, value);
+    ctx.lib.set(object, key, value);
     return object;
 };

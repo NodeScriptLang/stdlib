@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.3.0',
     moduleName: 'Object.Get',
     labelParam: 'key',
     description: `
@@ -33,5 +33,5 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
-    return ctx.get(params.object, params.key);
+    return ctx.lib.get(params.object, params.key);
 };

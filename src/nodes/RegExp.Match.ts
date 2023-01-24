@@ -1,7 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { toRegExp } from '../lib/regexp.js';
-
 type P = {
     string: string;
     regexp: any;
@@ -10,7 +8,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.2.0',
     moduleName: 'RegExp.Match',
     description: `
         Matches a string against a regular expression.
@@ -30,9 +28,9 @@ export const module: ModuleDefinition<P, R> = {
     }
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { string } = params;
-    const regexp = toRegExp(params.regexp);
+    const regexp = ctx.lib.toRegExp(params.regexp);
     const match = regexp.exec(string);
     return match ?? [];
 };

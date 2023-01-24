@@ -1,7 +1,5 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { merge } from '../lib/merge.js';
-
 type P = {
     objects: unknown[];
 };
@@ -9,7 +7,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1s',
+    version: '1.3.0',
     moduleName: 'Object.Merge',
     description: 'Recursively merges multiple objects into one.',
     keywords: ['object', 'key', 'value', 'get'],
@@ -30,11 +28,11 @@ export const module: ModuleDefinition<P, R> = {
     },
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { objects } = params;
     const [first, ...rest] = objects;
     if (rest.length === 0) {
         return first;
     }
-    return rest.reduce((a, b) => merge(a, b), first);
+    return rest.reduce((a, b) => ctx.lib.merge(a, b), first);
 };
