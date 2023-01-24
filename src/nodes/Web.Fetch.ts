@@ -15,7 +15,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.2.1',
     moduleName: 'Web.Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -28,7 +28,7 @@ export const module: ModuleDefinition<P, R> = {
             schema: {
                 type: 'string',
                 enum: ['GET', 'POST', 'PUT', 'DELETE'],
-                default: 'GET',
+                default: 'GET' as any,
             },
         },
         url: {
@@ -37,11 +37,16 @@ export const module: ModuleDefinition<P, R> = {
         query: {
             schema: {
                 type: 'object',
+                properties: {},
                 additionalProperties: { type: 'string' },
             },
         },
         headers: {
-            schema: { type: 'object' },
+            schema: {
+                type: 'object',
+                properties: {},
+                additionalProperties: { type: 'string' },
+            },
         },
         body: {
             schema: { type: 'any' },

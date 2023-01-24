@@ -11,7 +11,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.0',
+    version: '1.3.1',
     moduleName: 'RegExp.Switch',
     description: `
         Matches a string against a series of regular expressions specified as pattern keys.
@@ -26,6 +26,8 @@ export const module: ModuleDefinition<P, R> = {
             deferred: true,
             schema: {
                 type: 'object',
+                properties: {},
+                additionalProperties: { type: 'any' },
             },
         },
         default: {

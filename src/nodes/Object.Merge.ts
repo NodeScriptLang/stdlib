@@ -9,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.1.1s',
     moduleName: 'Object.Merge',
     description: 'Recursively merges multiple objects into one.',
     keywords: ['object', 'key', 'value', 'get'],
@@ -22,7 +22,11 @@ export const module: ModuleDefinition<P, R> = {
         },
     },
     result: {
-        schema: { type: 'object' },
+        schema: {
+            type: 'object',
+            properties: {},
+            additionalProperties: { type: 'any' },
+        },
     },
 };
 

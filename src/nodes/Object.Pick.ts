@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.2.1',
     moduleName: 'Object.Pick',
     description: `
         Picks specified keys from an object.
@@ -30,7 +30,11 @@ export const module: ModuleDefinition<P, R> = {
         }
     },
     result: {
-        schema: { type: 'object' },
+        schema: {
+            type: 'object',
+            properties: {},
+            additionalProperties: { type: 'any' },
+        },
     },
 };
 

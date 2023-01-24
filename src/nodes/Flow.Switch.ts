@@ -11,7 +11,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.1.1s',
     moduleName: 'Flow.Switch',
     description: `
         Matches a value against a series of cases and returns the result of the first match.
@@ -25,7 +25,11 @@ export const module: ModuleDefinition<P, R> = {
         },
         cases: {
             deferred: true,
-            schema: { type: 'object' },
+            schema: {
+                type: 'object',
+                properties: {},
+                additionalProperties: { type: 'any' },
+            },
         },
         default: {
             deferred: true,

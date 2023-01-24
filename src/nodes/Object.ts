@@ -7,7 +7,7 @@ type P = {
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.2.1',
     moduleName: 'Object',
     description: `
         Creates an object with computed values per each key.
@@ -18,11 +18,17 @@ export const module: ModuleDefinition<P, R> = {
         properties: {
             schema: {
                 type: 'object',
+                properties: {},
+                additionalProperties: { type: 'any' },
             },
         }
     },
     result: {
-        schema: { type: 'object' },
+        schema: {
+            type: 'object',
+            properties: {},
+            additionalProperties: { type: 'any' },
+        },
     },
 };
 
