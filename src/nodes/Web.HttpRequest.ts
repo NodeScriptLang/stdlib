@@ -24,7 +24,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.0',
+    version: '1.4.5',
     moduleName: 'Web.HttpRequest',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -49,6 +49,7 @@ export const module: ModuleDefinition<P, R> = {
                 properties: {},
                 additionalProperties: { type: 'string' },
             },
+            advanced: true,
         },
         headers: {
             schema: {
@@ -56,19 +57,24 @@ export const module: ModuleDefinition<P, R> = {
                 properties: {},
                 additionalProperties: { type: 'string' },
             },
+            advanced: true,
         },
         body: {
             schema: { type: 'any' },
             hideValue: true,
+            advanced: true,
         },
         followRedirects: {
             schema: { type: 'boolean', default: true },
+            advanced: true,
         },
         proxyUrl: {
             schema: { type: 'string' },
+            advanced: true,
         },
         throw: {
             schema: { type: 'boolean', default: true },
+            advanced: true,
         }
     },
     result: {
@@ -80,7 +86,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
-    const { method, url, query, headers, body, followRedirects, proxyUrl } = params;
+    const { method, url, query, headers, body, proxyUrl, followRedirects } = params;
     if (!url) {
         // Do not send requests to self by default
         return undefined;
