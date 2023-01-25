@@ -20,6 +20,9 @@ export function parseQueryString(qs: string): Record<string, string[]> {
 export function mergeUrlQuery(url: string, query: Record<string, string>) {
     const parsedUrl = new URL(url);
     for (const [key, value] of Object.entries(query)) {
+        if (value === undefined) {
+            continue;
+        }
         parsedUrl.searchParams.append(key, value);
     }
     return parsedUrl.toString();
