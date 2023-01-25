@@ -79,7 +79,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         throw new Error('URL must start with http:// or https://');
     }
     const actualUrl = mergeUrlQuery(url, query);
-    const actualHeaders = new Headers(headers);
+    const actualHeaders = prepareHeaders(headers);
     const [actualBody, bodyContentType] = determineRequestBody(method, body);
     if (bodyContentType && !actualHeaders.has('Content-Type')) {
         actualHeaders.set('Content-Type', bodyContentType);
@@ -105,3 +105,14 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         body: responseBodyText,
     };
 };
+
+function prepareHeaders(headers: Record<string, unknown>): Headers {
+    const entries: Record<string, string> = {};
+    for (const [key, value] of Object.entries(headers)) {
+        if (value === undefined) {
+            continue;
+        }
+        entries[key] = String(value);
+    }
+    return new Headers(entries);
+}
