@@ -13,8 +13,8 @@ import {
 type P = {
     method: FetchMethod;
     url: string;
-    query: Record<string, string>;
-    headers: Record<string, any>;
+    query: Record<string, string | undefined>;
+    headers: Record<string, string | undefined>;
     body: any;
     followRedirects: boolean;
     proxyUrl: string;
@@ -24,7 +24,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.4.6',
+    version: '1.4.8',
     moduleName: 'Web.HttpRequest',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -47,7 +47,7 @@ export const module: ModuleDefinition<P, R> = {
             schema: {
                 type: 'object',
                 properties: {},
-                additionalProperties: { type: 'string' },
+                additionalProperties: { type: 'string', optional: true },
             },
             advanced: true,
         },
@@ -55,7 +55,7 @@ export const module: ModuleDefinition<P, R> = {
             schema: {
                 type: 'object',
                 properties: {},
-                additionalProperties: { type: 'string' },
+                additionalProperties: { type: 'string', optional: true },
             },
             advanced: true,
         },
@@ -139,6 +139,9 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
 function prepareHeaders(headers: Record<string, unknown>): FetchHeaders {
     const result: Record<string, string[]> = {};
     for (const [key, value] of Object.entries(headers)) {
+        if (value === undefined) {
+            continue;
+        }
         result[key] = Array.isArray(value) ? value.map(_ => String(_)) : [String(value)];
     }
     return result;
