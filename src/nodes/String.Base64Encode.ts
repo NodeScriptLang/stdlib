@@ -42,6 +42,6 @@ export const compute: ModuleCompute<P, R> = (params, ctx) => {
     if (isTypedArray) {
         return bufferToBase64(value.buffer, urlMode);
     }
-    const str = ctx.convertType<string>(value, { type: 'string' });
+    const str = ctx.convertType(value, { type: 'string' }) as string;
     return stringToBase64(str, urlMode);
 };
