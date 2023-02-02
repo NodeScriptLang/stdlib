@@ -10,7 +10,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.2.1',
     moduleName: 'Array.Range',
     description: `
         Constructs a sequence of numbers with specified start (inclusive), end (exclusive)
@@ -51,7 +51,7 @@ export const compute: ModuleCompute<P, R> = params => {
     if (!converge) {
         throw new Error('Range does not converge');
     }
-    const length = Math.max(Math.abs(Math.ceil((end - start) / step)), limit);
+    const length = Math.min(Math.abs(Math.ceil((end - start) / step)), limit);
     const result = new Array<number>(length);
     for (let i = 0; i < length; i++) {
         result[i] = start + i * step;
