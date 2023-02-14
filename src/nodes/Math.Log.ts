@@ -9,11 +9,11 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.0',
-    moduleName: 'Math.Logarithm',
+    moduleName: 'Math.Log',
     description: `
         Computes the logarithm of specified value.
     `,
-    keywords: ['log'],
+    keywords: ['logarithm'],
     params: {
         value: {
             schema: { type: 'number' },
