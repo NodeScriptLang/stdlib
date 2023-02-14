@@ -1,0 +1,31 @@
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
+
+type P = {
+    values: number[];
+};
+
+type R = number;
+
+export const module: ModuleDefinition<P, R> = {
+    version: '1.0.0',
+    moduleName: 'Math.Min',
+    description: `
+        Computes the minimum of specified numbers.
+    `,
+    keywords: ['minimum'],
+    params: {
+        values: {
+            schema: {
+                type: 'array',
+                items: { type: 'number' },
+            },
+        },
+    },
+    result: {
+        schema: { type: 'number' },
+    }
+};
+
+export const compute: ModuleCompute<P, R> = params => {
+    return Math.min(...params.values);
+};
