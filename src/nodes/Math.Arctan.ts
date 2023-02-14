@@ -12,7 +12,7 @@ export const module: ModuleDefinition<P, R> = {
     description: `
         Computes the arctangent of specified angle in radians.
     `,
-    keywords: ['arccosine'],
+    keywords: ['arctangent'],
     params: {
         value: {
             schema: { type: 'number' },
