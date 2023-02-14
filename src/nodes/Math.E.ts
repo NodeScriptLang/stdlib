@@ -10,7 +10,7 @@ export const module: ModuleDefinition<P, R> = {
     description: `
         Returns the value of E (Euler's number).
     `,
-    keywords: [],
+    keywords: ['euler'],
     params: {},
     result: {
         schema: { type: 'number' },

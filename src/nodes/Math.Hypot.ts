@@ -12,7 +12,7 @@ export const module: ModuleDefinition<P, R> = {
     description: `
         Computes N-dimensional hypothenuse (the square root of the sum of squares).
     `,
-    keywords: [],
+    keywords: ['hypothenuse'],
     params: {
         values: {
             schema: {
