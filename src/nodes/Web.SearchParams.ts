@@ -7,7 +7,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'Web.SearchParams',
     description: `
         Creates a search parameters from key/value pairs,
@@ -32,7 +32,13 @@ export const module: ModuleDefinition<P, R> = {
 export const compute: ModuleCompute<P, R> = params => {
     const searchParams = new URLSearchParams();
     for (const [key, value] of Object.entries(params.params)) {
-        searchParams.append(key, value);
+        if (value === undefined) {
+            continue;
+        }
+        const arr = Array.isArray(value) ? value : [value];
+        for (const value of arr) {
+            searchParams.append(key, value);
+        }
     }
     return searchParams;
 };

@@ -23,7 +23,10 @@ export function mergeUrlQuery(url: string, query: Record<string, string | undefi
         if (value === undefined) {
             continue;
         }
-        parsedUrl.searchParams.append(key, value);
+        const arr = Array.isArray(value) ? value : [value];
+        for (const value of arr) {
+            parsedUrl.searchParams.append(key, value);
+        }
     }
     return parsedUrl.toString();
 }
