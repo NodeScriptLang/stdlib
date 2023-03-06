@@ -7,7 +7,7 @@ type P = {
 
 type R = unknown[];
 
-export const module: ModuleDefinition<P, R> = /* @__PURE__ */ {
+export const module: ModuleDefinition<P, R> = {
     version: '1.1.0',
     moduleName: 'Array.Filter',
     description: `

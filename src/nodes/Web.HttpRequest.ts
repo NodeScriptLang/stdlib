@@ -1,5 +1,5 @@
 import { base64ToString, stringToBase64 } from '@nodescript/binary-utils';
-import { GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import {
     determineRequestBody,
@@ -19,12 +19,13 @@ type P = {
     followRedirects: boolean;
     proxyUrl: string;
     throw: boolean;
+    adapterUrl: string;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.4.9',
+    version: '1.5.0',
     moduleName: 'Web.HttpRequest',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -75,7 +76,11 @@ export const module: ModuleDefinition<P, R> = {
         throw: {
             schema: { type: 'boolean', default: true },
             advanced: true,
-        }
+        },
+        adapterUrl: {
+            schema: { type: 'string', default: 'https://fetch.nodescript.dev' },
+            advanced: true,
+        },
     },
     result: {
         async: true,
@@ -86,7 +91,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
-    const { method, url, query, headers, body, proxyUrl, followRedirects } = params;
+    const { method, url, query, headers, body, proxyUrl, followRedirects, adapterUrl } = params;
     if (!url) {
         // Do not send requests to self by default
         return undefined;
@@ -100,7 +105,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
     if (contentType && !getHeaderValue(actualHeaders, 'Content-Type')) {
         actualHeaders['Content-Type'] = [contentType];
     }
-    const fetchServiceUrl = `${getHubUrl(ctx)}/Fetch/sendRequest`;
+    const fetchServiceUrl = `${adapterUrl}/Fetch/sendRequest`;
     const proxy = proxyUrl.trim() ? proxyUrl : undefined;
     const request: FetchServiceRequest = {
         url: actualUrl,
@@ -145,17 +150,6 @@ function prepareHeaders(headers: Record<string, unknown>): FetchHeaders {
         result[key] = Array.isArray(value) ? value.map(_ => String(_)) : [String(value)];
     }
     return result;
-}
-
-function getHubUrl(ctx: GraphEvalContext) {
-    const env = ctx.getLocal<string>('NS_ENV', 'production');
-    switch (env) {
-        case 'staging':
-            return 'https://fetch.staging.nodescript.dev';
-        case 'production':
-        default:
-            return 'https://fetch.nodescript.dev';
-    }
 }
 
 interface FetchServiceRequest {
