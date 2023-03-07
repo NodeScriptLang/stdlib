@@ -26,7 +26,7 @@ export const module: ModuleDefinition<P, R> = {
         method: {
             schema: {
                 type: 'string',
-                enum: ['GET', 'POST', 'PUT', 'DELETE'],
+                enum: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
                 default: 'GET' as any,
             },
         },

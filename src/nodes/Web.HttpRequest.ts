@@ -25,7 +25,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.5.1',
+    version: '1.5.2',
     moduleName: 'Web.HttpRequest',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -37,7 +37,7 @@ export const module: ModuleDefinition<P, R> = {
         method: {
             schema: {
                 type: 'string',
-                enum: ['GET', 'POST', 'PUT', 'DELETE'],
+                enum: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
                 default: 'GET' as any,
             },
         },
