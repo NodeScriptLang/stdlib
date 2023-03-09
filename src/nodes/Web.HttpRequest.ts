@@ -25,7 +25,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.5.2',
+    version: '1.5.3',
     moduleName: 'Web.HttpRequest',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -105,7 +105,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
     if (contentType && !getHeaderValue(actualHeaders, 'Content-Type')) {
         actualHeaders['Content-Type'] = [contentType];
     }
-    const fetchServiceUrl = `${adapterUrl}/Fetch/sendRequest`;
+    const fetchServiceUrl = `${adapterUrl ?? 'https://fetch.nodescript.dev'}/Fetch/sendRequest`;
     const proxy = proxyUrl.trim() ? proxyUrl : undefined;
     const request: FetchServiceRequest = {
         url: actualUrl,
