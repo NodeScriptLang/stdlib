@@ -8,7 +8,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.1.1',
     moduleName: 'Array.Flatten',
     description: `
         Returns an array with all sub-array elements concatenated into it recursively up to the specified depth.

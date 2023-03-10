@@ -18,7 +18,7 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.2.1',
     moduleName: 'Logic.Compare',
     labelParam: 'op',
     description: 'Compares two values using the specified operator.',

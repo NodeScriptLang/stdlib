@@ -8,7 +8,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.1.1',
     moduleName: 'Array.Repeat',
     description: `
         Constructs an array of given length filled with specified item.

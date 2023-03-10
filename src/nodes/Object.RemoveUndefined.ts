@@ -7,7 +7,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.1',
+    version: '1.2.2',
     moduleName: 'Object.RemoveUndefined',
     description: `
         Removes undefined values from the object.

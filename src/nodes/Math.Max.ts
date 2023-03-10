@@ -7,7 +7,7 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Math.Max',
     description: `
         Computes the maximum of specified numbers.

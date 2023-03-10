@@ -10,7 +10,7 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.2.1',
     moduleName: 'Logic.Equals',
     description: 'Checks if two values are structurally equal.',
     keywords: ['check', 'equal', 'compare'],

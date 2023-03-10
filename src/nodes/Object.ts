@@ -7,7 +7,7 @@ type P = {
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.0',
+    version: '1.3.1',
     moduleName: 'Object',
     description: `
         Creates an object with computed values per each key.

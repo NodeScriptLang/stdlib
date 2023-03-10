@@ -11,7 +11,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Schema.Number',
     description: 'Creates a Number schema.',
     keywords: [],

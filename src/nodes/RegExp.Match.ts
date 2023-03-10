@@ -8,7 +8,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.2.1',
     moduleName: 'RegExp.Match',
     description: `
         Matches a string against a regular expression.

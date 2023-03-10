@@ -7,7 +7,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.0',
+    version: '1.3.1',
     moduleName: 'Object.Merge',
     description: 'Recursively merges multiple objects into one.',
     keywords: ['object', 'key', 'value', 'get'],

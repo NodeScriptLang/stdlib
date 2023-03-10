@@ -8,7 +8,7 @@ type P = {
 type R = RegExp;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'RegExp',
     description: 'Creates a regular expression.',
     keywords: ['regex', 'match'],

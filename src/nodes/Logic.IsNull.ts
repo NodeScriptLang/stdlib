@@ -5,7 +5,7 @@ type P = { value: unknown };
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.1.1',
     moduleName: 'Logic.IsNull',
     description: 'Returns true if the specified value is null, undefined or NaN.',
     keywords: ['check', 'null', 'undefined'],
