@@ -9,7 +9,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.1',
+    version: '1.2.2',
     moduleName: 'Array.Group',
     description: `
         Groups the array by specified keys.

@@ -7,7 +7,7 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.1',
+    version: '1.0.2',
     moduleName: 'Math.Sign',
     description: `
         Computes the sign of specified value.

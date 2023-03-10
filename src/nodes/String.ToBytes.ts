@@ -9,7 +9,7 @@ type P = {
 type R = ArrayBuffer;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'String.ToBytes',
     description: 'Converts a string into an ArrayBuffer.',
     keywords: ['string', 'text', 'byte', 'buffer', 'array', 'binary'],

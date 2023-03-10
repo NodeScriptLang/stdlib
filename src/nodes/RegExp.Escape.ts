@@ -7,7 +7,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.1',
+    version: '1.0.2',
     moduleName: 'RegExp.Escape',
     description: `
         Escapes the characters that have special meaning in regular expressions.

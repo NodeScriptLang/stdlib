@@ -4,7 +4,7 @@ type P = { string: string };
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'String.UpperCase',
     description: 'Transforms a string to upper case.',
     keywords: [],

@@ -10,7 +10,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'String.Base64Decode',
     description: 'Decodes a Base64-encoded string into UTF-8 or a byte buffer.',
     keywords: ['string', 'text', 'decode', 'base64', 'binary'],

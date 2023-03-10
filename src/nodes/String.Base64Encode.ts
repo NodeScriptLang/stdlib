@@ -9,7 +9,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'String.Base64Encode',
     description: 'Encodes a UTF-8 string or a binary buffer into a Base64 string.',
     keywords: ['string', 'text'],

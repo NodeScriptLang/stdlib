@@ -10,7 +10,7 @@ type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: 'Array.SortBy',
-    version: '1.0.1',
+    version: '1.0.2',
     description: `
         Sorts the array by specified keys.
         Keys are specified as dot-separated paths or JSON pointers.

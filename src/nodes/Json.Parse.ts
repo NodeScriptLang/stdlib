@@ -7,7 +7,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'Json.Parse',
     description: 'Parses a specified string as JSON.',
     keywords: ['string', 'text', 'parse'],

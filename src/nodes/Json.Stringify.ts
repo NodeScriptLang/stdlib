@@ -7,7 +7,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'Json.Stringify',
     description: 'Returns a JSON string representation of provided value.',
     keywords: ['string', 'json', 'convert'],

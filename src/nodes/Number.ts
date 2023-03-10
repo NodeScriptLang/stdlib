@@ -4,7 +4,7 @@ type P = { value: number };
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.1',
+    version: '1.0.2',
     moduleName: 'Number',
     description: 'Converts value into a number.',
     keywords: ['number', 'integer', 'parse'],

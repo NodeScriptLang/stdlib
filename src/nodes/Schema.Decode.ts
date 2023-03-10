@@ -9,7 +9,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.1',
+    version: '1.0.2',
     moduleName: 'Schema.Decode',
     description: 'Decodes the value using Schema.',
     keywords: [],

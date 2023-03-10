@@ -9,7 +9,7 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.1',
+    version: '1.2.2',
     moduleName: 'RegExp.Test',
     description: 'Tests if a string matches specified regular expression.',
     keywords: ['regex', 'match'],
