@@ -1,4 +1,4 @@
-import { ModuleCompute, ModuleDefinition, SchemaSpec } from '@nodescript/core/types';
+import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {
     status: number;
