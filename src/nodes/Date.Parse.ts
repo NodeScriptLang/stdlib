@@ -6,7 +6,7 @@ type P = { date: any };
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.3',
+    version: '1.0.4',
     moduleName: 'Date.Parse',
     description: 'Returns individual components of the date, i.e. year, month, week, day of month, etc.',
     keywords: ['date', 'string', 'parse'],
@@ -23,7 +23,6 @@ export const module: ModuleDefinition<P, R> = {
 export const compute: ModuleCompute<P, R> = params => {
     const date = parseDate(params.date);
     return {
-        date,
         local: {
             milliseconds: date.getMilliseconds(),
             seconds: date.getSeconds(),
@@ -46,6 +45,8 @@ export const compute: ModuleCompute<P, R> = params => {
         },
         iso: date.toISOString(),
         full: date.toUTCString(),
+        date: date.toISOString().replace(/T.*$/gi, ''),
+        time: date.toISOString().replace(/.*T/gi, ''),
         epoch: date.getTime(),
         tzOffset: date.getTimezoneOffset(),
     };
