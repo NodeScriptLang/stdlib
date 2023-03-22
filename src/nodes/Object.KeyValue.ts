@@ -3,14 +3,15 @@ import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 type P = {
     key: string;
     value: unknown;
+    raw: boolean;
 };
 
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.2',
+    version: '1.4.0',
     moduleName: 'Object.KeyValue',
-    description: 'Creates an object with computed key and value.',
+    description: 'Creates an object with computed key and value. If raw is specified, the key is interpreted as-is.',
     keywords: ['object', 'key', 'value', 'entries', 'wrap'],
     params: {
         key: {
@@ -22,7 +23,14 @@ export const module: ModuleDefinition<P, R> = {
             schema: {
                 type: 'any',
             },
-        }
+        },
+        raw: {
+            schema: {
+                type: 'boolean',
+                default: false,
+            },
+            advanced: true,
+        },
     },
     result: {
         schema: {
@@ -34,8 +42,12 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
-    const { key, value } = params;
-    const res = {};
-    ctx.lib.set(res, key, value);
+    const { key, value, raw } = params;
+    const res: any = {};
+    if (raw) {
+        res[key] = value;
+    } else {
+        ctx.lib.set(res, key, value);
+    }
     return res;
 };
