@@ -38,7 +38,7 @@ export const module: ModuleDefinition<P, R> = {
     },
 };
 
-export const compute: ModuleCompute<P, R> = (params, ctx) => {
+export const compute: ModuleCompute<P, R> = params => {
     const { object, keys } = params;
     const res: any = {};
     for (const key of keys) {
