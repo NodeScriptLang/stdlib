@@ -10,7 +10,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Date.Difference',
     description: 'Computes a difference between two dates in specified units.',
     keywords: ['date', 'difference'],
@@ -42,13 +42,17 @@ export const compute: ModuleCompute<P, R> = params => {
     const to = parseDate(toDate);
     const ms = to.getTime() - from.getTime();
     switch (unit) {
-        case 'millisecond': return ms;
-        case 'second': return Math.floor(ms / 1000);
-        case 'minute': return Math.floor(ms / 60 / 1000);
-        case 'hour': return Math.floor(ms / 60 / 60 / 1000);
-        case 'day': return Math.floor(ms / 24 / 60 / 60 / 1000);
+        case 'millisecond': return round(ms);
+        case 'second': return round(ms / 1000);
+        case 'minute': return round(ms / 60 / 1000);
+        case 'hour': return round(ms / 60 / 60 / 1000);
+        case 'day': return round(ms / 24 / 60 / 60 / 1000);
         default: {
             throw new Error(`Unsupported unit: ${unit}`);
         }
     }
 };
+
+function round(ms: number) {
+    return Math.sign(ms) * Math.floor(Math.abs(ms));
+}
