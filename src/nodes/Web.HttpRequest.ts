@@ -1,5 +1,5 @@
 import { base64ToString, stringToBase64 } from '@nodescript/binary-utils';
-import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
+import { GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import {
     determineRequestBody,
@@ -25,7 +25,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.5.5',
+    version: '1.6.1',
     moduleName: 'Web.HttpRequest',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -78,7 +78,7 @@ export const module: ModuleDefinition<P, R> = {
             advanced: true,
         },
         adapterUrl: {
-            schema: { type: 'string', default: 'https://fetch.nodescript.dev' },
+            schema: { type: 'string', default: '' },
             advanced: true,
         },
     },
@@ -91,7 +91,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
-    const { method, url, query, headers, body, proxyUrl, followRedirects, adapterUrl } = params;
+    const { method, url, query, headers, body, proxyUrl, followRedirects } = params;
     if (!url) {
         // Do not send requests to self by default
         return undefined;
@@ -105,7 +105,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
     if (contentType && !getHeaderValue(actualHeaders, 'Content-Type')) {
         actualHeaders['Content-Type'] = [contentType];
     }
-    const fetchServiceUrl = `${adapterUrl ?? 'https://fetch.nodescript.dev'}/Fetch/sendRequest`;
+    const fetchServiceUrl = getAdapterUrl(params, ctx);
     const proxy = proxyUrl.trim() ? proxyUrl : undefined;
     const request: FetchServiceRequest = {
         url: actualUrl,
@@ -115,7 +115,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         followRedirects,
         proxy,
     };
-    const res = await fetch(fetchServiceUrl, {
+    const res = await fetch(fetchServiceUrl + '/Fetch/sendRequest', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -151,6 +151,13 @@ function prepareHeaders(headers: Record<string, unknown>): FetchHeaders {
         result[key] = Array.isArray(value) ? value.map(_ => String(_)) : [String(value)];
     }
     return result;
+}
+
+function getAdapterUrl(params: P, ctx: GraphEvalContext) {
+    if (params.adapterUrl) {
+        return params.adapterUrl;
+    }
+    return ctx.getLocal<string>('ADAPTER_FETCH_URL') ?? 'https://fetch.nodescript.dev';
 }
 
 interface FetchServiceRequest {
