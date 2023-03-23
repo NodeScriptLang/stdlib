@@ -10,7 +10,7 @@ type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.2.2',
-    moduleName: 'RegExp.Test',
+    moduleName: 'Reg Exp / Test',
     description: 'Tests if a string matches specified regular expression.',
     keywords: ['regex', 'match'],
     params: {

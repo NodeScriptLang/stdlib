@@ -8,7 +8,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Abs',
+    moduleName: 'Math / Abs',
     description: `
         Computes the absolute of specified value.
     `,

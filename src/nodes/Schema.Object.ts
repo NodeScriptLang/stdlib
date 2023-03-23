@@ -11,7 +11,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Schema.Object',
+    moduleName: 'Schema / Object',
     description: 'Creates a Object schema.',
     keywords: [],
     params: {

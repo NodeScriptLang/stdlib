@@ -8,7 +8,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.AngleFromRad',
+    moduleName: 'Math / Angle From Rad',
     description: `
         Converts the radians to angle.
     `,

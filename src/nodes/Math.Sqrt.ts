@@ -8,7 +8,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Sqrt',
+    moduleName: 'Math / Sqrt',
     description: `
         Computes the square root of specified value.
     `,

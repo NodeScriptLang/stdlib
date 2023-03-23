@@ -10,7 +10,7 @@ type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.1.2',
-    moduleName: 'Array.Slice',
+    moduleName: 'Array / Slice',
     description: `
         Returns a portion of an array, starting and ending at specified indexes.
         Start index is inclusive, end index is exclusive.

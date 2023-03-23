@@ -9,7 +9,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.4.0',
-    moduleName: 'Object.Pick',
+    moduleName: 'Object / Pick',
     description: `
         Picks specified keys from an object.
         Keys can be JSON pointers or dot-delimited paths.

@@ -8,7 +8,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Tan',
+    moduleName: 'Math / Tan',
     description: `
         Computes the tangent of specified number.
     `,

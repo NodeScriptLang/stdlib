@@ -9,7 +9,7 @@ type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.2.2',
-    moduleName: 'Array.Unique',
+    moduleName: 'Array / Unique',
     description: `
         Returns an array consisting of unique items.
         If strict is true, entries are compared by value (fast),

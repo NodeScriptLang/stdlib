@@ -8,7 +8,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.1.2',
-    moduleName: 'String.Length',
+    moduleName: 'String / Length',
     description: `
         Returns the length of a string.
     `,

@@ -9,7 +9,7 @@ type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.1.2',
-    moduleName: 'Array.Filter',
+    moduleName: 'Array / Filter',
     description: `
         Returns items of specified array for which the corresponding condition is true.
         The array and conditions are expected to correspond to each other by index.

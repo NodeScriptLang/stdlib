@@ -9,7 +9,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Web.HttpResponse',
+    moduleName: 'Web / Http Response',
     description: 'Creates a Http Response object.',
     keywords: [],
     params: {

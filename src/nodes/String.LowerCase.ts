@@ -5,7 +5,7 @@ type R = string;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.1.2',
-    moduleName: 'String.LowerCase',
+    moduleName: 'String / Lower Case',
     description: 'Transforms a string to lower case.',
     keywords: [],
     params: {

@@ -11,7 +11,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.2.2',
-    moduleName: 'Flow.Switch',
+    moduleName: 'Flow / Switch',
     description: `
         Matches a value against a series of cases and returns the result of the first match.
         The cases are specified as key-value pairs with key indicating a value to match against,

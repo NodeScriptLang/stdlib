@@ -8,7 +8,7 @@ type R = any;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.1.2',
-    moduleName: 'Object.FromPairs',
+    moduleName: 'Object / From Pairs',
     description: `
         Converts an array of [key, value] pairs into an object.
     `,

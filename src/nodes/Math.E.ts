@@ -6,7 +6,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.E',
+    moduleName: 'Math / E',
     description: `
         Returns the value of E (Euler's number).
     `,

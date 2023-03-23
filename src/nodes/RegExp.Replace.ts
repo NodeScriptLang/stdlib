@@ -10,7 +10,7 @@ type R = string;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.2.2',
-    moduleName: 'RegExp.Replace',
+    moduleName: 'Reg Exp / Replace',
     description: `
         Replaces all occurrences of a regular expression in a string.
         If the regexp is a string, it is converted to a regular expression with Global flag.

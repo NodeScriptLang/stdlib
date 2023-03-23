@@ -10,7 +10,7 @@ type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.2.2',
-    moduleName: 'Array.Group',
+    moduleName: 'Array / Group',
     description: `
         Groups the array by specified keys.
         The array and keys are expected to correspond to each other by index.

@@ -9,7 +9,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.3.2',
-    moduleName: 'Object.Get',
+    moduleName: 'Object / Get',
     labelParam: 'key',
     description: `
         Gets a value at specified key.

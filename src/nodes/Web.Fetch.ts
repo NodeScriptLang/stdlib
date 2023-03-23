@@ -15,7 +15,7 @@ type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.4.11',
-    moduleName: 'Web.Fetch',
+    moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
         Note: when sent from the browser, the request is subject to Cross-Origin Resource Sharing (CORS) policy,

@@ -10,7 +10,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Schema.Array',
+    moduleName: 'Schema / Array',
     description: 'Creates a Array schema.',
     keywords: [],
     params: {

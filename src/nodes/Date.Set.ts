@@ -17,7 +17,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.1',
-    moduleName: 'Date.Set',
+    moduleName: 'Date / Set',
     description: 'Sets specified date components.',
     keywords: ['date'],
     params: {

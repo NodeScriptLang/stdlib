@@ -8,7 +8,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Cos',
+    moduleName: 'Math / Cos',
     description: `
         Computes the cosine of specified number.
     `,

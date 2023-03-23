@@ -8,7 +8,7 @@ type R = string;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'RegExp.Escape',
+    moduleName: 'Reg Exp / Escape',
     description: `
         Escapes the characters that have special meaning in regular expressions.
         Used to create regular expressions that match characters like dot, question mark, dollar sign,

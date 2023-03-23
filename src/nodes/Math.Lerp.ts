@@ -11,7 +11,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Lerp',
+    moduleName: 'Math / Lerp',
     description: `
         Computes a linear interpolation from a to b at t,
         where t is generally in the range of [0, 1].

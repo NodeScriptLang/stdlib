@@ -12,7 +12,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.MapRange',
+    moduleName: 'Math / Map Range',
     description: `
         Computes a linear mapping of specified value from one range to another.
     `,

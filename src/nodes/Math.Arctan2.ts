@@ -9,7 +9,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Arctan',
+    moduleName: 'Math / Arctan2',
     description: `
         Computes the arctangent of the angle between positive X axis
         and the ray to the point (x, y) in Cartesian system.

@@ -9,7 +9,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Log',
+    moduleName: 'Math / Log',
     description: `
         Computes the logarithm of specified value.
     `,

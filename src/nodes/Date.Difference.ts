@@ -11,7 +11,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.3',
-    moduleName: 'Date.Difference',
+    moduleName: 'Date / Difference',
     description: 'Computes a difference between two dates in specified units.',
     keywords: ['date', 'difference'],
     params: {

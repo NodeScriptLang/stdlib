@@ -8,7 +8,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Arccos',
+    moduleName: 'Math / Arccos',
     description: `
         Computes the arccosine of specified angle in radians.
     `,

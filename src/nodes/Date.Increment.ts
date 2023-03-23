@@ -11,7 +11,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Date.Increment',
+    moduleName: 'Date / Increment',
     description: 'Increments a specified date component.',
     keywords: ['date', 'increment', 'add', 'plus'],
     params: {

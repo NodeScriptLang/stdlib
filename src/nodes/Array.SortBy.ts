@@ -9,7 +9,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: 'Array.SortBy',
+    moduleName: 'Array / Sort By',
     version: '1.0.2',
     description: `
         Sorts the array by specified keys.

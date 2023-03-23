@@ -8,7 +8,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Arctan',
+    moduleName: 'Math / Arctan',
     description: `
         Computes the arctangent of specified angle in radians.
     `,

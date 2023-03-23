@@ -9,7 +9,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Multiply',
+    moduleName: 'Math / Multiply',
     description: `
         Computes a * b.
     `,

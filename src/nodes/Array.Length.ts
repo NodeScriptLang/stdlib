@@ -8,7 +8,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.1.2',
-    moduleName: 'Array.Length',
+    moduleName: 'Array / Length',
     description: `
         Returns the length of an array.
     `,

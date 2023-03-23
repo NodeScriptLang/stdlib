@@ -8,7 +8,7 @@ type R = number;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Math.Ceil',
+    moduleName: 'Math / Ceil',
     description: `
         Rounds the closest integer number not below the specified value.
     `,
