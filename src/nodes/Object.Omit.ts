@@ -1,19 +1,19 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {
-    object: unknown;
+    object: any;
     keys: string[];
 };
 
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.4.1',
-    moduleName: 'Object / Pick',
+    version: '1.0.0',
+    moduleName: 'Object / Omit',
     description: `
-        Picks specified keys from an object.
+        Creates a shallow copy of an object with specified keys removed.
     `,
-    keywords: ['object', 'key', 'select', 'allowlist'],
+    keywords: ['object', 'key', 'delete', 'remove'],
     params: {
         object: {
             schema: { type: 'any' },
@@ -39,12 +39,9 @@ export const module: ModuleDefinition<P, R> = {
 
 export const compute: ModuleCompute<P, R> = params => {
     const { object, keys } = params;
-    const res: any = {};
+    const res: any = { ...object };
     for (const key of keys) {
-        const value = (object as any)[key];
-        if (value !== undefined) {
-            res[key] = value;
-        }
+        delete res[key];
     }
     return res;
 };
