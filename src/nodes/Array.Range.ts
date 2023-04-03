@@ -5,12 +5,13 @@ type P = {
     end: number;
     step: number;
     limit: number;
+    inclusive: boolean;
 };
 
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.3',
+    version: '1.3.0',
     moduleName: 'Array / Range',
     description: `
         Constructs a sequence of numbers with specified start (inclusive), end (exclusive)
@@ -32,7 +33,11 @@ export const module: ModuleDefinition<P, R> = {
         limit: {
             schema: { type: 'number', default: 10000 },
             advanced: true,
-        }
+        },
+        inclusive: {
+            schema: { type: 'boolean', default: false },
+            advanced: true,
+        },
     },
     result: {
         schema: {
@@ -43,15 +48,18 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = params => {
-    const { start, end, step, limit } = params;
+    const { start, end, step, limit, inclusive } = params;
     if (start === end) {
         return [];
     }
-    const converge = (start < end) === (start < start + step);
+    const converge = (start < end) === (start < (start + step));
     if (!converge) {
-        throw new Error('Range does not converge');
+        throw new RangeError('Range does not converge');
     }
-    const length = Math.min(Math.abs(Math.ceil((end - start) / step)), limit);
+    let length = Math.min(Math.abs(Math.ceil((end - start) / step)), limit);
+    if (inclusive) {
+        length += 1;
+    }
     const result = new Array<number>(length);
     for (let i = 0; i < length; i++) {
         result[i] = start + i * step;
