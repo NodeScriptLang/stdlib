@@ -19,13 +19,14 @@ type P = {
     followRedirects: boolean;
     proxyUrl: string;
     throw: boolean;
+    retries: number;
     adapterUrl: string;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.6.1',
+    version: '1.7.0',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -77,6 +78,10 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'boolean', default: true },
             advanced: true,
         },
+        retries: {
+            schema: { type: 'number', default: 1 },
+            advanced: true,
+        },
         adapterUrl: {
             schema: { type: 'string', default: '' },
             advanced: true,
@@ -91,7 +96,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
-    const { method, url, query, headers, body, proxyUrl, followRedirects } = params;
+    const { method, url, query, headers, body, proxyUrl, followRedirects, retries = 1 } = params;
     if (!url) {
         // Do not send requests to self by default
         return undefined;
@@ -114,6 +119,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         bodyBase64: actualBody ? stringToBase64(actualBody) : undefined,
         followRedirects,
         proxy,
+        retries,
     };
     const res = await fetch(fetchServiceUrl + '/Fetch/sendRequest', {
         method: 'POST',
@@ -167,6 +173,7 @@ interface FetchServiceRequest {
     bodyBase64?: string;
     followRedirects?: boolean;
     proxy?: string;
+    retries?: number;
 }
 
 interface FetchServiceResponse {
