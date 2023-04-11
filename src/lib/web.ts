@@ -74,3 +74,13 @@ export class HttpRequestFailed extends Error {
     }
 
 }
+
+export class FetchAdapterError extends Error {
+    override name = this.constructor.name;
+    details = {};
+
+    constructor(status: number, method: string, url: string, details: any) {
+        super(`${status} - ${method} ${url}`);
+        this.details = details;
+    }
+}

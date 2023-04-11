@@ -3,6 +3,7 @@ import { GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/c
 
 import {
     determineRequestBody,
+    FetchAdapterError,
     FetchHeaders,
     FetchMethod,
     getHeaderValue,
@@ -26,7 +27,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.7.0',
+    version: '1.7.1',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -130,6 +131,11 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
             request
         }),
     });
+    if (!res.ok) {
+        const responseBodyText = await res.text();
+        const details = ctx.lib.parseJson(responseBodyText) ?? { response: responseBodyText };
+        throw new FetchAdapterError(res.status, method, url, details);
+    }
     const json = await res.json();
     const response: FetchServiceResponse = json.response;
     const responseBodyText = base64ToString(response.bodyBase64);
