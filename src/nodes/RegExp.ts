@@ -9,7 +9,7 @@ type R = RegExp;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Reg Exp',
+    moduleName: 'RegExp',
     description: 'Creates a regular expression.',
     keywords: ['regex', 'match'],
     params: {
