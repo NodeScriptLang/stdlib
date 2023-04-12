@@ -9,7 +9,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    moduleName: 'Array / Sort By',
+    moduleName: 'Array / Sort By Key',
     version: '1.0.2',
     description: `
         Sorts the array by specified keys.
