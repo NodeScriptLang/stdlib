@@ -32,7 +32,7 @@ export const module: ModuleDefinition<P, R> = {
             schema: {
                 type: 'any',
             },
-        }
+        },
     },
     result: {
         schema: { type: 'any' },
