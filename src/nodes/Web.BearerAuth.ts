@@ -8,7 +8,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Web / Bearer Auth',
     description: `
         Creates a Bearer token HTTP authorization header.
@@ -35,5 +35,5 @@ export const module: ModuleDefinition<P, R> = {
 
 export const compute: ModuleCompute<P, R> = params => {
     const { token, prefix } = params;
-    return [token, prefix].join(' ');
+    return [prefix, token].join(' ');
 };
