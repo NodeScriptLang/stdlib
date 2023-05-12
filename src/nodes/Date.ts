@@ -18,7 +18,7 @@ export const module: ModuleDefinition<P, R> = {
     },
     result: {
         schema: { type: 'any' },
-    }
+    },
 };
 
 export const compute: ModuleCompute<P, R> = params => {

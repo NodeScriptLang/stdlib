@@ -14,7 +14,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.4.11',
+    version: '1.5.0',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -62,7 +62,16 @@ export const module: ModuleDefinition<P, R> = {
     result: {
         async: true,
         schema: {
-            type: 'any',
+            type: 'object',
+            properties: {
+                status: { type: 'number' },
+                url: { type: 'string' },
+                headers: {
+                    type: 'object',
+                    additionalProperties: { type: 'any' },
+                },
+                body: { type: 'any' },
+            }
         },
     },
     cacheMode: 'always',
@@ -89,20 +98,20 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         headers: actualHeaders,
         body: actualBody,
     });
-    let responseBodyText = await res.text();
+    let responseBody = await res.text();
     if (params.throw && !res.ok) {
-        const details = ctx.lib.parseJson(responseBodyText) ?? { response: responseBodyText };
+        const details = ctx.lib.parseJson(responseBody) ?? { response: responseBody };
         throw new HttpRequestFailed(res.status, method, url, details);
     }
     const bodyType = res.headers.get('Content-Type');
     if (bodyType && bodyType.startsWith('application/json')) {
-        responseBodyText = JSON.parse(responseBodyText);
+        responseBody = JSON.parse(responseBody);
     }
     return {
         url: res.url,
         status: res.status,
         headers: headersToObject(res.headers),
-        body: responseBodyText,
+        body: responseBody,
     };
 };
 

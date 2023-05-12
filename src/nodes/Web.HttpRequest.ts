@@ -27,7 +27,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.7.1',
+    version: '1.8.0',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -90,7 +90,18 @@ export const module: ModuleDefinition<P, R> = {
     },
     result: {
         async: true,
-        schema: { type: 'any' },
+        schema: {
+            type: 'object',
+            properties: {
+                status: { type: 'number' },
+                url: { type: 'string' },
+                headers: {
+                    type: 'object',
+                    additionalProperties: { type: 'any' },
+                },
+                body: { type: 'any' },
+            }
+        },
     },
     cacheMode: 'always',
     evalMode: 'manual',

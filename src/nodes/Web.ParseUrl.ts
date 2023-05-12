@@ -9,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.2.0',
     moduleName: 'Web / Parse Url',
     description: `
         Parses a specified URL and allows accessing its specific components
@@ -22,7 +22,21 @@ export const module: ModuleDefinition<P, R> = {
         },
     },
     result: {
-        schema: { type: 'any' },
+        schema: {
+            type: 'object',
+            properties: {
+                protocol: { type: 'string' },
+                host: { type: 'string' },
+                hostname: { type: 'string' },
+                port: { type: 'string' },
+                pathname: { type: 'string' },
+                search: { type: 'string' },
+                hash: { type: 'string' },
+                origin: { type: 'string' },
+                username: { type: 'string' },
+                password: { type: 'string' },
+            }
+        },
     },
 };
 

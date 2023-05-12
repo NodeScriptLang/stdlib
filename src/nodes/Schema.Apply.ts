@@ -9,9 +9,9 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
-    moduleName: 'Schema / Decode',
-    description: 'Decodes the value using Schema.',
+    version: '1.0.0',
+    moduleName: 'Schema / Apply',
+    description: 'Returns an object confirming to specified schema.',
     keywords: [],
     params: {
         schema: {
