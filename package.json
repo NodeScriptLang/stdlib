@@ -28,7 +28,7 @@
     ],
     "dependencies": {
         "@nodescript/binary-utils": "^1.2.2",
-        "@nodescript/core": "^5.9.1"
+        "@nodescript/core": "^5.19.1"
     },
     "devDependencies": {
         "@nodescript/cli": "^1.0.0",
