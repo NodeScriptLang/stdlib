@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.2',
+    version: '1.3.3',
     moduleName: 'Object / Get',
     labelParam: 'key',
     description: `
@@ -22,9 +22,9 @@ export const module: ModuleDefinition<P, R> = {
         },
         key: {
             schema: { type: 'string' },
-            hint: {
+            attributes: {
                 pathof: 'object',
-            }
+            },
         }
     },
     result: {

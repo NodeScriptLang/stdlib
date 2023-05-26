@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.4.1',
+    version: '1.4.2',
     moduleName: 'Object / Pick',
     description: `
         Picks specified keys from an object.
@@ -23,9 +23,9 @@ export const module: ModuleDefinition<P, R> = {
                 type: 'array',
                 items: { type: 'string' },
             },
-            hint: {
-                pathof: 'object',
-            }
+            attributes: {
+                keyof: 'object',
+            },
         }
     },
     result: {

@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Object / Omit',
     description: `
         Creates a shallow copy of an object with specified keys removed.
@@ -23,9 +23,9 @@ export const module: ModuleDefinition<P, R> = {
                 type: 'array',
                 items: { type: 'string' },
             },
-            hint: {
-                pathof: 'object',
-            }
+            attributes: {
+                keyof: 'object',
+            },
         }
     },
     result: {
