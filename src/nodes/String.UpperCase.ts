@@ -4,10 +4,9 @@ type P = { string: string };
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'String / Upper Case',
     description: 'Transforms a string to upper case.',
-    keywords: [],
     params: {
         string: {
             schema: { type: 'string' },

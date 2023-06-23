@@ -7,10 +7,10 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'Logic / And',
     description: 'Returns false if any of the specified conditions are false, or true otherwise.',
-    keywords: ['and', 'all', 'every'],
+    keywords: ['all', 'every'],
     params: {
         conditions: {
             schema: {

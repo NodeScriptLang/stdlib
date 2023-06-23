@@ -7,12 +7,11 @@ type P = {
 type R = any[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Object / Values',
     description: `
         Creates an array consisting of object values.
     `,
-    keywords: ['object', 'values'],
     params: {
         object: {
             schema: { type: 'any' },

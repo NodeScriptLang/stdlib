@@ -4,10 +4,9 @@ type P = { string: string };
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'String / Lower Case',
     description: 'Transforms a string to lower case.',
-    keywords: [],
     params: {
         string: {
             schema: { type: 'string' },

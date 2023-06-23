@@ -9,13 +9,12 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.2.1',
     moduleName: 'Web / Parse Url',
     description: `
         Parses a specified URL and allows accessing its specific components
         (protocol, hostname, port, pathname, search, hash, etc.).
     `,
-    keywords: ['web', 'url', 'parse'],
     params: {
         url: {
             schema: { type: 'string' },

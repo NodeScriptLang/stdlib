@@ -9,12 +9,12 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Array / Index Of',
     description: `
         Returns the index of specified in the array, or -1 if the value does not exist in the array.
     `,
-    keywords: ['size', 'count'],
+    keywords: [],
     params: {
         array: {
             schema: {

@@ -10,10 +10,9 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.3',
+    version: '1.0.4',
     moduleName: 'Date / Difference',
     description: 'Computes a difference between two dates in specified units.',
-    keywords: ['date', 'difference'],
     params: {
         fromDate: {
             schema: { type: 'any' },

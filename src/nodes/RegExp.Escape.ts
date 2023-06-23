@@ -7,14 +7,13 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'RegExp / Escape',
     description: `
         Escapes the characters that have special meaning in regular expressions.
         Used to create regular expressions that match characters like dot, question mark, dollar sign,
         curly and square brackets, parentheses, etc.
     `,
-    keywords: ['regex', 'string', 'escape'],
     params: {
         string: {
             schema: { type: 'string' },

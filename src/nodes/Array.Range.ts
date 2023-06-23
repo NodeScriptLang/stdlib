@@ -11,7 +11,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.0',
+    version: '1.3.1',
     moduleName: 'Array / Range',
     description: `
         Constructs a sequence of numbers with specified start (inclusive), end (exclusive)
@@ -19,7 +19,7 @@ export const module: ModuleDefinition<P, R> = {
 
         By default the range doesn't generate more than 10K entries. This can be changed via limit property (use at your own risk).
     `,
-    keywords: ['array'],
+    keywords: [],
     params: {
         start: {
             schema: { type: 'number', default: 0 },

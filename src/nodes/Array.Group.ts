@@ -9,7 +9,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.2',
+    version: '1.2.3',
     moduleName: 'Array / Group',
     description: `
         Groups the array by specified keys.
@@ -19,7 +19,7 @@ export const module: ModuleDefinition<P, R> = {
         otherwise they are compared structurally (slow),
         in a similar way to Equals.
     `,
-    keywords: ['group', 'collate'],
+    keywords: ['collate'],
     params: {
         array: {
             schema: {

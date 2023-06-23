@@ -8,12 +8,12 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Multiply',
     description: `
         Computes a * b.
     `,
-    keywords: ['times'],
+    keywords: ['product'],
     params: {
         a: {
             schema: { type: 'number' },

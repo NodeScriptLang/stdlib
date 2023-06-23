@@ -7,7 +7,7 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'Array / Length',
     description: `
         Returns the length of an array.

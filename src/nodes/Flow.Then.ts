@@ -8,13 +8,12 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Flow / Then',
     description: `
     Runs the specified step, discards its result and a "then" value.
     Useful when joining mutliple asynchronous processes together.
     `,
-    keywords: ['flow'],
     params: {
         step: {
             deferred: true,

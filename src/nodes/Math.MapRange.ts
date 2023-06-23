@@ -11,12 +11,11 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Map Range',
     description: `
         Computes a linear mapping of specified value from one range to another.
     `,
-    keywords: [],
     params: {
         value: {
             schema: { type: 'number', default: 0.5 },

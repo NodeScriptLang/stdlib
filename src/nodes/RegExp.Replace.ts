@@ -9,14 +9,13 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.2',
+    version: '1.2.3',
     moduleName: 'RegExp / Replace',
     description: `
         Replaces all occurrences of a regular expression in a string.
         If the regexp is a string, it is converted to a regular expression with Global flag.
         Use RegExp node to create a regular expression with custom flags.'
     `,
-    keywords: ['regex', 'match', 'replace'],
     params: {
         string: {
             schema: { type: 'string' },

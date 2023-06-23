@@ -10,10 +10,10 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.2',
+    version: '1.2.3',
     moduleName: 'Logic / Contains',
     description: 'Checks if "needle" occurs anywhere inside "haystack".',
-    keywords: ['check', 'includes', 'find', 'search'],
+    keywords: ['includes'],
     params: {
         haystack: {
             schema: { type: 'any' },

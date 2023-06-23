@@ -8,7 +8,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.2',
+    version: '1.2.3',
     moduleName: 'Array / Unique',
     description: `
         Returns an array consisting of unique items.
@@ -16,7 +16,7 @@ export const module: ModuleDefinition<P, R> = {
         otherwise they are compared structurally (slow),
         in a similar way to Equals.
     `,
-    keywords: ['unique', 'deduplicate'],
+    keywords: ['deduplicate'],
     params: {
         array: {
             schema: {

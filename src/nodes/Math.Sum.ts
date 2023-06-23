@@ -7,14 +7,14 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'Math / Sum',
     description: `
         Computes a sum of specified items.
         Each item can either be a number or an array of numbers.
         Non-numbers are ignored.
     `,
-    keywords: ['plus', 'add', 'sum'],
+    keywords: ['plus', 'add'],
     params: {
         items: {
             schema: {

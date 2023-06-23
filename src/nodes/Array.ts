@@ -7,10 +7,10 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Array',
     description: 'Creates an array with computed items.',
-    keywords: ['array', 'list', 'items', 'entries'],
+    keywords: ['list'],
     params: {
         items: {
             schema: {

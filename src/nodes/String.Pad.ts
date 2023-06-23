@@ -9,7 +9,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'String / Pad',
     description: `
         Adds padding either to the start or to the end of the specified string
@@ -17,7 +17,7 @@ export const module: ModuleDefinition<P, R> = {
 
         Does nothing if the string is already matches or exceeds the target length,
         or if the padding is an empty string.`,
-    keywords: ['string', 'text', 'pad', 'fill'],
+    keywords: ['fill'],
     params: {
         string: {
             schema: { type: 'string' },

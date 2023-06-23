@@ -9,10 +9,9 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Schema / Apply',
     description: 'Returns an object confirming to specified schema.',
-    keywords: [],
     params: {
         schema: {
             schema: {

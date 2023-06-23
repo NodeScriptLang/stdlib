@@ -8,10 +8,9 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.3',
+    version: '1.0.4',
     moduleName: 'Error',
     description: 'Raise an error with specified name and message.',
-    keywords: ['string', 'text'],
     params: {
         name: {
             schema: { type: 'string', default: 'Error' },

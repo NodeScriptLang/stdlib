@@ -10,10 +10,9 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Schema / Object',
     description: 'Creates a Object schema.',
-    keywords: [],
     params: {
         id: {
             schema: {

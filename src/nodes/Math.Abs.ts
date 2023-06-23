@@ -7,12 +7,11 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Abs',
     description: `
         Computes the absolute of specified value.
     `,
-    keywords: ['absolute'],
     params: {
         value: {
             schema: { type: 'number' },

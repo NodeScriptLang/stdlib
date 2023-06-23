@@ -4,10 +4,9 @@ type P = { value: string };
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'String',
     description: 'Convert value into a string.',
-    keywords: ['string', 'text'],
     params: {
         value: {
             schema: { type: 'string' },

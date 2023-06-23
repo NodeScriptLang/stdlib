@@ -9,10 +9,10 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'String / From Bytes',
     description: 'Converts an ArrayBuffer into a string in specified encoding.',
-    keywords: ['string', 'text', 'byte', 'buffer', 'array', 'binary'],
+    keywords: ['buffer'],
     params: {
         buffer: {
             schema: {

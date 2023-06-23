@@ -7,12 +7,11 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Arctan',
     description: `
         Computes the arctangent of specified angle in radians.
     `,
-    keywords: ['arctangent'],
     params: {
         value: {
             schema: { type: 'number' },

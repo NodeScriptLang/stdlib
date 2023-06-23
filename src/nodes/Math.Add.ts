@@ -8,12 +8,12 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Add',
     description: `
         Computes a + b.
     `,
-    keywords: ['plus', 'add', 'sum'],
+    keywords: ['plus', 'sum'],
     params: {
         a: {
             schema: { type: 'number' },

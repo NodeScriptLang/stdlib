@@ -7,12 +7,11 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Sign',
     description: `
         Computes the sign of specified value.
     `,
-    keywords: [],
     params: {
         value: {
             schema: { type: 'number' },

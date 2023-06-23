@@ -7,12 +7,11 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Hypot',
     description: `
         Computes N-dimensional hypothenuse (the square root of the sum of squares).
     `,
-    keywords: ['hypothenuse'],
     params: {
         values: {
             schema: {

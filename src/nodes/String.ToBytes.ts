@@ -9,10 +9,10 @@ type P = {
 type R = ArrayBuffer;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'String / To Bytes',
     description: 'Converts a string into an ArrayBuffer.',
-    keywords: ['string', 'text', 'byte', 'buffer', 'array', 'binary'],
+    keywords: ['buffer'],
     params: {
         string: {
             schema: {

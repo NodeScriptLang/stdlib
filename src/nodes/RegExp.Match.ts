@@ -8,13 +8,12 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.2',
+    version: '1.2.3',
     moduleName: 'RegExp / Match',
     description: `
         Matches a string against a regular expression.
         Returns an array of matched groups, or an empty array if nothing matched.
     `,
-    keywords: ['regex', 'match'],
     params: {
         string: {
             schema: { type: 'string' },

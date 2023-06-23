@@ -7,12 +7,11 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Min',
     description: `
         Computes the minimum of specified numbers.
     `,
-    keywords: ['minimum'],
     params: {
         values: {
             schema: {

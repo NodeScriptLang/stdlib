@@ -14,14 +14,14 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.5.0',
+    version: '1.5.1',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
         Note: when sent from the browser, the request is subject to Cross-Origin Resource Sharing (CORS) policy,
         along with other limitations. Use HTTP Request node for a general purpose HTTP client.
     `,
-    keywords: ['http', 'request', 'send'],
+    keywords: ['http', 'request'],
     params: {
         method: {
             schema: {

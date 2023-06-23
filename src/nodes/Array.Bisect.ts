@@ -11,14 +11,14 @@ type R = {
 };
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Array / Bisect',
     description: `
         Splits the array into "positive" and "negative" subarrays,
         based on the per-element condition.
         The array and conditions are expected to correspond to each other by index.
     `,
-    keywords: ['find', 'all', 'filter', 'match'],
+    keywords: ['find', 'filter', 'match'],
     params: {
         array: {
             schema: {

@@ -7,10 +7,9 @@ type P = {
 type R = Promise<unknown[]>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'Flow / Sequence',
     description: 'Runs the steps sequentialy and returns an array of their result.',
-    keywords: ['flow'],
     params: {
         steps: {
             deferred: true,

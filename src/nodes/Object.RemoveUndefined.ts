@@ -7,12 +7,11 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.3',
+    version: '1.2.4',
     moduleName: 'Object / Remove Undefined',
     description: `
         Removes undefined values from the object.
     `,
-    keywords: ['object', 'trim'],
     params: {
         object: {
             schema: { type: 'any' },

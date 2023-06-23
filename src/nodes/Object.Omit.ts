@@ -8,12 +8,11 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.1',
+    version: '1.0.2',
     moduleName: 'Object / Omit',
     description: `
         Creates a shallow copy of an object with specified keys removed.
     `,
-    keywords: ['object', 'key', 'delete', 'remove'],
     params: {
         object: {
             schema: { type: 'any' },

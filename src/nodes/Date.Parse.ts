@@ -6,10 +6,9 @@ type P = { date: any };
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'Date / Parse',
     description: 'Returns individual components of the date, i.e. year, month, week, day of month, etc.',
-    keywords: ['date', 'string', 'parse'],
     params: {
         date: {
             schema: { type: 'any' },

@@ -7,14 +7,13 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.4',
+    version: '1.1.5',
     moduleName: 'Web / Search Params',
     description: `
         Creates a search parameters from key/value pairs,
         suitable for using in URL query string, as well as
         request POST body with application/x-www-urlencoded content type.
     `,
-    keywords: ['web', 'url', 'query'],
     params: {
         params: {
             schema: {

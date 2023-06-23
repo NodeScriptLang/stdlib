@@ -8,12 +8,12 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Modulo',
     description: `
         Computes the reminder of division a by b.
     `,
-    keywords: ['over', 'fraction'],
+    keywords: ['remainder'],
     params: {
         a: {
             schema: { type: 'number' },

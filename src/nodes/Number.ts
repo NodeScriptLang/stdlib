@@ -4,10 +4,9 @@ type P = { value: number };
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Number',
     description: 'Converts value into a number.',
-    keywords: ['number', 'integer', 'parse'],
     params: {
         value: {
             schema: { type: 'number' },

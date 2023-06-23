@@ -8,13 +8,13 @@ type P = {
 type R = string[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.2',
+    version: '1.2.3',
     moduleName: 'String / Split',
     description: `
         Splits a string into multiple components delimited with specified separator.
         Separator can be either a string or a regular expression.
     `,
-    keywords: ['string', 'text', 'separate'],
+    keywords: ['separate'],
     params: {
         string: {
             schema: {

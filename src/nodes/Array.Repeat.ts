@@ -8,12 +8,12 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'Array / Repeat',
     description: `
         Constructs an array of given length filled with specified item.
     `,
-    keywords: ['fill', 'array'],
+    keywords: ['fill'],
     params: {
         item: {
             schema: { type: 'any' },

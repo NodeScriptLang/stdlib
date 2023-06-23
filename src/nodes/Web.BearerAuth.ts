@@ -8,12 +8,11 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.1',
+    version: '1.0.3',
     moduleName: 'Web / Bearer Auth',
     description: `
         Creates a Bearer token HTTP authorization header.
     `,
-    keywords: ['web', 'url', 'http', 'authorization'],
     params: {
         token: {
             schema: {

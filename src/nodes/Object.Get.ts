@@ -8,14 +8,13 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.3',
+    version: '1.3.4',
     moduleName: 'Object / Get',
     labelParam: 'key',
     description: `
         Gets a value at specified key.
         Key can be a JSON pointer or a dot-delimited path.
     `,
-    keywords: ['object', 'key', 'value', 'get'],
     params: {
         object: {
             schema: { type: 'any' },

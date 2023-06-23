@@ -7,12 +7,12 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'Object / From Pairs',
     description: `
         Converts an array of [key, value] pairs into an object.
     `,
-    keywords: ['object', 'key', 'value', 'entry', 'entries', 'pairs', 'tuples'],
+    keywords: ['entries', 'tuples'],
     params: {
         pairs: {
             schema: {

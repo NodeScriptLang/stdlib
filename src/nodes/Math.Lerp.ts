@@ -10,14 +10,14 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Lerp',
     description: `
         Computes a linear interpolation from a to b at t,
         where t is generally in the range of [0, 1].
         If clamp is true, t is clamped to [0, 1] range.
     `,
-    keywords: ['interpolation'],
+    keywords: ['interpolate'],
     params: {
         a: {
             schema: { type: 'number', default: 0 },

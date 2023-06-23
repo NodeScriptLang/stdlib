@@ -8,13 +8,13 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'Array / Filter',
     description: `
         Returns items of specified array for which the corresponding condition is true.
         The array and conditions are expected to correspond to each other by index.
     `,
-    keywords: ['find', 'all'],
+    keywords: ['find', 'match'],
     params: {
         array: {
             schema: {

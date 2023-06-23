@@ -7,12 +7,11 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Cos',
     description: `
         Computes the cosine of specified number.
     `,
-    keywords: ['cosine'],
     params: {
         value: {
             schema: { type: 'number' },

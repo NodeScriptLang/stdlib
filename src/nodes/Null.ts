@@ -4,10 +4,9 @@ type P = {};
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Null',
     description: 'Creates a null value.',
-    keywords: [],
     params: {},
     result: {
         schema: { type: 'any' },

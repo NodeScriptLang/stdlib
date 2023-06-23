@@ -8,12 +8,11 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.4.2',
+    version: '1.4.3',
     moduleName: 'Object / Pick',
     description: `
         Picks specified keys from an object.
     `,
-    keywords: ['object', 'key', 'select', 'allowlist'],
     params: {
         object: {
             schema: { type: 'any' },

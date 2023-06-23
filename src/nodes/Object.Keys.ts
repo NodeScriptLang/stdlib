@@ -7,12 +7,11 @@ type P = {
 type R = string[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Object / Keys',
     description: `
         Creates an array consisting of object keys.
     `,
-    keywords: ['object', 'keys'],
     params: {
         object: {
             schema: { type: 'any' },
