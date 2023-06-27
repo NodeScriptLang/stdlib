@@ -1,7 +1,7 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {
-    step: unknown;
+    ms: number;
     then: unknown;
 };
 
@@ -9,15 +9,14 @@ type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.2',
-    moduleName: 'Flow / Then',
+    moduleName: 'Flow / Sleep',
     description: `
-    Runs the specified step, discards its result and returns a "then" value.
-    Useful when joining mutliple asynchronous processes together.
+    Pauses execution for specified number of milliseconds, then resolves and returns the "then" value.
     `,
+    evalMode: 'manual',
     params: {
-        step: {
-            deferred: true,
-            schema: { type: 'any' },
+        ms: {
+            schema: { type: 'number', default: 1000 },
         },
         then: {
             deferred: true,
@@ -34,6 +33,6 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
-    await ctx.resolveDeferred(params.step);
+    await new Promise(resolve => setTimeout(resolve, params.ms));
     return await ctx.resolveDeferred(params.then);
 };
