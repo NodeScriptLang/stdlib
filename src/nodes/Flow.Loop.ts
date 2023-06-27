@@ -1,35 +1,32 @@
 import { SubgraphModuleCompute, SubgraphModuleDefinition } from '@nodescript/core/types';
 
 type P = {
-    array: unknown[];
+    limit: number;
     scope: Record<string, any>;
 };
 
 type R = Promise<unknown>;
 
 type SI = {
-    item: unknown;
-    index: number;
     [key: string]: unknown;
 };
 
 type SO = {
     resume: boolean;
-    result: unknown;
+    result: any;
     [key: string]: unknown;
 };
 
 export const module: SubgraphModuleDefinition<P, R, SI, SO> = {
-    version: '1.2.0',
-    moduleName: 'Flow / Scan',
-    description: 'Executes a subgraph for each array item. The subgraph decides whether to continue iterating or not and what result to return.',
-    keywords: ['loop', 'find', 'iterate'],
-    evalMode: 'manual',
+    version: '0.1.9',
+    moduleName: 'Flow / Loop',
+    description: 'Executes a subgraph in a loop. The subgraph decides whether to continue iterating or not and what result to return.',
+    keywords: ['while'],
     params: {
-        array: {
+        limit: {
             schema: {
-                type: 'array',
-                items: { type: 'any' },
+                type: 'number',
+                default: 10,
             },
         },
         scope: {
@@ -47,29 +44,25 @@ export const module: SubgraphModuleDefinition<P, R, SI, SO> = {
         },
     },
     subgraph: {
-        input: {
-            item: { type: 'any' },
-            index: { type: 'number' },
-        },
+        input: {},
         output: {
             type: 'object',
             properties: {
                 resume: { type: 'boolean' },
                 result: { type: 'any' },
-                additionalProperties: { type: 'any' },
             },
+            additionalProperties: { type: 'any' },
         },
     },
 };
 
 export const compute: SubgraphModuleCompute<P, R, SI, SO> = async (params, ctx, subgraph) => {
-    const { array } = params;
+    const { limit } = params;
+    let iteration = 0;
     const scope = { ...params.scope };
-    for (let index = 0; index < array.length; index++) {
-        const item = array[index];
+    while (iteration < limit) {
+        iteration += 1;
         const { resume, result, ...newScope } = await subgraph({
-            item,
-            index,
             ...scope,
         }, ctx.newScope());
         if (!resume) {
@@ -77,5 +70,9 @@ export const compute: SubgraphModuleCompute<P, R, SI, SO> = async (params, ctx, 
         }
         Object.assign(scope, newScope);
     }
-    return null;
+    throw new LoopLimitError('Loop limit exceeded');
 };
+
+class LoopLimitError extends Error {
+    override name = this.constructor.name;
+}

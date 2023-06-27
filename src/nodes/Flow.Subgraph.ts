@@ -15,7 +15,7 @@ type SO = {
 };
 
 export const module: SubgraphModuleDefinition<P, R, SI, SO> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Flow / Subgraph',
     params: {
         scope: {
