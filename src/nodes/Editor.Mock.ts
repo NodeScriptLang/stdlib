@@ -9,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.1.0',
     moduleName: 'Editor / Mock',
     description: 'Editor-only. When enabled, returns the mock, otherwise returns the original value. When the module is published, the original value is always returned and mock is not evaluated. Useful for mocking heavy operations in development.',
     params: {
@@ -32,7 +32,9 @@ export const module: ModuleDefinition<P, R> = {
 
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { enabled, value, mock } = params;
-    const isEditor = ctx.getLocal('NS_ENV') === 'editor';
+    // Note: use ctx.locals directly to only check in this context's locals;
+    // this prevents mocks from being used in sub-contexts (e.g. subgraphs or other modules)
+    const isEditor = ctx.locals.get('NS_ENV') === 'editor';
     return isEditor && enabled ?
         ctx.resolveDeferred(mock) :
         ctx.resolveDeferred(value);
