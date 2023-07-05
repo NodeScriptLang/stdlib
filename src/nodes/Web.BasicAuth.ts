@@ -9,7 +9,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.3',
+    version: '1.1.4',
     moduleName: 'Web / Basic Auth',
     description: `
         Creates a basic HTTP authorization header given a username and a password.

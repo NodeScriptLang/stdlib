@@ -4,7 +4,7 @@ type P = {};
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.3',
+    version: '1.0.4',
     moduleName: 'Null',
     description: 'Creates a null value.',
     params: {},

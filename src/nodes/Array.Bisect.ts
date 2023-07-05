@@ -11,7 +11,7 @@ type R = {
 };
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.1',
+    version: '1.0.2',
     moduleName: 'Array / Bisect',
     description: `
         Splits the array into "positive" and "negative" subarrays,

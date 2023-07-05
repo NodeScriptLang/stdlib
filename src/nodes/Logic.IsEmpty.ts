@@ -5,7 +5,7 @@ type P = { value: unknown };
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.3',
+    version: '1.1.4',
     moduleName: 'Logic / Is Empty',
     description: `
         Returns true if the specified value is empty.

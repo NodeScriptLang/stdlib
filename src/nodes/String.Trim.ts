@@ -4,7 +4,7 @@ type P = { string: string };
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.3',
+    version: '1.1.4',
     moduleName: 'String / Trim',
     description: 'Removes leading and trailing whitespace from a string.',
     keywords: ['whitespace'],

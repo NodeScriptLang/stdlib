@@ -11,7 +11,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: 'Array / Find By Key',
-    version: '1.0.1',
+    version: '1.0.2',
     description: `
         Finds the first occurrence of an array item where the value at specified key
         equals to the specified value.

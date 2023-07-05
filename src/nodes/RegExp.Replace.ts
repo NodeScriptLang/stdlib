@@ -9,7 +9,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.3',
+    version: '1.2.4',
     moduleName: 'RegExp / Replace',
     description: `
         Replaces all occurrences of a regular expression in a string.

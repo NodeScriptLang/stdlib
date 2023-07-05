@@ -5,7 +5,7 @@ type P = {};
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.3',
+    version: '1.0.4',
     moduleName: 'Math / Pi',
     description: `
         Returns the value of PI.

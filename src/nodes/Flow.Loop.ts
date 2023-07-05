@@ -18,7 +18,7 @@ type SO = {
 };
 
 export const module: SubgraphModuleDefinition<P, R, SI, SO> = {
-    version: '0.1.9',
+    version: '0.2.0',
     moduleName: 'Flow / Loop',
     description: 'Executes a subgraph in a loop. The subgraph decides whether to continue iterating or not and what result to return.',
     keywords: ['while'],

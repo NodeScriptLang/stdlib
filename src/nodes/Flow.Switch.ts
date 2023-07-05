@@ -10,7 +10,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.3',
+    version: '1.2.4',
     moduleName: 'Flow / Switch',
     description: `
         Matches a value against a series of cases and returns the result of the first match.

@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.4',
+    version: '1.3.5',
     moduleName: 'Object / Get',
     labelParam: 'key',
     description: `

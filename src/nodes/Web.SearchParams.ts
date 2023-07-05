@@ -7,7 +7,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.5',
+    version: '1.1.6',
     moduleName: 'Web / Search Params',
     description: `
         Creates a search parameters from key/value pairs,

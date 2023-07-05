@@ -11,7 +11,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.1',
+    version: '1.3.2',
     moduleName: 'Array / Range',
     description: `
         Constructs a sequence of numbers with specified start (inclusive), end (exclusive)

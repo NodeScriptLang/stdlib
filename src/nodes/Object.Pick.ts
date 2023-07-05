@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.4.3',
+    version: '1.4.4',
     moduleName: 'Object / Pick',
     description: `
         Picks specified keys from an object.

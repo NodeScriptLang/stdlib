@@ -9,7 +9,7 @@ type P = {
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.4.1',
+    version: '1.4.2',
     moduleName: 'Object / Key Value',
     description: 'Creates an object with computed key and value. If raw is specified, the key is interpreted as-is.',
     keywords: ['entries', 'wrap'],

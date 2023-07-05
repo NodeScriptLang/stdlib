@@ -8,7 +8,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Flow / Sleep',
     description: `
     Pauses execution for specified number of milliseconds, then resolves and returns the "then" value.

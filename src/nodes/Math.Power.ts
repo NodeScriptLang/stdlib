@@ -8,7 +8,7 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Math / Power',
     description: `
         Computes value to the power of exponent.

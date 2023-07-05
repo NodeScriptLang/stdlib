@@ -9,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.1.1',
     moduleName: 'Editor / Mock',
     description: 'Editor-only. When enabled, returns the mock, otherwise returns the original value. When the module is published, the original value is always returned and mock is not evaluated. Useful for mocking heavy operations in development.',
     params: {

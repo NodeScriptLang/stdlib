@@ -8,7 +8,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Flow / Then',
     description: `
     Runs the specified step, discards its result and returns a "then" value.

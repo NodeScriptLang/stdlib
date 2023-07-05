@@ -8,7 +8,7 @@ type P = {
 type R = string[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.3',
+    version: '1.2.4',
     moduleName: 'String / Split',
     description: `
         Splits a string into multiple components delimited with specified separator.

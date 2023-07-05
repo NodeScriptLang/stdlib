@@ -12,7 +12,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.3',
+    version: '1.0.4',
     moduleName: 'Schema / String',
     description: 'Creates a String schema.',
     params: {

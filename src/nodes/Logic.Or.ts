@@ -7,7 +7,7 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.3',
+    version: '1.1.4',
     moduleName: 'Logic / Or',
     description: 'Returns true if any of the specified conditions are true, or false otherwise.',
     keywords: ['any', 'some'],

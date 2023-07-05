@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.4',
+    version: '1.0.5',
     moduleName: 'Error',
     description: 'Raise an error with specified name and message.',
     params: {

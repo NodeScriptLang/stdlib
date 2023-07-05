@@ -10,7 +10,7 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.3',
+    version: '1.0.4',
     moduleName: 'Math / Lerp',
     description: `
         Computes a linear interpolation from a to b at t,

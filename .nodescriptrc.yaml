@@ -1,3 +1,4 @@
 modules:
   - pattern: src/nodes/**/*.ts
     sourceUrl: https://github.com/NodeScriptLang/stdlib/blob/main/{file}
+    channel: 'stdlib'

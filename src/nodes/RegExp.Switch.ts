@@ -9,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.5',
+    version: '1.3.6',
     moduleName: 'RegExp / Switch',
     description: `
         Matches a string against a series of regular expressions specified as pattern keys.
