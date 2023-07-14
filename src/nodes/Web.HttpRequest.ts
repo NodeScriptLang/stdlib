@@ -21,13 +21,15 @@ type P = {
     proxyUrl: string;
     throw: boolean;
     retries: number;
+    resolve: string[];
+    insecure: boolean;
     adapterUrl: string;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.8.2',
+    version: '1.9.0',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -83,6 +85,17 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'number', default: 1 },
             advanced: true,
         },
+        resolve: {
+            schema: {
+                type: 'array',
+                items: { type: 'string' },
+            },
+            advanced: true,
+        },
+        insecure: {
+            schema: { type: 'boolean', default: false },
+            advanced: true,
+        },
         adapterUrl: {
             schema: { type: 'string', default: '' },
             advanced: true,
@@ -108,7 +121,18 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
-    const { method, url, query, headers, body, proxyUrl, followRedirects, retries = 1 } = params;
+    const {
+        method,
+        url,
+        query,
+        headers,
+        body,
+        proxyUrl,
+        followRedirects,
+        retries = 1,
+        resolve,
+        insecure,
+    } = params;
     if (!url) {
         // Do not send requests to self by default
         return undefined;
@@ -132,6 +156,8 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         followRedirects,
         proxy,
         retries,
+        resolve,
+        insecure,
     };
     const res = await fetch(fetchServiceUrl + '/Fetch/sendRequest', {
         method: 'POST',
@@ -191,6 +217,8 @@ interface FetchServiceRequest {
     followRedirects?: boolean;
     proxy?: string;
     retries?: number;
+    resolve?: string[];
+    insecure?: boolean;
 }
 
 interface FetchServiceResponse {
