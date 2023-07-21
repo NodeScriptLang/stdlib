@@ -2,13 +2,12 @@ import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {
     steps: unknown[];
-    catch: unknown;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.2.0',
     moduleName: 'Flow / Try',
     description: `Runs the steps one-by-one and returns the first result that doesn't throw an error.`,
     params: {
@@ -19,10 +18,6 @@ export const module: ModuleDefinition<P, R> = {
                 items: { type: 'any' },
             },
         },
-        catch: {
-            deferred: true,
-            schema: { type: 'any' },
-        },
     },
     result: {
         async: true,
@@ -31,6 +26,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
+    let lastError = null;
     for (const step of params.steps) {
         try {
             return await ctx.resolveDeferred(step);
@@ -38,7 +34,11 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
             if (error.code === 'EPENDING') {
                 throw error;
             }
+            lastError = error;
         }
     }
-    return await ctx.resolveDeferred(params.catch);
+    if (lastError) {
+        throw lastError;
+    }
+    return undefined;
 };
