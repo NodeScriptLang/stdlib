@@ -21,7 +21,6 @@ type P = {
     proxyUrl: string;
     throw: boolean;
     retries: number;
-    resolve: string[];
     insecure: boolean;
     adapterUrl: string;
 };
@@ -29,7 +28,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.9.2',
+    version: '1.10.0',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -85,13 +84,6 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'number', default: 1 },
             advanced: true,
         },
-        resolve: {
-            schema: {
-                type: 'array',
-                items: { type: 'string' },
-            },
-            advanced: true,
-        },
         insecure: {
             schema: { type: 'boolean', default: false },
             advanced: true,
@@ -130,7 +122,6 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         proxyUrl,
         followRedirects,
         retries = 1,
-        resolve,
         insecure,
     } = params;
     if (!url) {
@@ -156,7 +147,6 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         followRedirects,
         proxy,
         retries,
-        resolve,
         insecure,
     };
     const res = await fetch(fetchServiceUrl + '/Fetch/sendRequest', {
