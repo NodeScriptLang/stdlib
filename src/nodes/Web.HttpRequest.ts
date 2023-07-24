@@ -22,13 +22,12 @@ type P = {
     throw: boolean;
     retries: number;
     insecure: boolean;
-    adapterUrl: string;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.10.0',
+    version: '1.10.1',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -86,10 +85,6 @@ export const module: ModuleDefinition<P, R> = {
         },
         insecure: {
             schema: { type: 'boolean', default: false },
-            advanced: true,
-        },
-        adapterUrl: {
-            schema: { type: 'string', default: '' },
             advanced: true,
         },
     },
@@ -193,9 +188,6 @@ function prepareHeaders(headers: Record<string, unknown>): FetchHeaders {
 }
 
 function getAdapterUrl(params: P, ctx: GraphEvalContext) {
-    if (params.adapterUrl) {
-        return params.adapterUrl;
-    }
     return ctx.getLocal<string>('ADAPTER_FETCH_URL') ?? 'https://fetch.nodescript.dev';
 }
 
