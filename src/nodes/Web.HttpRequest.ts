@@ -21,13 +21,12 @@ type P = {
     proxyUrl: string;
     throw: boolean;
     retries: number;
-    insecure: boolean;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.10.1',
+    version: '1.10.2',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -83,10 +82,6 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'number', default: 1 },
             advanced: true,
         },
-        insecure: {
-            schema: { type: 'boolean', default: false },
-            advanced: true,
-        },
     },
     result: {
         async: true,
@@ -117,7 +112,6 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         proxyUrl,
         followRedirects,
         retries = 1,
-        insecure,
     } = params;
     if (!url) {
         // Do not send requests to self by default
@@ -142,7 +136,6 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         followRedirects,
         proxy,
         retries,
-        insecure,
     };
     const res = await fetch(fetchServiceUrl + '/Fetch/sendRequest', {
         method: 'POST',
@@ -176,6 +169,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
     };
 };
 
+// TODO remove
 function prepareHeaders(headers: Record<string, unknown>): FetchHeaders {
     const result: Record<string, string[]> = {};
     for (const [key, value] of Object.entries(headers)) {
