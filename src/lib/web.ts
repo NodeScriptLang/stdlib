@@ -6,8 +6,6 @@ export enum FetchMethod {
     PATCH = 'PATCH',
 }
 
-export type FetchHeaders = Record<string, string[]>;
-
 export function parseQueryString(qs: string): Record<string, string[]> {
     const result: Record<string, string[]> = {};
     const searchParams = new URLSearchParams(qs);
@@ -47,21 +45,14 @@ export function determineRequestBody(method: FetchMethod, body: any): [string | 
     }
 }
 
-export function headersToObject(headers: Headers): FetchHeaders {
+export function headersToObject(
+    headers: Headers | Record<string, string | string[]>
+): Record<string, string[]> {
     const result: Record<string, string[]> = {};
-    for (const [key, value] of headers as any) {
-        result[key] = [value];
+    for (const [key, value] of Object.entries(headers)) {
+        result[key] = Array.isArray(value) ? value : [value];
     }
     return result;
-}
-
-export function getHeaderValues(headers: FetchHeaders, name: string): string[] {
-    const existing = Object.entries(headers).find(_ => _[0].toLowerCase() === name.toLowerCase());
-    return existing ? existing[1] : [];
-}
-
-export function getHeaderValue(headers: FetchHeaders, name: string): string | undefined {
-    return getHeaderValues(headers, name)[0];
 }
 
 export class HttpRequestFailed extends Error {
@@ -71,20 +62,17 @@ export class HttpRequestFailed extends Error {
 
     constructor(status: number, method: string, url: string, details: any) {
         super(`${status} - ${method} ${url}`);
-        this.details = details;
         this.status = status;
+        this.details = details;
     }
-
 }
 
-export class FetchAdapterError extends Error {
+export class FetchError extends Error {
     override name = this.constructor.name;
-    details = {};
     status = 500;
 
-    constructor(status: number, method: string, url: string, details: any) {
-        super(`${status} - ${method} ${url}`);
-        this.details = details;
+    constructor(status: number, message: string) {
+        super(message);
         this.status = status;
     }
 }

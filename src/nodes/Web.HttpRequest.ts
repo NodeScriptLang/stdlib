@@ -1,12 +1,10 @@
-import { base64ToString, stringToBase64 } from '@nodescript/binary-utils';
 import { GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import {
     determineRequestBody,
-    FetchAdapterError,
-    FetchHeaders,
+    FetchError,
     FetchMethod,
-    getHeaderValue,
+    headersToObject,
     HttpRequestFailed,
     mergeUrlQuery,
 } from '../lib/web.js';
@@ -21,12 +19,13 @@ type P = {
     proxyUrl: string;
     throw: boolean;
     retries: number;
+    adapterUrl: string;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.10.3',
+    version: '2.0.3',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -82,6 +81,10 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'number', default: 1 },
             advanced: true,
         },
+        adapterUrl: {
+            schema: { type: 'string', default: '' },
+            advanced: true,
+        },
     },
     result: {
         async: true,
@@ -103,6 +106,41 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
+    const { url, retries } = params;
+    if (!url.trim()) {
+        // Do not send requests to self by default
+        return undefined;
+    }
+    if (!/^https?:\/\//.test(url)) {
+        throw new Error('URL must start with http:// or https://');
+    }
+    const maxAttempts = 1 + (Math.min(Math.max(retries, 0), 10) || 0);
+    let lastError = null;
+    let delay = 500;
+    for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+        try {
+            return await sendSingle(params, ctx);
+        } catch (error: any) {
+            lastError = error;
+            // Retry only on 5xx and connection errors
+            if (error.status >= 500) {
+                await new Promise(r => setTimeout(r, delay));
+                delay = Math.max(delay * 2, 5_000);
+            } else {
+                break;
+            }
+        }
+    }
+    throw lastError;
+};
+
+interface HttpResponseSpec {
+    status: number;
+    headers: Record<string, string[]>;
+    body: any;
+}
+
+async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpResponseSpec> {
     const {
         method,
         url,
@@ -111,95 +149,60 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         body,
         proxyUrl,
         followRedirects,
-        retries = 1,
     } = params;
-    if (!url) {
-        // Do not send requests to self by default
-        return undefined;
-    }
-    if (!/^https?:\/\//.test(url)) {
-        throw new Error('URL must start with http:// or https://');
-    }
     const actualUrl = mergeUrlQuery(url, query);
-    const actualHeaders = prepareHeaders(headers);
+    const actualHeaders = prepHeaders(headers);
     const [actualBody, contentType] = determineRequestBody(method, body);
-    if (contentType && !getHeaderValue(actualHeaders, 'Content-Type')) {
-        actualHeaders['Content-Type'] = [contentType];
+    if (contentType && !actualHeaders['content-type']) {
+        actualHeaders['content-type'] = contentType;
     }
     const fetchServiceUrl = getAdapterUrl(params, ctx);
-    const proxy = proxyUrl.trim() ? proxyUrl : undefined;
-    const request: FetchServiceRequest = {
-        url: actualUrl,
-        method,
-        headers: actualHeaders,
-        bodyBase64: actualBody ? stringToBase64(actualBody) : undefined,
-        followRedirects,
-        proxy,
-        retries,
-    };
-    const res = await fetch(fetchServiceUrl + '/Fetch/sendRequest', {
+    const res = await fetch(fetchServiceUrl + '/request', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'x-fetch-method': method,
+            'x-fetch-url': actualUrl,
+            'x-fetch-headers': JSON.stringify(actualHeaders),
+            'x-fetch-follow-redirects': String(followRedirects),
+            'x-fetch-proxy': proxyUrl.trim(),
         },
-        body: JSON.stringify({
-            request
-        }),
+        body: actualBody,
     });
+    const responseBodyText = await res.text();
     if (!res.ok) {
-        const responseBodyText = await res.text();
-        const details = ctx.lib.parseJson(responseBodyText) ?? { response: responseBodyText };
-        throw new FetchAdapterError(res.status, method, url, details);
+        const message = (ctx.lib.parseJson(responseBodyText, {})).message ?? responseBodyText;
+        throw new FetchError(res.status, message);
     }
-    const json = await res.json();
-    const response: FetchServiceResponse = json.response;
-    const responseBodyText = base64ToString(response.bodyBase64);
-    const errorStatus = response.status === 0 || response.status >= 400;
-    if (params.throw && errorStatus) {
+    const status = Number(res.headers.get('x-fetch-status')) || 0;
+    const responseHeaders = ctx.lib.parseJson(res.headers.get('x-fetch-headers') ?? '{}', {});
+    const isErrorStatus = status === 0 || status >= 400;
+    if (params.throw && isErrorStatus) {
         const details = ctx.lib.parseJson(responseBodyText) ?? { response: responseBodyText };
-        throw new HttpRequestFailed(response.status, method, url, details);
+        throw new HttpRequestFailed(status, method, url, details);
     }
-    const isJson = (getHeaderValue(response.headers, 'Content-Type') ?? '').includes('application/json');
+    const isJson = (responseHeaders['content-type']).includes('application/json');
     const responseBody = isJson ? JSON.parse(responseBodyText) : responseBodyText;
     return {
-        url: response.url,
-        status: response.status,
-        headers: response.headers,
+        status,
+        headers: headersToObject(responseHeaders),
         body: responseBody,
     };
-};
+}
 
-// TODO remove
-function prepareHeaders(headers: Record<string, unknown>): FetchHeaders {
-    const result: Record<string, string[]> = {};
+function prepHeaders(headers: Record<string, unknown>): Record<string, string> {
+    const result: Record<string, string> = {};
     for (const [key, value] of Object.entries(headers)) {
         if (value === undefined) {
             continue;
         }
-        result[key] = Array.isArray(value) ? value.map(_ => String(_)) : [String(value)];
+        result[key] = String(value);
     }
     return result;
 }
 
 function getAdapterUrl(params: P, ctx: GraphEvalContext) {
+    if (params.adapterUrl) {
+        return params.adapterUrl;
+    }
     return ctx.getLocal<string>('ADAPTER_FETCH_URL') ?? 'https://fetch.nodescript.dev';
-}
-
-interface FetchServiceRequest {
-    method: string;
-    url: string;
-    headers: FetchHeaders;
-    bodyBase64?: string;
-    followRedirects?: boolean;
-    proxy?: string;
-    retries?: number;
-    resolve?: string[];
-    insecure?: boolean;
-}
-
-interface FetchServiceResponse {
-    status: number;
-    url: string;
-    headers: FetchHeaders;
-    bodyBase64: string;
 }
