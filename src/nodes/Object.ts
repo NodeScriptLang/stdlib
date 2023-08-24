@@ -2,18 +2,16 @@ import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {
     properties: Record<string, unknown>;
-    raw: boolean;
 };
 
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.4.2',
+    version: '1.5.0',
     moduleName: 'Object',
     description: `
         Creates an object with computed values per each key.
-        If raw is false, key can be a JSON pointer or a dot-delimited path.
-        If raw is true, key is interpreted as-is.
+        Key can be a JSON pointer or a dot-delimited path.
     `,
     params: {
         properties: {
@@ -22,13 +20,6 @@ export const module: ModuleDefinition<P, R> = {
                 properties: {},
                 additionalProperties: { type: 'any' },
             },
-        },
-        raw: {
-            schema: {
-                type: 'boolean',
-                default: false,
-            },
-            advanced: true,
         },
     },
     result: {
@@ -41,13 +32,14 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
-    const { properties, raw } = params;
+    const { properties } = params;
     const obj: any = {};
     for (const [key, value] of Object.entries(properties)) {
         if (key.startsWith('...')) {
             Object.assign(obj, value);
-        } else if (raw) {
-            obj[key] = value;
+        } else if (key.startsWith('"') && key.endsWith('"')) {
+            const k = key.substring(1, key.length - 1);
+            obj[k] = value;
         } else {
             ctx.lib.set(obj, key, value);
         }
