@@ -27,7 +27,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.1.1',
+    version: '2.1.2',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -155,7 +155,7 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
         body,
         proxyUrl,
         followRedirects,
-        responseType = 'auto',
+        responseType = FetchResponseType.AUTO,
     } = params;
     const actualUrl = mergeUrlQuery(url, query);
     const actualHeaders = prepHeaders(headers);

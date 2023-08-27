@@ -23,7 +23,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.6.1',
+    version: '1.6.2',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -102,7 +102,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         query,
         headers,
         body,
-        responseType = 'auto',
+        responseType = FetchResponseType.AUTO,
     } = params;
     if (!url) {
         // Do not send requests to self by default
