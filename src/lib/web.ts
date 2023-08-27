@@ -1,3 +1,11 @@
+export enum FetchResponseType {
+    AUTO = 'auto',
+    JSON = 'json',
+    URL_ENCODED = 'urlencoded',
+    TEXT = 'text',
+    BINARY = 'binary',
+}
+
 export enum FetchMethod {
     GET = 'GET',
     POST = 'POST',
@@ -42,6 +50,37 @@ export function determineRequestBody(method: FetchMethod, body: any): [string | 
             return [body, 'text/plain'];
         default:
             return [undefined, undefined];
+    }
+}
+
+export async function readResponse(response: Response, type: FetchResponseType) {
+    switch (type) {
+        case FetchResponseType.AUTO: {
+            const contentType = response.headers.get('content-type') ?? 'text/plain';
+            if (contentType.includes('application/json')) {
+                return readResponse(response, FetchResponseType.JSON);
+            }
+            if (contentType.includes('application/x-www-form-urlencoded')) {
+                return readResponse(response, FetchResponseType.URL_ENCODED);
+            }
+            return readResponse(response, FetchResponseType.TEXT);
+        }
+        case FetchResponseType.JSON: {
+            return await response.json();
+        }
+        case FetchResponseType.URL_ENCODED: {
+            const text = await response.text();
+            return new URLSearchParams(text);
+        }
+        case FetchResponseType.TEXT: {
+            return await response.text();
+        }
+        case FetchResponseType.BINARY: {
+            return await response.arrayBuffer();
+        }
+        default: {
+            throw new Error(`Unsupported response type: ${type}`);
+        }
     }
 }
 

@@ -1,6 +1,14 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { determineRequestBody, FetchMethod, headersToObject, HttpRequestFailed, mergeUrlQuery } from '../lib/web.js';
+import {
+    determineRequestBody,
+    FetchMethod,
+    FetchResponseType,
+    headersToObject,
+    HttpRequestFailed,
+    mergeUrlQuery,
+    readResponse,
+} from '../lib/web.js';
 
 type P = {
     method: FetchMethod;
@@ -9,12 +17,13 @@ type P = {
     headers: Record<string, string | undefined>;
     body: any;
     throw: boolean;
+    responseType: FetchResponseType;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.5.2',
+    version: '1.6.0',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -57,7 +66,15 @@ export const module: ModuleDefinition<P, R> = {
         throw: {
             schema: { type: 'boolean', default: true },
             advanced: true,
-        }
+        },
+        responseType: {
+            schema: {
+                type: 'string',
+                enum: Object.values(FetchResponseType),
+                default: FetchResponseType.AUTO,
+            },
+            advanced: true,
+        },
     },
     result: {
         async: true,
@@ -79,7 +96,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
-    const { method, url, query, headers, body } = params;
+    const { method, url, query, headers, body, responseType } = params;
     if (!url) {
         // Do not send requests to self by default
         return undefined;
@@ -98,20 +115,16 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         headers: actualHeaders,
         body: actualBody,
     });
-    let responseBody = await res.text();
     if (params.throw && !res.ok) {
+        const responseBody = await res.text();
         const details = ctx.lib.parseJson(responseBody) ?? { response: responseBody };
         throw new HttpRequestFailed(res.status, method, url, details);
-    }
-    const bodyType = res.headers.get('Content-Type');
-    if (bodyType && bodyType.startsWith('application/json')) {
-        responseBody = JSON.parse(responseBody);
     }
     return {
         url: res.url,
         status: res.status,
         headers: headersToObject(res.headers),
-        body: responseBody,
+        body: await readResponse(res, responseType),
     };
 };
 

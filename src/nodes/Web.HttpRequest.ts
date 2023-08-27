@@ -4,9 +4,11 @@ import {
     determineRequestBody,
     FetchError,
     FetchMethod,
+    FetchResponseType,
     headersToObject,
     HttpRequestFailed,
     mergeUrlQuery,
+    readResponse,
 } from '../lib/web.js';
 
 type P = {
@@ -19,12 +21,13 @@ type P = {
     proxyUrl: string;
     throw: boolean;
     retries: number;
+    responseType: FetchResponseType;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.0.4',
+    version: '2.1.0',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -78,6 +81,14 @@ export const module: ModuleDefinition<P, R> = {
         },
         retries: {
             schema: { type: 'number', default: 1 },
+            advanced: true,
+        },
+        responseType: {
+            schema: {
+                type: 'string',
+                enum: Object.values(FetchResponseType),
+                default: FetchResponseType.AUTO,
+            },
             advanced: true,
         },
     },
@@ -144,6 +155,7 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
         body,
         proxyUrl,
         followRedirects,
+        responseType,
     } = params;
     const actualUrl = mergeUrlQuery(url, query);
     const actualHeaders = prepHeaders(headers);
@@ -163,8 +175,8 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
         },
         body: actualBody,
     });
-    const responseBodyText = await res.text();
     if (!res.ok) {
+        const responseBodyText = await res.text();
         const message = (ctx.lib.parseJson(responseBodyText, {})).message ?? responseBodyText;
         throw new FetchError(res.status, message);
     }
@@ -172,15 +184,14 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
     const responseHeaders = ctx.lib.parseJson(res.headers.get('x-fetch-headers') ?? '{}', {});
     const isErrorStatus = status === 0 || status >= 400;
     if (params.throw && isErrorStatus) {
+        const responseBodyText = await res.text();
         const details = ctx.lib.parseJson(responseBodyText) ?? { response: responseBodyText };
         throw new HttpRequestFailed(status, method, url, details);
     }
-    const isJson = (responseHeaders['content-type']).includes('application/json');
-    const responseBody = isJson ? JSON.parse(responseBodyText) : responseBodyText;
     return {
         status,
         headers: headersToObject(responseHeaders),
-        body: responseBody,
+        body: await readResponse(res, responseType),
     };
 }
 
