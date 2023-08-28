@@ -27,7 +27,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.1.2',
+    version: '2.1.3',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -188,10 +188,11 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
         const details = ctx.lib.parseJson(responseBodyText) ?? { response: responseBodyText };
         throw new HttpRequestFailed(status, method, url, details);
     }
+    const resContentType = responseHeaders['content-type'] ?? 'text/plain';
     return {
         status,
         headers: headersToObject(responseHeaders),
-        body: await readResponse(res, responseType),
+        body: await readResponse(res, responseType, resContentType),
     };
 }
 

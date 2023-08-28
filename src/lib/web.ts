@@ -53,17 +53,16 @@ export function determineRequestBody(method: FetchMethod, body: any): [string | 
     }
 }
 
-export async function readResponse(response: Response, type: FetchResponseType) {
+export async function readResponse(response: Response, type: FetchResponseType, contentType: string) {
     switch (type) {
         case FetchResponseType.AUTO: {
-            const contentType = response.headers.get('content-type') ?? 'text/plain';
             if (contentType.includes('application/json')) {
-                return readResponse(response, FetchResponseType.JSON);
+                return readResponse(response, FetchResponseType.JSON, contentType);
             }
             if (contentType.includes('application/x-www-form-urlencoded')) {
-                return readResponse(response, FetchResponseType.URL_ENCODED);
+                return readResponse(response, FetchResponseType.URL_ENCODED, contentType);
             }
-            return readResponse(response, FetchResponseType.TEXT);
+            return readResponse(response, FetchResponseType.TEXT, contentType);
         }
         case FetchResponseType.JSON: {
             return await response.json();

@@ -23,7 +23,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.6.2',
+    version: '1.6.3',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -127,11 +127,12 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         const details = ctx.lib.parseJson(responseBody) ?? { response: responseBody };
         throw new HttpRequestFailed(res.status, method, url, details);
     }
+    const resContentType = res.headers.get('content-type') ?? 'text/plain';
     return {
         url: res.url,
         status: res.status,
         headers: headersToObject(res.headers),
-        body: await readResponse(res, responseType),
+        body: await readResponse(res, responseType, resContentType),
     };
 };
 
