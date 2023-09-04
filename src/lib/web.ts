@@ -1,3 +1,6 @@
+// All typed array share the same prototype
+const TypedArray = Object.getPrototypeOf(Uint8Array);
+
 export enum FetchResponseType {
     AUTO = 'auto',
     JSON = 'json',
@@ -44,6 +47,9 @@ export function determineRequestBody(method: FetchMethod, body: any): [string | 
             return [undefined, undefined];
         case (body instanceof URLSearchParams):
             return [body.toString(), 'application/x-www-form-urlencoded'];
+        case (body instanceof ArrayBuffer || body instanceof TypedArray): {
+            return [body, undefined];
+        }
         case typeof body === 'object':
             return [JSON.stringify(body), 'application/json'];
         case typeof body === 'string':
