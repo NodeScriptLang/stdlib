@@ -17,17 +17,18 @@ type P = {
     query: Record<string, string | undefined>;
     headers: Record<string, string | undefined>;
     body: any;
+    responseType: FetchResponseType;
     followRedirects: boolean;
     proxyUrl: string;
     throw: boolean;
     retries: number;
-    responseType: FetchResponseType;
+    ca?: string;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.1.4',
+    version: '2.2.0',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -67,6 +68,14 @@ export const module: ModuleDefinition<P, R> = {
             hideValue: true,
             advanced: true,
         },
+        responseType: {
+            schema: {
+                type: 'string',
+                enum: Object.values(FetchResponseType),
+                default: FetchResponseType.AUTO,
+            },
+            advanced: true,
+        },
         followRedirects: {
             schema: { type: 'boolean', default: true },
             advanced: true,
@@ -83,12 +92,8 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'number', default: 1 },
             advanced: true,
         },
-        responseType: {
-            schema: {
-                type: 'string',
-                enum: Object.values(FetchResponseType),
-                default: FetchResponseType.AUTO,
-            },
+        ca: {
+            schema: { type: 'string', optional: true },
             advanced: true,
         },
     },
@@ -150,14 +155,10 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
     const {
         method,
         url,
-        query,
         headers,
         body,
-        proxyUrl,
-        followRedirects,
         responseType = FetchResponseType.AUTO,
     } = params;
-    const actualUrl = mergeUrlQuery(url, query);
     const actualHeaders = prepHeaders(headers);
     const [actualBody, contentType] = determineRequestBody(method, body);
     if (contentType && !actualHeaders['content-type']) {
@@ -166,13 +167,7 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
     const fetchServiceUrl = getAdapterUrl(params, ctx);
     const res = await fetch(fetchServiceUrl + '/request', {
         method: 'POST',
-        headers: {
-            'x-fetch-method': method,
-            'x-fetch-url': actualUrl,
-            'x-fetch-headers': JSON.stringify(actualHeaders),
-            'x-fetch-follow-redirects': String(followRedirects),
-            'x-fetch-proxy': proxyUrl.trim(),
-        },
+        headers: makeControlHeaders(params, actualHeaders),
         body: actualBody,
     });
     if (!res.ok) {
@@ -193,6 +188,30 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
         status,
         headers: headersToObject(responseHeaders),
         body: await readResponse(res, responseType, resContentType),
+    };
+}
+
+function makeControlHeaders(params: P, requestHeaders: Record<string, string>): Record<string, string> {
+    const {
+        method,
+        url,
+        query,
+        proxyUrl,
+        followRedirects,
+        ca,
+    } = params;
+    const actualUrl = mergeUrlQuery(url, query);
+    const connectOptions: Record<string, string> = {};
+    if (ca) {
+        connectOptions.ca = ca;
+    }
+    return {
+        'x-fetch-method': method,
+        'x-fetch-url': actualUrl,
+        'x-fetch-headers': JSON.stringify(requestHeaders),
+        'x-fetch-follow-redirects': String(followRedirects),
+        'x-fetch-proxy': proxyUrl.trim(),
+        'x-fetch-connect-options': JSON.stringify(connectOptions),
     };
 }
 
