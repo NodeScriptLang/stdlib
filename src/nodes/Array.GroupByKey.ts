@@ -2,7 +2,7 @@ import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {
     array: unknown[];
-    keys: string[];
+    key: string;
     strict: boolean;
 };
 
@@ -10,9 +10,9 @@ type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.0',
-    moduleName: 'Array / Group By Keys',
+    moduleName: 'Array / Group By Key',
     description: `
-        Groups the array by specified keys.
+        Groups the array by specified key.
 
         If strict is true, entries are compared by value (fast),
         otherwise they are compared structurally (slow),
@@ -27,10 +27,9 @@ export const module: ModuleDefinition<P, R> = {
             },
             hideEntries: true,
         },
-        keys: {
+        key: {
             schema: {
-                type: 'array',
-                items: { type: 'string' },
+                type: 'string',
             },
         },
         strict: {
@@ -46,13 +45,10 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
-    const { array, keys, strict } = params;
+    const { array, key, strict } = params;
     const groups: Array<{ key: any; items: any[] }> = [];
     for (const item of array) {
-        const groupKey: Record<string, any> = {};
-        for (const key of keys) {
-            groupKey[key] = ctx.lib.get(item, key);
-        }
+        const groupKey = ctx.lib.get(item, key);
         const existingGroup = groups.find(g => {
             return strict ? g.key === groupKey : ctx.lib.anyEquals(g.key, groupKey);
         });

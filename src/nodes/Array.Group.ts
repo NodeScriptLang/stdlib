@@ -13,7 +13,7 @@ export const module: ModuleDefinition<P, R> = {
     moduleName: 'Array / Group',
     description: `
         Groups the array by specified keys.
-        The array and keys are expected to correspond to each other by index.
+        The array items and keys are expected to correspond to each other by index.
 
         If strict is true, entries are compared by value (fast),
         otherwise they are compared structurally (slow),
