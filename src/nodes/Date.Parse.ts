@@ -12,8 +12,10 @@ export const module: ModuleDefinition<P, R> = {
     params: {
         date: {
             schema: { type: 'any' },
-            valuePlaceholder: 'now',
-        }
+            attributes: {
+                valuePlaceholder: 'now',
+            },
+        },
     },
     result: {
         schema: { type: 'any' },

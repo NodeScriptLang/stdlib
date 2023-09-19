@@ -16,11 +16,15 @@ export const module: ModuleDefinition<P, R> = {
     params: {
         fromDate: {
             schema: { type: 'any' },
-            valuePlaceholder: 'now',
+            attributes: {
+                valuePlaceholder: 'now',
+            },
         },
         toDate: {
             schema: { type: 'any' },
-            valuePlaceholder: 'now',
+            attributes: {
+                valuePlaceholder: 'now',
+            },
         },
         unit: {
             schema: {
