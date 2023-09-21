@@ -9,14 +9,10 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Array / Group By Key',
     description: `
         Groups the array by specified key.
-
-        If strict is true, entries are compared by value (fast),
-        otherwise they are compared structurally (slow),
-        in a similar way to Equals.
     `,
     keywords: ['collate'],
     params: {
@@ -34,6 +30,7 @@ export const module: ModuleDefinition<P, R> = {
         },
         strict: {
             schema: { type: 'boolean' },
+            advanced: true,
         },
     },
     result: {
@@ -49,9 +46,7 @@ export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const groups: Array<{ key: any; items: any[] }> = [];
     for (const item of array) {
         const groupKey = ctx.lib.get(item, key);
-        const existingGroup = groups.find(g => {
-            return strict ? g.key === groupKey : ctx.lib.anyEquals(g.key, groupKey);
-        });
+        const existingGroup = groups.find(g => ctx.lib.anyEquals(g.key, groupKey, { strict }));
         if (existingGroup) {
             existingGroup.items.push(item);
         } else {

@@ -48,7 +48,7 @@ export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { array, key, value, strict } = params;
     for (const item of array) {
         const val = key === '' ? item : ctx.lib.get(item, key);
-        const match = strict ? val === value : ctx.lib.anyEquals(val, value);
+        const match = ctx.lib.anyEquals(val, value, { strict });
         if (match) {
             return item;
         }

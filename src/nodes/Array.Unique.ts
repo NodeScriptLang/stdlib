@@ -8,7 +8,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.4',
+    version: '1.2.5',
     moduleName: 'Array / Unique',
     description: `
         Returns an array consisting of unique items.
@@ -25,10 +25,8 @@ export const module: ModuleDefinition<P, R> = {
             },
         },
         strict: {
-            schema: {
-                type: 'boolean',
-                default: true,
-            },
+            schema: { type: 'boolean' },
+            advanced: true,
         }
     },
     result: {
@@ -41,16 +39,12 @@ export const module: ModuleDefinition<P, R> = {
 
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { array, strict } = params;
-    if (strict) {
-        const set = new Set(array);
-        return [...set];
-    }
     const result = [];
     for (let i = 0; i < array.length; i++) {
         const item = array[i];
         let found = false;
         for (let j = i + 1; j < array.length; j++) {
-            if (ctx.lib.anyEquals(item, array[j])) {
+            if (ctx.lib.anyEquals(item, array[j], { strict })) {
                 found = true;
                 break;
             }

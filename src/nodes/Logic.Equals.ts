@@ -10,7 +10,7 @@ type P = {
 type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.4',
+    version: '1.2.5',
     moduleName: 'Logic / Equals',
     description: 'Checks if two values are structurally equal.',
     params: {
@@ -21,7 +21,8 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'any' },
         },
         strict: {
-            schema: { type: 'boolean', default: false, },
+            schema: { type: 'boolean', default: false },
+            advanced: true,
         },
     },
     result: {

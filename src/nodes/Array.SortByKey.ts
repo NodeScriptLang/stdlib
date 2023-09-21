@@ -29,7 +29,7 @@ export const module: ModuleDefinition<P, R> = {
         },
         reverse: {
             schema: { type: 'boolean' },
-        }
+        },
     },
     result: {
         schema: {
