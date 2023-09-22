@@ -4,7 +4,6 @@ import {
     determineRequestBody,
     FetchMethod,
     FetchResponseType,
-    headersToObject,
     HttpRequestFailed,
     mergeUrlQuery,
     readResponse,
@@ -23,7 +22,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.6.4',
+    version: '1.6.5',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -131,7 +130,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
     return {
         url: res.url,
         status: res.status,
-        headers: headersToObject(res.headers),
+        headers: convertResponseHeaders(res.headers),
         body: await readResponse(res, responseType, resContentType),
     };
 };
@@ -145,4 +144,12 @@ function prepareHeaders(headers: Record<string, unknown>): Headers {
         entries[key] = String(value);
     }
     return new Headers(entries);
+}
+
+function convertResponseHeaders(headers: Headers) {
+    const result: Record<string, string[]> = {};
+    for (const [key, value] of headers) {
+        result[key.toLowerCase()] = Array.isArray(value) ? value : [value];
+    }
+    return result;
 }

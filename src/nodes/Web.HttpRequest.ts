@@ -5,7 +5,6 @@ import {
     FetchError,
     FetchMethod,
     FetchResponseType,
-    headersToObject,
     HttpRequestFailed,
     mergeUrlQuery,
     readResponse,
@@ -28,7 +27,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.2.0',
+    version: '2.2.1',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -186,7 +185,7 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
     const resContentType = responseHeaders['content-type'] ?? 'text/plain';
     return {
         status,
-        headers: headersToObject(responseHeaders),
+        headers: convertResponseHeaders(responseHeaders),
         body: await readResponse(res, responseType, resContentType),
     };
 }
@@ -228,4 +227,14 @@ function prepHeaders(headers: Record<string, unknown>): Record<string, string> {
 
 function getAdapterUrl(params: P, ctx: GraphEvalContext) {
     return ctx.getLocal<string>('FETCH_SERVICE_URL') ?? 'https://fetch.nodescript.dev';
+}
+
+function convertResponseHeaders(
+    headers: Record<string, string | string[]>
+): Record<string, string[]> {
+    const result: Record<string, string[]> = {};
+    for (const [key, value] of Object.entries(headers)) {
+        result[key] = Array.isArray(value) ? value : [value];
+    }
+    return result;
 }

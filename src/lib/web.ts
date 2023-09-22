@@ -89,16 +89,6 @@ export async function readResponse(response: Response, type: FetchResponseType, 
     }
 }
 
-export function headersToObject(
-    headers: Headers | Record<string, string | string[]>
-): Record<string, string[]> {
-    const result: Record<string, string[]> = {};
-    for (const [key, value] of Object.entries(headers)) {
-        result[key] = Array.isArray(value) ? value : [value];
-    }
-    return result;
-}
-
 export class HttpRequestFailed extends Error {
     override name = this.constructor.name;
     details = {};
