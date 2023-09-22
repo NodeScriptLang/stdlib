@@ -3,13 +3,12 @@ import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 type P = {
     array: unknown[];
     key: string;
-    strict: boolean;
 };
 
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.1',
+    version: '1.1.0',
     moduleName: 'Array / Group By Key',
     description: `
         Groups the array by specified key.
@@ -28,10 +27,6 @@ export const module: ModuleDefinition<P, R> = {
                 type: 'string',
             },
         },
-        strict: {
-            schema: { type: 'boolean' },
-            advanced: true,
-        },
     },
     result: {
         schema: {
@@ -42,16 +37,16 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
-    const { array, key, strict } = params;
-    const groups: Array<{ key: any; items: any[] }> = [];
+    const { array, key } = params;
+    const groups = new Map<any, any[]>();
     for (const item of array) {
         const groupKey = ctx.lib.get(item, key);
-        const existingGroup = groups.find(g => ctx.lib.anyEquals(g.key, groupKey, { strict }));
+        const existingGroup = groups.get(groupKey);
         if (existingGroup) {
-            existingGroup.items.push(item);
+            existingGroup.push(item);
         } else {
-            groups.push({ key: groupKey, items: [item] });
+            groups.set(groupKey, [item]);
         }
     }
-    return groups;
+    return [...groups].map(([key, items]) => ({ key, items }));
 };
