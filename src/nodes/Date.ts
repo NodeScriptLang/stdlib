@@ -6,7 +6,7 @@ type P = { value: any };
 type R = Date;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.5',
+    version: '1.0.6',
     moduleName: 'Date',
     description: 'Creates a date object. The value can either be an ISO 8601 formatted string or a number of milliseconds since epoch.',
     params: {

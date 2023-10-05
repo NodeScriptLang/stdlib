@@ -6,7 +6,7 @@ type P = { date: any };
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.3',
+    version: '1.1.4',
     moduleName: 'Date / Parse',
     description: 'Returns individual components of the date, i.e. year, month, week, day of month, etc.',
     params: {
