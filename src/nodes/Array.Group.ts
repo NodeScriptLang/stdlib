@@ -9,13 +9,17 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.5',
+    version: '1.2.6',
     moduleName: 'Array / Group',
     description: `
         Groups the array by specified keys.
         The array items and keys are expected to correspond to each other by index.
     `,
     keywords: ['collate'],
+    deprecated: 'Use Array / Group By Key instead',
+    attributes: {
+        hidden: true,
+    },
     params: {
         array: {
             schema: {

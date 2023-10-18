@@ -4,6 +4,7 @@ export class InvalidDateError extends Error {
 }
 
 export function parseDate(value: any) {
+    // TODO check for invalid dates
     if (!value) {
         return new Date();
     }
