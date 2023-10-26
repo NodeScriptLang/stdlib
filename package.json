@@ -1,6 +1,6 @@
 {
     "name": "@nodescript/stdlib",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "type": "module",
     "description": "Standard Node Definitions",
     "files": [
