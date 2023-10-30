@@ -17,6 +17,9 @@ export const module: ModuleDefinition<P, R> = {
         Performs grouping and aggregations on an array of objects.
     `,
     keywords: ['group', 'aggregate'],
+    attributes: {
+        hidden: true,
+    },
     params: {
         array: {
             schema: {
