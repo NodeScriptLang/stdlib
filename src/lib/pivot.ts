@@ -1,3 +1,5 @@
+import { GraphEvalContext } from '@nodescript/core/types';
+
 export enum PivotFieldType {
     ARRAY = 'ARRAY',
     SET = 'SET',
@@ -12,49 +14,56 @@ export enum PivotFieldType {
 }
 
 export function pivot(
+    ctx: GraphEvalContext,
     items: any[],
-    rows: string[],
-    columns: Record<string, PivotFieldType>
+    keys: string[],
+    fields: Record<string, PivotFieldType>,
 ) {
-    const groups = group(items, rows);
     const results = [];
-    for (const group of groups.values()) {
+    const groups = groupByKeys(ctx, items, keys);
+    for (const group of groups) {
         const result: any = {};
-        for (const rowKey of rows) {
-            result[rowKey] = group?.[0][rowKey] ?? undefined;
+        for (const rowKey of keys) {
+            const [readKey, writeKey] = parseKey(rowKey);
+            const value = ctx.lib.get(group?.[0], readKey);
+            ctx.lib.set(result, writeKey, value);
         }
-        for (const [colKey, colType] of Object.entries(columns)) {
-            const value = aggregate(group, colKey, colType);
-            result[colKey] = value;
+        for (const [fieldKey, fieldType] of Object.entries(fields)) {
+            const [readKey, writeKey] = parseKey(fieldKey);
+            const value = aggregate(ctx, group, readKey, fieldType);
+            ctx.lib.set(result, writeKey, value);
         }
         results.push(result);
     }
     return results;
 }
 
-function group(items: any[], rows: string[]) {
-    const sortedKeys = rows.slice().sort();
+function groupByKeys(ctx: GraphEvalContext, items: any[], keys: string[]): Iterable<any> {
+    if (!keys.length) {
+        return [items];
+    }
+    const sortedKeys = keys.map(k => parseKey(k)[0]).sort();
     const groups = new Map<string, any[]>();
     for (const item of items) {
-        const groupKey = sortedKeys.map(key => item[key]).join(':');
-        const group = groups.get(groupKey);
+        const groupId = sortedKeys.map(key => ctx.lib.get(item, key)).join(':');
+        const group = groups.get(groupId);
         if (group) {
             group.push(item);
         } else {
-            groups.set(groupKey, [item]);
+            groups.set(groupId, [item]);
         }
     }
-    return groups;
+    return groups.values();
 }
 
-function aggregate(items: any[], key: string, type: PivotFieldType) {
+function aggregate(ctx: GraphEvalContext, items: any[], readKey: string, type: PivotFieldType) {
     switch (type) {
         case PivotFieldType.COUNT: {
             return items.length;
         }
         case PivotFieldType.ARRAY:
         case PivotFieldType.SET: {
-            const values = items.map(_ => _[key]);
+            const values = items.map(_ => ctx.get(_, readKey));
             switch (type) {
                 case PivotFieldType.ARRAY: return values;
                 case PivotFieldType.SET: return [...new Set(values)];
@@ -62,18 +71,21 @@ function aggregate(items: any[], key: string, type: PivotFieldType) {
             }
         }
         case PivotFieldType.FIRST: {
-            return items?.[0][key] ?? undefined;
+            const first = items?.[0];
+            return ctx.lib.get(first, readKey) ?? undefined;
         }
         case PivotFieldType.LAST: {
-            const last = (items ?? []).at(-1);
-            return last?.[key] ?? undefined;
+            const last = items?.at(-1);
+            return ctx.lib.get(last, readKey) ?? undefined;
         }
         case PivotFieldType.MIN:
         case PivotFieldType.MAX:
         case PivotFieldType.SUM:
         case PivotFieldType.PRODUCT:
         case PivotFieldType.AVERAGE: {
-            const nums = items.map(_ => Number(_?.[key])).filter(_ => !isNaN(_));
+            const nums = items.map(_ => {
+                return Number(ctx.lib.get(_, readKey));
+            }).filter(_ => !isNaN(_));
             if (!nums.length) {
                 return undefined;
             }
@@ -91,4 +103,9 @@ function aggregate(items: any[], key: string, type: PivotFieldType) {
         }
         default: return undefined;
     }
+}
+
+function parseKey(key: string): [string, string] {
+    const [a, b] = key.split(':');
+    return [a, b || a];
 }

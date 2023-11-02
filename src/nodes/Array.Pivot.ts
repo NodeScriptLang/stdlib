@@ -11,15 +11,12 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.4',
+    version: '1.1.1',
     moduleName: 'Array / Pivot',
     description: `
         Performs grouping and aggregations on an array of objects.
     `,
     keywords: ['group', 'aggregate'],
-    attributes: {
-        hidden: true,
-    },
     params: {
         array: {
             schema: {
@@ -60,7 +57,7 @@ export const module: ModuleDefinition<P, R> = {
     },
 };
 
-export const compute: ModuleCompute<P, R> = params => {
+export const compute: ModuleCompute<P, R> = (params, ctx) => {
     const { array, rows, columns } = params;
-    return pivot(array, rows, columns);
+    return pivot(ctx, array, rows, columns);
 };
