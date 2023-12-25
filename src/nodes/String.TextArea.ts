@@ -4,12 +4,18 @@ type P = { value: string };
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.9',
-    moduleName: 'String',
-    description: 'Convert value into a string.',
+    version: '1.0.1',
+    moduleName: 'String / Text Area',
+    description: 'Creates a multi-line string',
+    keywords: ['multiline'],
+    resizeMode: 'all',
     params: {
         value: {
             schema: { type: 'string' },
+            attributes: {
+                renderer: 'textarea',
+                valuePlaceholder: 'Value'
+            },
         },
     },
     result: {
