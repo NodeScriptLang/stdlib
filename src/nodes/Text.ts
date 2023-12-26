@@ -4,10 +4,10 @@ type P = { value: string };
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.1',
-    moduleName: 'String / Text Area',
-    description: 'Creates a multi-line string',
-    keywords: ['multiline'],
+    version: '1.0.2',
+    moduleName: 'Text',
+    description: 'Creates a multi-line string constant.',
+    keywords: ['string', 'multiline', 'text'],
     resizeMode: 'all',
     params: {
         value: {
