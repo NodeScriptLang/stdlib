@@ -20,7 +20,7 @@ type SO = {
 };
 
 export const module: SubgraphModuleDefinition<P, R, SI, SO> = {
-    version: '1.2.2',
+    version: '1.2.3',
     moduleName: 'Flow / Scan',
     description: 'Executes a subgraph for each array item. The subgraph decides whether to continue iterating or not and what result to return.',
     keywords: ['loop', 'find', 'iterate'],
@@ -55,8 +55,8 @@ export const module: SubgraphModuleDefinition<P, R, SI, SO> = {
             properties: {
                 resume: { type: 'boolean' },
                 result: { type: 'any' },
-                additionalProperties: { type: 'any' },
             },
+            additionalProperties: { type: 'any' },
         },
     },
 };
