@@ -11,7 +11,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.2.0',
     moduleName: 'Array / Pivot',
     description: `
         Performs grouping and aggregations on an array of objects.
