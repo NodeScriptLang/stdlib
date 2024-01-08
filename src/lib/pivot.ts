@@ -16,14 +16,14 @@ export enum PivotFieldType {
 export function pivot(
     ctx: GraphEvalContext,
     items: any[],
-    keys: string[],
+    groupBy: string[],
     fields: Record<string, PivotFieldType>,
 ) {
     const results = [];
-    const groups = groupByKeys(ctx, items, keys);
+    const groups = groupByKeys(ctx, items, groupBy);
     for (const group of groups) {
         const result: any = {};
-        for (const rowKey of keys) {
+        for (const rowKey of groupBy) {
             const [readKey, writeKey] = parseKey(rowKey);
             const value = ctx.lib.get(group?.[0], readKey);
             ctx.lib.set(result, writeKey, value);

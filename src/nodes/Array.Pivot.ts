@@ -4,8 +4,8 @@ import { pivot, PivotFieldType } from '../lib/pivot.js';
 
 type P = {
     array: unknown[];
-    rows: string[];
-    columns: Record<string, PivotFieldType>;
+    groupBy: string[];
+    fields: Record<string, PivotFieldType>;
 };
 
 type R = unknown[];
@@ -25,16 +25,17 @@ export const module: ModuleDefinition<P, R> = {
             },
             hideEntries: true,
         },
-        rows: {
+        groupBy: {
             schema: {
                 type: 'array',
                 items: { type: 'string' },
             },
             attributes: {
                 keyof: 'array',
+                aliases: ['rows'],
             },
         },
-        columns: {
+        fields: {
             schema: {
                 type: 'object',
                 properties: {},
@@ -46,6 +47,7 @@ export const module: ModuleDefinition<P, R> = {
             },
             attributes: {
                 valuePlaceholder: 'ARRAY',
+                aliases: ['columns'],
             },
         },
     },
@@ -58,6 +60,6 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
-    const { array, rows, columns } = params;
-    return pivot(ctx, array, rows, columns);
+    const { array, groupBy, fields } = params;
+    return pivot(ctx, array, groupBy, fields);
 };
