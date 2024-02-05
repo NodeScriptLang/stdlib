@@ -6,12 +6,13 @@ type P = {
     array: unknown[];
     groupBy: string[];
     fields: Record<string, PivotFieldType>;
+    sortBy: string[];
 };
 
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.3.0',
     moduleName: 'Array / Pivot',
     description: `
         Performs grouping and aggregations on an array of objects.
@@ -50,6 +51,15 @@ export const module: ModuleDefinition<P, R> = {
                 aliases: ['columns'],
             },
         },
+        sortBy: {
+            schema: {
+                type: 'array',
+                items: { type: 'string' },
+            },
+            attributes: {
+                keyof: 'array',
+            },
+        },
     },
     result: {
         schema: {
@@ -60,6 +70,6 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = (params, ctx) => {
-    const { array, groupBy, fields } = params;
-    return pivot(ctx, array, groupBy, fields);
+    const { array, groupBy, fields, sortBy } = params;
+    return pivot(ctx, array, groupBy, fields, sortBy);
 };

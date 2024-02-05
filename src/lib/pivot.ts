@@ -18,9 +18,11 @@ export function pivot(
     items: any[],
     groupBy: string[],
     fields: Record<string, PivotFieldType>,
+    sortBy: string[],
 ) {
     const results = [];
-    const groups = groupByKeys(ctx, items, groupBy);
+    const sorted = sortByKeys(ctx, items, sortBy);
+    const groups = groupByKeys(ctx, sorted, groupBy);
     for (const group of groups) {
         const result: any = {};
         for (const rowKey of groupBy) {
@@ -36,6 +38,20 @@ export function pivot(
         results.push(result);
     }
     return results;
+}
+
+function sortByKeys(ctx: GraphEvalContext, items: any[], keys: string[]): any[] {
+    return items.sort((a: any, b: any) => {
+        for (const key of keys) {
+            const valA = ctx.lib.get(a, key) as any;
+            const valB = ctx.lib.get(b, key) as any;
+            if (valA === valB) {
+                continue;
+            }
+            return valA > valB ? 1 : -1;
+        }
+        return 0;
+    });
 }
 
 function groupByKeys(ctx: GraphEvalContext, items: any[], keys: string[]): Iterable<any> {
