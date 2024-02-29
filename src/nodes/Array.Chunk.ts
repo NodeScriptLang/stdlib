@@ -1,5 +1,7 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
+import { chunk } from '../lib/chunk.js';
+
 type P = {
     array: unknown[];
     size: number;
@@ -41,11 +43,5 @@ export const module: ModuleDefinition<P, R> = {
 
 export const compute: ModuleCompute<P, R> = params => {
     const { array, size } = params;
-    const result: unknown[] = [];
-    let i = 0;
-    while (i < array.length) {
-        result.push(array.slice(i, i + size));
-        i += size;
-    }
-    return result;
+    return chunk(array, size);
 };
