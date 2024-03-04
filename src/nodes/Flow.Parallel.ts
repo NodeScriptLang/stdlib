@@ -1,6 +1,5 @@
 import { SubgraphModuleCompute, SubgraphModuleDefinition } from '@nodescript/core/types';
 
-import { chunk } from '../lib/chunk.js';
 
 type P = {
     array: unknown[];
@@ -20,7 +19,7 @@ type SO = {
 };
 
 export const module: SubgraphModuleDefinition<P, R, SI, SO> = {
-    version: '1.0.1',
+    version: '1.1.1',
     moduleName: 'Flow / Parallel',
     description: 'Executes a subgraph for each array item. Execution occurs in batches according to specified concurrency. Returns an array of results returned by the subgraph.',
     keywords: ['loop', 'async', 'map'],
@@ -67,23 +66,29 @@ export const module: SubgraphModuleDefinition<P, R, SI, SO> = {
 
 export const compute: SubgraphModuleCompute<P, R, SI, SO> = async (params, ctx, subgraph) => {
     const { array, concurrency, scope } = params;
-    const batches = chunk(array, concurrency);
-    const results: any[] = [];
-    let index = 0;
-    for (const batch of batches) {
-        const promises = batch.map(item => {
-            const res = subgraph({
+    return new Promise((resolve, reject) => {
+        const promises: Promise<any>[] = [];
+        const runTask = async (index: number) => {
+            const item = array[index];
+            const res = await subgraph({
                 item,
                 index,
                 ...scope,
             }, ctx.newScope());
-            index += 1;
-            return res;
-        });
-        const res = await Promise.all(promises);
-        for (const { result } of res) {
-            results.push(result);
+            return res.result;
+        };
+        const next = () => {
+            if (promises.length < array.length) {
+                const prom = runTask(promises.length);
+                promises.push(prom);
+                prom.then(next, reject);
+            } else {
+                Promise.all(promises).then(resolve);
+            }
+        };
+        const initialCount = Math.max(1, Math.min(array.length, concurrency));
+        for (let i = 0; i < initialCount; i++) {
+            next();
         }
-    }
-    return results;
+    });
 };
