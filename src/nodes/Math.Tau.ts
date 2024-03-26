@@ -5,10 +5,10 @@ type P = {};
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.4',
-    moduleName: 'Math / Pi',
+    version: '1.0.0',
+    moduleName: 'Math / Tau',
     description: `
-        Returns the value of Pi.
+        Returns the value of Tau (2 * Pi).
     `,
     params: {},
     result: {
@@ -16,4 +16,4 @@ export const module: ModuleDefinition<P, R> = {
     }
 };
 
-export const compute: ModuleCompute<P, R> = () => Math.PI;
+export const compute: ModuleCompute<P, R> = () => 2 * Math.PI;
