@@ -1,15 +1,15 @@
-import { binaryStringToBuffer } from '@nodescript/binary-utils';
+import { base64ToBuffer, binaryStringToBuffer, hexStringToBuffer } from '@nodescript/binary-utils';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {
     string: string;
-    encoding: 'utf-8' | 'binary';
+    encoding: 'utf-8' | 'hex' | 'base64' | 'base64url' | 'binary';
 };
 
 type R = ArrayBuffer;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.4',
+    version: '1.2.0',
     moduleName: 'String / To Bytes',
     description: 'Converts a string into an ArrayBuffer.',
     keywords: ['buffer'],
@@ -22,7 +22,7 @@ export const module: ModuleDefinition<P, R> = {
         encoding: {
             schema: {
                 type: 'string',
-                enum: ['utf-8', 'binary'],
+                enum: ['utf-8', 'hex', 'base64', 'base64url', 'binary'],
                 default: 'utf-8',
             },
         }
@@ -35,11 +35,17 @@ export const module: ModuleDefinition<P, R> = {
 export const compute: ModuleCompute<P, R> = params => {
     const { string, encoding } = params;
     switch (encoding) {
-        case 'binary':
-            return binaryStringToBuffer(string);
         case 'utf-8': {
             return new TextEncoder().encode(string).buffer;
         }
+        case 'binary':
+            return binaryStringToBuffer(string);
+        case 'hex':
+            return hexStringToBuffer(string);
+        case 'base64':
+            return base64ToBuffer(string);
+        case 'base64url':
+            return base64ToBuffer(string, true);
         default:
             throw new Error(`Unsupported encoding: ${encoding}`);
     }

@@ -27,7 +27,7 @@
         "lint"
     ],
     "dependencies": {
-        "@nodescript/binary-utils": "^1.2.2",
+        "@nodescript/binary-utils": "^1.3.0",
         "@nodescript/core": "^7.15.2"
     },
     "devDependencies": {
