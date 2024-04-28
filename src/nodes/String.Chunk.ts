@@ -8,7 +8,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'String / Chunk',
     description: `
         Creates an array of strings split into sub-strings of specified size.
@@ -40,7 +40,7 @@ export const module: ModuleDefinition<P, R> = {
 
 export const compute: ModuleCompute<P, R> = params => {
     const { string, size } = params;
-    const result = new Array<string>(Math.ceil(string.length / size));
+    const result: string[] = [];
     let i = 0;
     while (i < string.length) {
         result.push(string.substring(i, i + size));
