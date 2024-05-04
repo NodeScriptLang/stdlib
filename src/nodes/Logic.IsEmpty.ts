@@ -1,5 +1,7 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
+import { isEmpty } from '../lib/util.js';
+
 type P = { value: unknown };
 
 type R = boolean;
@@ -22,9 +24,5 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = params => {
-    const { value } = params;
-    return (typeof value === 'number' && isNaN(value as number)) ||
-        value == null ||
-        value === '' ||
-        (Array.isArray(value) && value.length === 0);
+    return isEmpty(params.value);
 };

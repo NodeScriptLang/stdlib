@@ -1,6 +1,6 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
-import { isNull } from '../lib/util.js';
+import { isEmpty } from '../lib/util.js';
 
 type P = { value: unknown };
 
@@ -8,8 +8,11 @@ type R = boolean;
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.1.4',
-    moduleName: 'Logic / Is Null',
-    description: 'Returns true if the specified value is null, undefined or NaN.',
+    moduleName: 'Logic / Is Not Empty',
+    description: `
+        Returns false if the specified value is empty.
+        Empty values are: null, undefined, NaN, empty string or an array with 0 length.
+    `,
     params: {
         value: {
             schema: { type: 'any' },
@@ -21,5 +24,5 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = params => {
-    return isNull(params.value);
+    return !isEmpty(params.value);
 };
