@@ -1,4 +1,5 @@
-import { base64ToBuffer, binaryStringToBuffer, hexStringToBuffer } from '@nodescript/binary-utils';
+import { base64ToBuffer } from '@nodescript/base64';
+import { binaryStringToBuffer, hexStringToBuffer } from '@nodescript/buffer-utils';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {
@@ -9,7 +10,7 @@ type P = {
 type R = ArrayBuffer;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.2.1',
     moduleName: 'String / To Bytes',
     description: 'Converts a string into an ArrayBuffer.',
     keywords: ['buffer'],

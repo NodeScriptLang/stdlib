@@ -1,4 +1,4 @@
-import { bufferToBase64, stringToBase64 } from '@nodescript/binary-utils';
+import { bufferToBase64, stringToBase64 } from '@nodescript/base64';
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 type P = {
@@ -9,7 +9,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.5',
+    version: '1.1.6',
     moduleName: 'String / Base64 Encode',
     description: 'Encodes a UTF-8 string or a binary buffer into a Base64 string.',
     params: {
