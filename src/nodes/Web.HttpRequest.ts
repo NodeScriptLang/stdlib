@@ -13,7 +13,7 @@ import {
 type P = {
     method: FetchMethod;
     url: string;
-    query: Record<string, string | undefined>;
+    query: Record<string, string | string[] | undefined>;
     headers: Record<string, string | undefined>;
     body: any;
     responseType: FetchResponseType;
@@ -27,7 +27,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.2.1',
+    version: '2.2.2',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -50,7 +50,7 @@ export const module: ModuleDefinition<P, R> = {
             schema: {
                 type: 'object',
                 properties: {},
-                additionalProperties: { type: 'string', optional: true },
+                additionalProperties: { type: 'any', optional: true },
             },
             advanced: true,
         },

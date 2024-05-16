@@ -12,7 +12,7 @@ import {
 type P = {
     method: FetchMethod;
     url: string;
-    query: Record<string, string | undefined>;
+    query: Record<string, string | string[] | undefined>;
     headers: Record<string, string | undefined>;
     body: any;
     throw: boolean;
@@ -22,7 +22,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.6.5',
+    version: '1.6.6',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -45,7 +45,7 @@ export const module: ModuleDefinition<P, R> = {
             schema: {
                 type: 'object',
                 properties: {},
-                additionalProperties: { type: 'string', optional: true },
+                additionalProperties: { type: 'any', optional: true },
             },
             advanced: true,
         },

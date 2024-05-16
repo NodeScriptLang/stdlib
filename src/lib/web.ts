@@ -27,7 +27,7 @@ export function parseQueryString(qs: string): Record<string, string[]> {
     return result;
 }
 
-export function mergeUrlQuery(url: string, query: Record<string, string | undefined>) {
+export function mergeUrlQuery(url: string, query: Record<string, string | string[] | undefined>) {
     const parsedUrl = new URL(url);
     for (const [key, value] of Object.entries(query)) {
         if (value === undefined) {
