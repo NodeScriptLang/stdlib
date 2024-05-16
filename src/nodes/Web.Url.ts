@@ -8,7 +8,7 @@ type P = {
     pathname?: string;
     path?: string[];
     search?: any;
-    query?: any;
+    query?: Record<string, string | string[] | undefined>;
     hash?: string;
     username?: string;
     password?: string;
@@ -17,7 +17,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.0',
+    version: '1.1.1',
     moduleName: 'Web / Url',
     description: `
         Creates a URL with specified components.
@@ -61,7 +61,7 @@ export const module: ModuleDefinition<P, R> = {
             schema: {
                 type: 'object',
                 properties: {},
-                additionalProperties: { type: 'string' },
+                additionalProperties: { type: 'any' },
                 optional: true,
             },
             advanced: true,
