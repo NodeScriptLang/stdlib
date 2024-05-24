@@ -4,11 +4,12 @@ type P = {
     name: string;
     message: string;
     status: number;
+    details: any;
 };
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.5',
+    version: '1.1.0',
     moduleName: 'Error',
     description: 'Raise an error with specified name and message.',
     params: {
@@ -20,6 +21,9 @@ export const module: ModuleDefinition<P, R> = {
         },
         status: {
             schema: { type: 'number', default: 500 },
+        },
+        details: {
+            schema: { type: 'any' },
         }
     },
     result: {
@@ -31,5 +35,6 @@ export const compute: ModuleCompute<P, R> = params => {
     const error = new Error(params.message);
     error.name = params.name;
     (error as any).status = params.status;
+    (error as any).details = params.details;
     throw error;
 };
