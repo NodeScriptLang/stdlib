@@ -60,6 +60,9 @@ export function determineRequestBody(method: FetchMethod, body: any): [string | 
 }
 
 export async function readResponse(response: Response, type: FetchResponseType, contentType: string): Promise<any> {
+    if (response.status === 204) {
+        return undefined;
+    }
     switch (type) {
         case FetchResponseType.AUTO: {
             if (contentType.includes('application/json')) {
