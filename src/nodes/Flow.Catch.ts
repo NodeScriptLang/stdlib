@@ -10,7 +10,7 @@ type R = Promise<{
 }>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.0.1',
     moduleName: 'Flow / Catch',
     description: `
         Computes the value and catches the error it produces.
@@ -41,7 +41,13 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
     try {
         const value = await ctx.resolveDeferred(params.value);
         return { value };
-    } catch (error) {
-        return { error };
+    } catch (error: any) {
+        return {
+            error: {
+                name: error?.name ?? '',
+                message: error?.message ?? '',
+                ...error,
+            },
+        };
     }
 };
