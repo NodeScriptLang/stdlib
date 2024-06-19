@@ -71,7 +71,7 @@ export const compute: ModuleCompute<P, R> = params => {
         id: params.id,
         optional: params.optional,
         nullable: params.nullable,
-        default: params.default == null ? String(params.default) : undefined,
+        default: params.default == null ? undefined : String(params.default),
         minimum: params.minimum,
         maximum: params.maximum,
     };

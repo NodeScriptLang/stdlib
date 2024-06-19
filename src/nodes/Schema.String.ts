@@ -14,7 +14,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.5',
+    version: '1.0.6',
     moduleName: 'Schema / String',
     description: 'Creates a String schema.',
     params: {
