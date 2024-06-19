@@ -1,5 +1,7 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
+import { removeUndefined } from '../lib/util.js';
+
 type P = {
     object: object;
 };
@@ -7,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.5',
+    version: '1.2.6',
     moduleName: 'Object / Remove Undefined',
     description: `
         Removes undefined values from the object.
@@ -29,11 +31,5 @@ export const module: ModuleDefinition<P, R> = {
 
 export const compute: ModuleCompute<P, R> = params => {
     const { object } = params;
-    const res: any = {};
-    for (const [key, value] of Object.entries(object)) {
-        if (value !== undefined) {
-            res[key] = value;
-        }
-    }
-    return res;
+    removeUndefined(object);
 };

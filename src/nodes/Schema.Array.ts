@@ -1,5 +1,7 @@
 import { ModuleCompute, ModuleDefinition, SchemaSpec } from '@nodescript/core/types';
 
+import { removeUndefined } from '../lib/util.js';
+
 type P = {
     id?: string;
     optional?: boolean;
@@ -9,7 +11,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.4',
+    version: '1.0.5',
     moduleName: 'Schema / Array',
     description: 'Creates a Array schema.',
     params: {
@@ -55,5 +57,5 @@ export const compute: ModuleCompute<P, R> = params => {
         nullable: params.nullable,
         items: params.items ?? { type: 'any' },
     };
-    return schema;
+    return removeUndefined(schema);
 };

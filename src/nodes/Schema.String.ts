@@ -1,5 +1,7 @@
 import { ModuleCompute, ModuleDefinition, SchemaSpec } from '@nodescript/core/types';
 
+import { removeUndefined } from '../lib/util.js';
+
 type P = {
     id?: string;
     optional?: boolean;
@@ -12,7 +14,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.4',
+    version: '1.0.5',
     moduleName: 'Schema / String',
     description: 'Creates a String schema.',
     params: {
@@ -78,10 +80,10 @@ export const compute: ModuleCompute<P, R> = params => {
         id: params.id,
         nullable: params.nullable,
         optional: params.optional,
-        default: params.default,
+        default: params.default == null ? undefined : String(params.default),
         enum: enumArr,
         regex: params.regex,
         regexFlags: params.regexFlags,
     };
-    return schema;
+    return removeUndefined(schema);
 };

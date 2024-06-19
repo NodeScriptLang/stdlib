@@ -1,4 +1,5 @@
 import { ModuleCompute, ModuleDefinition, SchemaSpec } from '@nodescript/core/types';
+import { removeUndefined } from '../lib/util.js';
 
 type P = {
     id?: string;
@@ -11,7 +12,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.4',
+    version: '1.0.5',
     moduleName: 'Schema / Number',
     description: 'Creates a Number schema.',
     params: {
@@ -69,9 +70,9 @@ export const compute: ModuleCompute<P, R> = params => {
         id: params.id,
         optional: params.optional,
         nullable: params.nullable,
-        default: String(params.default),
+        default: params.default == null ? String(params.default) : undefined,
         minimum: params.minimum,
         maximum: params.maximum,
     };
-    return schema;
+    return removeUndefined(schema);
 };
