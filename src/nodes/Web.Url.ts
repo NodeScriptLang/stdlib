@@ -17,7 +17,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'Web / Url',
     description: `
         Creates a URL with specified components.
@@ -96,7 +96,7 @@ export const compute: ModuleCompute<P, R> = params => {
             (url as any)[key] = val;
         }
     }
-    if (params.path) {
+    if (params.path && params.path.length > 0) {
         url.pathname = composePath(params.path);
     }
     if (params.query) {
