@@ -1,5 +1,6 @@
 import { GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
+import { withRetry } from '../lib/retry.js';
 import {
     determineRequestBody,
     FetchError,
@@ -27,7 +28,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.2.3',
+    version: '2.3.0',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -124,24 +125,11 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
     if (!/^https?:\/\//.test(url)) {
         throw new Error('URL must start with http:// or https://');
     }
-    const maxAttempts = 1 + (Math.min(Math.max(retries, 0), 10) || 0);
-    let lastError = null;
-    let delay = 500;
-    for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-        try {
-            return await sendSingle(params, ctx);
-        } catch (error: any) {
-            lastError = error;
-            // Retry only on 5xx and connection errors
-            if (error.status >= 500) {
-                await new Promise(r => setTimeout(r, delay));
-                delay = Math.max(delay * 2, 5_000);
-            } else {
-                break;
-            }
-        }
-    }
-    throw lastError;
+    return await withRetry(() => sendSingle(params, ctx), {
+        retries,
+        initialDelay: 500,
+        maxDelay: 5000,
+    });
 };
 
 interface HttpResponseSpec {
