@@ -1,10 +1,11 @@
 import { GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
+import { unifiedFetch } from '@nodescript/unified-fetch/frontend';
+import { FetchFunction, FetchMethod } from '@nodescript/unified-fetch/types';
 
 import { withRetry } from '../lib/retry.js';
+import { removeUndefined } from '../lib/util.js';
 import {
     determineRequestBody,
-    FetchError,
-    FetchMethod,
     FetchResponseType,
     HttpRequestFailed,
     mergeUrlQuery,
@@ -28,7 +29,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.3.0',
+    version: '2.4.0',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -142,63 +143,41 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
     const {
         method,
         url,
+        query,
         headers,
         body,
         responseType = FetchResponseType.AUTO,
+        proxyUrl,
     } = params;
     const actualHeaders = prepHeaders(headers);
     const [actualBody, contentType] = determineRequestBody(method, body);
     if (contentType && !actualHeaders['content-type']) {
         actualHeaders['content-type'] = contentType;
     }
-    const fetchServiceUrl = getAdapterUrl(params, ctx);
-    const res = await fetch(fetchServiceUrl + '/request', {
-        method: 'POST',
-        headers: makeControlHeaders(params, actualHeaders),
-        body: actualBody,
-    });
-    if (!res.ok) {
-        const responseBodyText = await res.text();
-        const message = (ctx.lib.parseJson(responseBodyText, {})).message ?? responseBodyText;
-        throw new FetchError(res.status, message);
-    }
-    const status = Number(res.headers.get('x-fetch-status')) || 0;
-    const responseHeaders = ctx.lib.parseJson(res.headers.get('x-fetch-headers') ?? '{}', {});
+    const actualUrl = mergeUrlQuery(url, query);
+    const fetchFn: FetchFunction = ctx.getLocal('NS_FETCH_FUNCTION') ?? unifiedFetch;
+    const res = await fetchFn({
+        method,
+        url: actualUrl,
+        headers: actualHeaders,
+        connectOptions: removeUndefined({
+            ca: params.ca ?? undefined,
+        }),
+        followRedirects: params.followRedirects,
+        proxy: proxyUrl.trim(),
+    }, actualBody);
+    const status = res.status;
+    const responseHeaders = res.headers;
     const isErrorStatus = status === 0 || status >= 400;
     if (params.throw && isErrorStatus) {
-        const responseBodyText = await res.text();
+        const responseBodyText = await res.body.text();
         const details = ctx.lib.parseJson(responseBodyText) ?? { response: responseBodyText };
         throw new HttpRequestFailed(status, method, url, details);
     }
-    const resContentType = responseHeaders['content-type'] ?? 'text/plain';
     return {
         status,
         headers: convertResponseHeaders(responseHeaders),
-        body: await readResponse(res, responseType, resContentType),
-    };
-}
-
-function makeControlHeaders(params: P, requestHeaders: Record<string, string>): Record<string, string> {
-    const {
-        method,
-        url,
-        query,
-        proxyUrl,
-        followRedirects,
-        ca,
-    } = params;
-    const actualUrl = mergeUrlQuery(url, query);
-    const connectOptions: Record<string, string> = {};
-    if (ca) {
-        connectOptions.ca = ca;
-    }
-    return {
-        'x-fetch-method': method,
-        'x-fetch-url': actualUrl,
-        'x-fetch-headers': JSON.stringify(requestHeaders),
-        'x-fetch-follow-redirects': String(followRedirects),
-        'x-fetch-proxy': proxyUrl.trim(),
-        'x-fetch-connect-options': JSON.stringify(connectOptions),
+        body: await readResponse(res, responseType),
     };
 }
 
@@ -211,10 +190,6 @@ function prepHeaders(headers: Record<string, unknown>): Record<string, string> {
         result[key] = String(value);
     }
     return result;
-}
-
-function getAdapterUrl(params: P, ctx: GraphEvalContext) {
-    return ctx.getLocal<string>('FETCH_SERVICE_URL') ?? 'https://fetch.nodescript.dev';
 }
 
 function convertResponseHeaders(

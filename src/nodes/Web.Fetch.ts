@@ -1,8 +1,8 @@
 import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
+import { FetchMethod } from '@nodescript/unified-fetch/types';
 
 import {
     determineRequestBody,
-    FetchMethod,
     FetchResponseType,
     HttpRequestFailed,
     mergeUrlQuery,
@@ -22,7 +22,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.6.7',
+    version: '1.7.0',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -126,12 +126,17 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         const details = ctx.lib.parseJson(responseBody) ?? { response: responseBody };
         throw new HttpRequestFailed(res.status, method, url, details);
     }
-    const resContentType = res.headers.get('content-type') ?? 'text/plain';
+    const resHeaders = convertResponseHeaders(res.headers);
+    const resBody = await readResponse({
+        status: res.status,
+        headers: resHeaders,
+        body: res,
+    }, responseType);
     return {
         url: res.url,
         status: res.status,
-        headers: convertResponseHeaders(res.headers),
-        body: await readResponse(res, responseType, resContentType),
+        headers: resHeaders,
+        body: resBody,
     };
 };
 

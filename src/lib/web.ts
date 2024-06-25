@@ -1,3 +1,5 @@
+import { FetchMethod, FetchResponseSpec } from '@nodescript/unified-fetch/types';
+
 // All typed array share the same prototype
 const TypedArray = Object.getPrototypeOf(Uint8Array);
 
@@ -7,14 +9,6 @@ export enum FetchResponseType {
     URL_ENCODED = 'urlencoded',
     TEXT = 'text',
     BINARY = 'binary',
-}
-
-export enum FetchMethod {
-    GET = 'GET',
-    POST = 'POST',
-    PUT = 'PUT',
-    DELETE = 'DELETE',
-    PATCH = 'PATCH',
 }
 
 export function parseQueryString(qs: string): Record<string, string[]> {
@@ -59,32 +53,33 @@ export function determineRequestBody(method: FetchMethod, body: any): [string | 
     }
 }
 
-export async function readResponse(response: Response, type: FetchResponseType, contentType: string): Promise<any> {
-    if (response.status === 204) {
+export async function readResponse(res: FetchResponseSpec, type: FetchResponseType): Promise<any> {
+    if (res.status === 204) {
         return undefined;
     }
     switch (type) {
         case FetchResponseType.AUTO: {
+            const contentType = String(res.headers['content-type'] ?? 'text/plain');
             if (contentType.includes('application/json')) {
-                return readResponse(response, FetchResponseType.JSON, contentType);
+                return readResponse(res, FetchResponseType.JSON);
             }
             if (contentType.includes('application/x-www-form-urlencoded')) {
-                return readResponse(response, FetchResponseType.URL_ENCODED, contentType);
+                return readResponse(res, FetchResponseType.URL_ENCODED);
             }
-            return readResponse(response, FetchResponseType.TEXT, contentType);
+            return readResponse(res, FetchResponseType.TEXT);
         }
         case FetchResponseType.JSON: {
-            return await response.json();
+            return await res.body.json();
         }
         case FetchResponseType.URL_ENCODED: {
-            const text = await response.text();
+            const text = await res.body.text();
             return new URLSearchParams(text);
         }
         case FetchResponseType.TEXT: {
-            return await response.text();
+            return await res.body.text();
         }
         case FetchResponseType.BINARY: {
-            return await response.arrayBuffer();
+            return await res.body.arrayBuffer();
         }
         default: {
             throw new Error(`Unsupported response type: ${type}`);
