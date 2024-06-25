@@ -20,9 +20,6 @@
         "postversion": "git push --tags origin main",
         "publish:nodes": "nodescript publish"
     },
-    "engines": {
-        "node": ">=18"
-    },
     "pre-commit": [
         "lint"
     ],
@@ -49,13 +46,6 @@
         "type": "git",
         "url": "git+https://github.com/NodeScriptLang/stdlib.git"
     },
-    "keywords": [
-        "nodescript",
-        "visual",
-        "programming",
-        "language"
-    ],
-    "author": "UBIO",
-    "license": "ISC",
-    "homepage": "https://github.com/NodeScriptLang/stdlib#readme"
+    "author": "Ubio",
+    "license": "ISC"
 }
