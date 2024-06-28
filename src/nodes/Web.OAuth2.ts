@@ -27,7 +27,7 @@ type R = Promise<{
 
 export const module: ModuleDefinition<P, R> = {
     version: '1.0.0',
-    moduleName: 'Web / OAuth',
+    moduleName: 'Web / OAuth2',
     description: `
         Handles OAuth 2.0 authentication flow and retrieves access tokens.
     `,
