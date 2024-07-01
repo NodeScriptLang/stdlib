@@ -9,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.6',
+    version: '1.2.7',
     moduleName: 'Object / Remove Undefined',
     description: `
         Removes undefined values from the object.
@@ -31,5 +31,5 @@ export const module: ModuleDefinition<P, R> = {
 
 export const compute: ModuleCompute<P, R> = params => {
     const { object } = params;
-    removeUndefined(object);
+    return removeUndefined(object);
 };
