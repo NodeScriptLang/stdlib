@@ -7,7 +7,7 @@ type P = {
 type R = Record<string, unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.5.0',
+    version: '1.5.1',
     moduleName: 'Object',
     description: `
         Creates an object with computed values per each key.
@@ -37,9 +37,6 @@ export const compute: ModuleCompute<P, R> = (params, ctx) => {
     for (const [key, value] of Object.entries(properties)) {
         if (key.startsWith('...')) {
             Object.assign(obj, value);
-        } else if (key.startsWith('"') && key.endsWith('"')) {
-            const k = key.substring(1, key.length - 1);
-            obj[k] = value;
         } else {
             ctx.lib.set(obj, key, value);
         }
