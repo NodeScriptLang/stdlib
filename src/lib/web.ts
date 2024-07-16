@@ -1,4 +1,4 @@
-import { FetchMethod, FetchResponseSpec } from '@nodescript/unified-fetch/types';
+import { FetchMethod, FetchResponseSpec } from '@nodescript/core/types';
 
 // All typed array share the same prototype
 const TypedArray = Object.getPrototypeOf(Uint8Array);

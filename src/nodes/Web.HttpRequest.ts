@@ -1,6 +1,4 @@
-import { GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-import { unifiedFetch } from '@nodescript/unified-fetch/frontend';
-import { FetchFunction, FetchMethod } from '@nodescript/unified-fetch/types';
+import { FetchFunction, FetchMethod, GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import { withRetry } from '../lib/retry.js';
 import { removeUndefined } from '../lib/util.js';
@@ -29,7 +27,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.4.0',
+    version: '2.5.0',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -155,8 +153,7 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
         actualHeaders['content-type'] = contentType;
     }
     const actualUrl = mergeUrlQuery(url, query);
-    const fetchFn: FetchFunction = ctx.getLocal('NS_FETCH_FUNCTION') ?? unifiedFetch;
-    const res = await fetchFn({
+    const res = await ctx.lib.fetch({
         method,
         url: actualUrl,
         headers: actualHeaders,

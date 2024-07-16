@@ -1,5 +1,4 @@
-import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
-import { FetchMethod } from '@nodescript/unified-fetch/types';
+import { FetchMethod, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import {
     determineRequestBody,
@@ -22,7 +21,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.7.0',
+    version: '1.7.1',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.

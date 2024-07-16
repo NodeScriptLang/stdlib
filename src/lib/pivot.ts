@@ -79,7 +79,7 @@ function aggregate(ctx: GraphEvalContext, items: any[], readKey: string, type: P
         }
         case PivotFieldType.ARRAY:
         case PivotFieldType.SET: {
-            const values = items.map(_ => ctx.get(_, readKey));
+            const values = items.map(_ => ctx.lib.get(_, readKey));
             switch (type) {
                 case PivotFieldType.ARRAY: return values;
                 case PivotFieldType.SET: return [...new Set(values)];
