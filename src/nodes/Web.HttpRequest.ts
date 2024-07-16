@@ -1,4 +1,4 @@
-import { FetchFunction, FetchMethod, GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
+import { FetchMethod, GraphEvalContext, ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 
 import { withRetry } from '../lib/retry.js';
 import { removeUndefined } from '../lib/util.js';
