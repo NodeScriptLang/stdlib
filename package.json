@@ -24,9 +24,9 @@
         "lint"
     ],
     "dependencies": {
-        "@nodescript/core": "^7.18.0",
         "@nodescript/base64": "^1.1.1",
-        "@nodescript/buffer-utils": "^1.5.0"
+        "@nodescript/buffer-utils": "^1.5.0",
+        "@nodescript/core": "^7.18.1"
     },
     "devDependencies": {
         "@nodescript/cli": "^1.8.0",
