@@ -3,13 +3,13 @@ import { ModuleCompute, ModuleDefinition } from '@nodescript/core/types';
 type P = {
     array: unknown[];
     start: number;
-    end: number;
+    end?: number;
 };
 
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.3',
+    version: '1.2.0',
     moduleName: 'Array / Slice',
     description: `
         Returns a portion of an array, starting and ending at specified indexes.
@@ -32,7 +32,7 @@ export const module: ModuleDefinition<P, R> = {
         end: {
             schema: {
                 type: 'number',
-                default: Infinity,
+                optional: true,
             },
         },
     },
