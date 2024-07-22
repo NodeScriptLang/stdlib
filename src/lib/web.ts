@@ -3,13 +3,7 @@ import { FetchMethod, FetchResponseSpec } from '@nodescript/core/types';
 // All typed array share the same prototype
 const TypedArray = Object.getPrototypeOf(Uint8Array);
 
-export enum FetchResponseType {
-    AUTO = 'auto',
-    JSON = 'json',
-    URL_ENCODED = 'urlencoded',
-    TEXT = 'text',
-    BINARY = 'binary',
-}
+export type FetchResponseType = 'auto' | 'json' | 'urlencoded' | 'text' | 'binary';
 
 export function parseQueryString(qs: string): Record<string, string[]> {
     const result: Record<string, string[]> = {};
@@ -58,27 +52,27 @@ export async function readResponse(res: FetchResponseSpec, type: FetchResponseTy
         return undefined;
     }
     switch (type) {
-        case FetchResponseType.AUTO: {
+        case 'auto': {
             const contentType = String(res.headers['content-type'] ?? 'text/plain');
             if (contentType.includes('application/json')) {
-                return readResponse(res, FetchResponseType.JSON);
+                return readResponse(res, 'json');
             }
             if (contentType.includes('application/x-www-form-urlencoded')) {
-                return readResponse(res, FetchResponseType.URL_ENCODED);
+                return readResponse(res, 'urlencoded');
             }
-            return readResponse(res, FetchResponseType.TEXT);
+            return readResponse(res, 'text');
         }
-        case FetchResponseType.JSON: {
+        case 'json': {
             return await res.body.json();
         }
-        case FetchResponseType.URL_ENCODED: {
+        case 'urlencoded': {
             const text = await res.body.text();
             return new URLSearchParams(text);
         }
-        case FetchResponseType.TEXT: {
+        case 'text': {
             return await res.body.text();
         }
-        case FetchResponseType.BINARY: {
+        case 'binary': {
             return await res.body.arrayBuffer();
         }
         default: {

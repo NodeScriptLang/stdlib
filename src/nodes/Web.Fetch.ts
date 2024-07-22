@@ -21,7 +21,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.7.1',
+    version: '1.7.2',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -68,8 +68,8 @@ export const module: ModuleDefinition<P, R> = {
         responseType: {
             schema: {
                 type: 'string',
-                enum: Object.values(FetchResponseType),
-                default: FetchResponseType.AUTO,
+                enum: ['auto', 'json', 'text', 'binary'] as FetchResponseType[],
+                default: 'auto',
             },
             advanced: true,
         },
@@ -100,7 +100,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         query,
         headers,
         body,
-        responseType = FetchResponseType.AUTO,
+        responseType = 'auto',
     } = params;
     if (!url) {
         // Do not send requests to self by default

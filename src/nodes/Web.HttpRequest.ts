@@ -27,7 +27,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.5.0',
+    version: '2.5.1',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -70,8 +70,8 @@ export const module: ModuleDefinition<P, R> = {
         responseType: {
             schema: {
                 type: 'string',
-                enum: Object.values(FetchResponseType),
-                default: FetchResponseType.AUTO,
+                enum: ['auto', 'json', 'text', 'binary'] as FetchResponseType[],
+                default: 'auto',
             },
             advanced: true,
         },
@@ -144,7 +144,7 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
         query,
         headers,
         body,
-        responseType = FetchResponseType.AUTO,
+        responseType = 'auto',
         proxyUrl,
     } = params;
     const actualHeaders = prepHeaders(headers);
