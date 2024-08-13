@@ -5,16 +5,16 @@ type P = {
 };
 
 type R = Promise<{
-    result?: unknown;
+    value?: unknown;
     error?: unknown;
 }>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.1',
+    version: '1.1.1',
     moduleName: 'Flow / Catch',
     description: `
         Computes the value and catches the error it produces.
-        Returns an object with either "result" or "error",
+        Returns an object with either "value" or "error",
         depending on whether the "value" threw an error or not.
     `,
     params: {
@@ -30,7 +30,7 @@ export const module: ModuleDefinition<P, R> = {
         schema: {
             type: 'object',
             properties: {
-                result: { type: 'any', optional: true },
+                value: { type: 'any', optional: true },
                 error: { type: 'any', optional: true },
             }
         },
@@ -42,6 +42,9 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         const value = await ctx.resolveDeferred(params.value);
         return { value };
     } catch (error: any) {
+        if (error.code === 'EPENDING') {
+            throw error;
+        }
         return {
             error: {
                 name: error?.name ?? '',
