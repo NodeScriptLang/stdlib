@@ -8,7 +8,7 @@ type P = {
 type R = number;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.2',
+    version: '1.1.3',
     moduleName: 'Math / Round',
     description: `
         Rounds the specified number.
@@ -37,7 +37,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = params => {
-    const places = Math.round(params.places);
+    const places = Math.round(params.places ?? 0);
     if (places === 0) {
         return Math.round(params.value);
     }
