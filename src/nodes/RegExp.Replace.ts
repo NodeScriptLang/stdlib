@@ -10,7 +10,7 @@ type P = {
 type R = string;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.3.0',
+    version: '1.3.1',
     moduleName: 'RegExp / Replace',
     description: `
         Replaces all occurrences of a regular expression in a string.
@@ -27,8 +27,9 @@ export const module: ModuleDefinition<P, R> = {
         flags: {
             schema: {
                 type: 'string',
-                default: 'If specified, overrides the flags of the regular expression.'
-            }
+                description: 'If specified, overrides the flags of the regular expression.'
+            },
+            advanced: true,
         },
         replacement: {
             schema: { type: 'string' },
