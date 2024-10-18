@@ -27,7 +27,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.5.1',
+    version: '2.5.2',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -88,7 +88,7 @@ export const module: ModuleDefinition<P, R> = {
             advanced: true,
         },
         retries: {
-            schema: { type: 'number', default: 1 },
+            schema: { type: 'number', default: 0 },
             advanced: true,
         },
         ca: {
@@ -116,7 +116,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
-    const { url, retries } = params;
+    const { url, retries = 0 } = params;
     if (!url.trim()) {
         // Do not send requests to self by default
         return undefined;
