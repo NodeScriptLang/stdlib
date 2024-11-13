@@ -21,8 +21,7 @@ type P = {
     proxyUrl: string;
     throw: boolean;
     retries: number;
-    connectTimeout?: number;
-    bodyTimeout?: number;
+    timeout?: number;
     ca?: string;
     ciphers?: string;
 };
@@ -30,7 +29,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.6.0',
+    version: '2.6.1',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -94,11 +93,7 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'number', default: 0 },
             advanced: true,
         },
-        connectTimeout: {
-            schema: { type: 'number', optional: true },
-            advanced: true,
-        },
-        bodyTimeout: {
+        timeout: {
             schema: { type: 'number', optional: true },
             advanced: true,
         },
@@ -173,13 +168,12 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
         url: actualUrl,
         headers: actualHeaders,
         connectOptions: removeUndefined({
-            connectTimeout: params.connectTimeout ?? undefined,
-            bodyTimeout: params.bodyTimeout ?? undefined,
             ca: params.ca ?? undefined,
             ciphers: params.ciphers ?? undefined,
         }),
         followRedirects: params.followRedirects,
         proxy: proxyUrl.trim(),
+        timeout: params.timeout ?? 120_000,
     }, actualBody);
     const status = res.status;
     const responseHeaders = res.headers;
