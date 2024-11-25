@@ -9,7 +9,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'Error',
     description: 'Raise an error with specified name and message.',
     params: {
@@ -32,7 +32,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = params => {
-    const error = new Error(params.message);
+    const error = new Error();
     error.name = params.name;
     (error as any).message = params.message;
     (error as any).status = params.status;
