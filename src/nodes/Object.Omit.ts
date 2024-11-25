@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.3',
+    version: '1.0.4',
     moduleName: 'Object / Omit',
     description: `
         Creates a shallow copy of an object with specified keys removed.
@@ -37,9 +37,9 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = params => {
-    const { object, keys } = params;
+    const object = typeof params.object === 'object' ? params.object : {};
     const res: any = { ...object };
-    for (const key of keys) {
+    for (const key of params.keys) {
         delete res[key];
     }
     return res;

@@ -8,7 +8,7 @@ type P = {
 type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.4.4',
+    version: '1.4.5',
     moduleName: 'Object / Pick',
     description: `
         Picks specified keys from an object.
@@ -37,9 +37,9 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = params => {
-    const { object, keys } = params;
+    const object = typeof params.object === 'object' ? params.object : {};
     const res: any = {};
-    for (const key of keys) {
+    for (const key of params.keys) {
         const value = (object as any)[key];
         if (value !== undefined) {
             res[key] = value;
