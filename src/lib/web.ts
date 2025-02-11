@@ -29,12 +29,14 @@ export function mergeUrlQuery(url: string, query: Record<string, string | string
     return parsedUrl.toString();
 }
 
-export function determineRequestBody(method: FetchMethod, body: any): [string | undefined, string | undefined] {
+export function determineRequestBody(method: FetchMethod, body: any): [string | FormData | undefined, string | undefined] {
     switch (true) {
         case method === FetchMethod.GET:
             return [undefined, undefined];
         case (body instanceof URLSearchParams):
             return [body.toString(), 'application/x-www-form-urlencoded'];
+        case (body instanceof FormData):
+            return [body, undefined];
         case (body instanceof ArrayBuffer || body instanceof TypedArray): {
             return [body, undefined];
         }
