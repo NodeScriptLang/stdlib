@@ -42,7 +42,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         const value = await ctx.resolveDeferred(params.value);
         return { value };
     } catch (error: any) {
-        if (error.code === 'EPENDING') {
+        if (ctx.isControlException(error)) {
             throw error;
         }
         return {

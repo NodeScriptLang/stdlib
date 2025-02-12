@@ -31,7 +31,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         try {
             return await ctx.resolveDeferred(step);
         } catch (error: any) {
-            if (error.code === 'EPENDING') {
+            if (ctx.isControlException(error)) {
                 throw error;
             }
             lastError = error;

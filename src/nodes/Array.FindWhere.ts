@@ -15,7 +15,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: 'Array / Find Where',
-    version: '1.1.0',
+    version: '1.1.1',
     description: `
         Returns items from the array that match specified conditions.
     `,
@@ -34,8 +34,9 @@ export const module: ModuleDefinition<P, R> = {
                 keyof: 'array',
             },
         },
-        value: {
-            schema: { type: 'any' },
+        not: {
+            schema: { type: 'boolean' },
+            advanced: true,
         },
         op: {
             schema: {
@@ -44,9 +45,8 @@ export const module: ModuleDefinition<P, R> = {
                 default: WhereOp.EQUALS,
             },
         },
-        not: {
-            schema: { type: 'boolean' },
-            advanced: true,
+        value: {
+            schema: { type: 'any' },
         },
         limit: {
             schema: { type: 'number', optional: true },
