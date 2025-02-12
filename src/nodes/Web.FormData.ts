@@ -7,7 +7,7 @@ type P = {
 type R = any;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.0',
+    version: '1.1.4',
     moduleName: 'Web / Form Data',
     description: `
         Creates a Form Data compatible with Fetch request body.
@@ -30,15 +30,25 @@ export const module: ModuleDefinition<P, R> = {
 export const compute: ModuleCompute<P, R> = params => {
     const formData = new FormData();
     for (const [key, value] of Object.entries(params.params)) {
-        if (value == null) {
-            continue;
-        }
         const arr = Array.isArray(value) ? value : [value];
         for (const value of arr) {
-            if (value instanceof ArrayBuffer) {
+            if (value == null) {
+                continue;
+            }
+            if (typeof value === 'object' && typeof value.filename === 'string') {
+                // Data must be a Blob in this case
+                const data = typeof value.data === 'string' ?
+                    new TextEncoder().encode(value.data).buffer : value.data;
+                if (!(data instanceof ArrayBuffer)) {
+                    throw new TypeError('Value must be a string, ArrayBuffer or an object with { filename: string, data: string | ArrayBuffer }');
+                }
+                formData.append(key, new Blob([data]), value.filename);
+            } else if (typeof value === 'string') {
+                formData.append(key, value);
+            } else if (value instanceof ArrayBuffer) {
                 formData.append(key, new Blob([value]));
             } else {
-                formData.append(key, value);
+                throw new TypeError('Value must be a string, ArrayBuffer or an object with { filename: string, data: string | ArrayBuffer }');
             }
         }
     }
