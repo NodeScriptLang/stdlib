@@ -7,7 +7,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.2.0',
+    version: '1.2.1',
     moduleName: 'Flow / Try',
     description: `Runs the steps one-by-one and returns the first result that doesn't throw an error.`,
     params: {

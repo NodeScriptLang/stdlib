@@ -15,7 +15,7 @@ type R = unknown;
 
 export const module: ModuleDefinition<P, R> = {
     moduleName: 'Array / Find Where',
-    version: '1.1.1',
+    version: '1.1.2',
     description: `
         Returns items from the array that match specified conditions.
     `,

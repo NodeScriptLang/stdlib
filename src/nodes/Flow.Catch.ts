@@ -10,7 +10,7 @@ type R = Promise<{
 }>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.1.1',
+    version: '1.1.2',
     moduleName: 'Flow / Catch',
     description: `
         Computes the value and catches the error it produces.
