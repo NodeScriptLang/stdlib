@@ -21,7 +21,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.7.3',
+    version: '1.8.0',
     moduleName: 'Web / Fetch',
     description: `
         Sends an HTTP request using natively available Fetch API.
@@ -94,6 +94,7 @@ export const module: ModuleDefinition<P, R> = {
 };
 
 export const compute: ModuleCompute<P, R> = async (params, ctx) => {
+    const startedAt = Date.now();
     const {
         method,
         url,
@@ -136,6 +137,7 @@ export const compute: ModuleCompute<P, R> = async (params, ctx) => {
         status: res.status,
         headers: resHeaders,
         body: resBody,
+        latency: Date.now() - startedAt,
     };
 };
 

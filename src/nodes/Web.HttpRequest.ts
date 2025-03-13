@@ -29,7 +29,7 @@ type P = {
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.6.3',
+    version: '2.7.0',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -145,9 +145,11 @@ interface HttpResponseSpec {
     status: number;
     headers: Record<string, string[]>;
     body: any;
+    latency: number;
 }
 
 async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpResponseSpec> {
+    const startedAt = Date.now();
     const {
         method,
         url,
@@ -187,6 +189,7 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
         status,
         headers: convertResponseHeaders(responseHeaders),
         body: await readResponse(res, responseType),
+        latency: Date.now() - startedAt,
     };
 }
 
