@@ -78,36 +78,18 @@ export const compute: ModuleCompute<P, R> = params => {
     const { date, useUtc } = params;
     const d = parseDate(date);
 
-    if (params.year != null) {
-        const [setUtc, setLocal] = setters.year;
-        if (useUtc) {
-            setUtc.call(d, params.year);
-        } else {
-            setLocal.call(d, params.year);
-        }
-    }
+    const keys: (keyof typeof setters)[] = ['year', 'month', 'day', 'hours', 'minutes', 'seconds', 'milliseconds'];
 
-    if (params.month != null) {
-        const [setUtc, setLocal] = setters.month;
-        if (useUtc) {
-            setUtc.call(d, params.month);
-        } else {
-            setLocal.call(d, params.month);
-        }
-    }
-
-    for (const [key, [setUtc, setLocal]] of Object.entries(setters)) {
-        if (key !== 'year' && key !== 'month') {
-            const val = (params as any)[key];
-            if (val != null) {
-                if (useUtc) {
-                    setUtc.call(d, val);
-                } else {
-                    setLocal.call(d, val);
-                }
+    for (const key of keys) {
+        const val = (params as any)[key];
+        if (val != null) {
+            const [setUtc, setLocal] = setters[key];
+            if (useUtc) {
+                setUtc.call(d, val);
+            } else {
+                setLocal.call(d, val);
             }
         }
     }
-
     return d;
 };
