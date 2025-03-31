@@ -24,6 +24,7 @@ export const module: ModuleDefinition<P, R> = {
             schema: { type: 'any' },
             attributes: {
                 valuePlaceholder: 'now',
+                description: 'Use a stable and valid ISO 8601 date string such as `2025-01-01T00:00:00Z` to avoid unintended rollovers (e.g. setting month to February on a 31st day).'
             },
         },
         year: {
