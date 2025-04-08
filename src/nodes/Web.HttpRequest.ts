@@ -24,12 +24,13 @@ type P = {
     timeout?: number;
     ca?: string;
     ciphers?: string;
+    rejectUnauthorized?: boolean;
 };
 
 type R = Promise<unknown>;
 
 export const module: ModuleDefinition<P, R> = {
-    version: '2.7.0',
+    version: '2.7.1',
     moduleName: 'Web / Http Request',
     description: `
         Sends an HTTP request using backend-powered HTTP client.
@@ -104,7 +105,11 @@ export const module: ModuleDefinition<P, R> = {
         ciphers: {
             schema: { type: 'string', optional: true },
             advanced: true,
-        }
+        },
+        rejectUnauthorized: {
+            schema: { type: 'boolean', optional: true },
+            advanced: true,
+        },
     },
     result: {
         async: true,
@@ -172,6 +177,7 @@ async function sendSingle(params: P, ctx: GraphEvalContext): Promise<HttpRespons
         connectOptions: removeUndefined({
             ca: params.ca ?? undefined,
             ciphers: params.ciphers ?? undefined,
+            rejectUnauthorized: params.rejectUnauthorized ?? undefined,
         }),
         followRedirects: params.followRedirects,
         proxy: proxyUrl.trim(),
