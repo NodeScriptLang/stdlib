@@ -10,7 +10,7 @@ type P = {
 type R = unknown[];
 
 export const module: ModuleDefinition<P, R> = {
-    version: '1.0.2',
+    version: '1.0.3',
     moduleName: 'Array / Chunk',
     description: `
         Creates an array of items split into sub-arrays of specified size.
