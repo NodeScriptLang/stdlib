@@ -77,9 +77,13 @@ const setters = {
 export const compute: ModuleCompute<P, R> = params => {
     const { date, useUtc } = params;
     const d = parseDate(date);
-    for (const [key, [setUtc, setLocal]] of Object.entries(setters)) {
+
+    const keys: (keyof typeof setters)[] = ['year', 'month', 'day', 'hours', 'minutes', 'seconds', 'milliseconds'];
+
+    for (const key of keys) {
         const val = (params as any)[key];
         if (val != null) {
+            const [setUtc, setLocal] = setters[key];
             if (useUtc) {
                 setUtc.call(d, val);
             } else {
